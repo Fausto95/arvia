@@ -13,9 +13,12 @@
   },
   "dependencies": {
     "@arviahq/compiler": "workspace:*",
+    "@docsearch/css": "^4.6.3",
+    "@docsearch/react": "^4.6.3",
     "@monaco-editor/react": "^4.7.0",
     "clsx": "^2.1.1",
     "fbtee": "^1.5.0",
+    "minisearch": "^7.2.0",
     "monaco-editor": "^0.55.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

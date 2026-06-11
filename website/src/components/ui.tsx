@@ -1,7 +1,16 @@
 import type { ReactNode } from "react";
+import { lazy, Suspense } from "react";
 import { fbt } from "fbtee";
 import { Link as RouterLinkBase, useMatch } from "react-router-dom";
 import { getDocNav } from "../docs/nav";
+import {
+  DocsSearchTrigger,
+  isAlgoliaDocSearchEnabled,
+} from "./DocsSearch";
+
+const AlgoliaDocSearch = lazy(() =>
+  import("./AlgoliaDocSearch").then((mod) => ({ default: mod.AlgoliaDocSearch })),
+);
 import { Badge } from "./badge.arv";
 import { Button } from "./button.arv";
 import { Code } from "./Code";
@@ -124,6 +133,13 @@ export function SiteNav(props: {
           </a>
         </nav>
         <div className={nav.actions}>
+          {isAlgoliaDocSearchEnabled() ? (
+            <Suspense fallback={null}>
+              <AlgoliaDocSearch />
+            </Suspense>
+          ) : (
+            <DocsSearchTrigger variant="nav" />
+          )}
           <select
             aria-label="Language"
             value={props.locale}
@@ -341,6 +357,7 @@ export function DocsSidebar() {
   const docNav = getDocNav();
   return (
     <aside>
+      {!isAlgoliaDocSearchEnabled() ? <DocsSearchTrigger variant="sidebar" /> : null}
       {docNav.map((group) => {
         const s = SidebarSection();
         return (

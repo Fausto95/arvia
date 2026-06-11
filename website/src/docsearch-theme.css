@@ -1,0 +1,42 @@
+:root {
+  --docsearch-primary-color: #4f46e5;
+  --docsearch-highlight-color: rgba(79, 70, 229, 0.12);
+  --docsearch-muted-color: #52525b;
+  --docsearch-container-background: rgba(9, 9, 11, 0.45);
+  --docsearch-modal-background: #ffffff;
+  --docsearch-searchbox-background: #fafafa;
+  --docsearch-searchbox-focus-background: #ffffff;
+  --docsearch-hit-color: #0a0a0b;
+  --docsearch-hit-active-color: #0a0a0b;
+  --docsearch-hit-background: #ffffff;
+  --docsearch-hit-shadow: none;
+  --docsearch-key-gradient: linear-gradient(180deg, #fafafa, #f4f4f5);
+  --docsearch-key-shadow: inset 0 -1px 0 #e4e4e7;
+  --docsearch-footer-background: #fafafa;
+  --docsearch-footer-shadow: inset 0 1px 0 #e4e4e7;
+  --docsearch-logo-color: #4f46e5;
+}
+
+[data-arvia-theme="dark"] {
+  --docsearch-primary-color: #635bff;
+  --docsearch-highlight-color: rgba(99, 91, 255, 0.18);
+  --docsearch-muted-color: #a1a1aa;
+  --docsearch-container-background: rgba(0, 0, 0, 0.55);
+  --docsearch-modal-background: #111113;
+  --docsearch-searchbox-background: #18181b;
+  --docsearch-searchbox-focus-background: #18181b;
+  --docsearch-hit-color: #fafafa;
+  --docsearch-hit-active-color: #fafafa;
+  --docsearch-hit-background: #111113;
+  --docsearch-key-gradient: linear-gradient(180deg, #27272a, #18181b);
+  --docsearch-key-shadow: inset 0 -1px 0 #27272a;
+  --docsearch-footer-background: #18181b;
+  --docsearch-footer-shadow: inset 0 1px 0 #27272a;
+  --docsearch-logo-color: #8b85ff;
+}
+
+.DocSearch-Button {
+  border-radius: 10px;
+  height: 30px;
+  margin: 0;
+}
