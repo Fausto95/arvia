@@ -1,0 +1,36 @@
+component RecipeCompoundButton {
+  base {
+    border: none;
+    border-radius: radius.md;
+    font: inherit;
+    cursor: pointer;
+    color: white;
+  }
+
+  variants {
+    size {
+      sm { font-size: font.sm; padding: space.1 space.3; }
+      lg { font-size: font.lg; padding: space.3 space.5; }
+    }
+    tone {
+      primary { background: color.primary; }
+      danger { background: color.danger; }
+    }
+  }
+
+  defaults {
+    size: sm;
+    tone: primary;
+  }
+
+  compound {
+    size: sm;
+    tone: danger;
+
+    root {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+  }
+}

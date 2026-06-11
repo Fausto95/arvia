@@ -1,0 +1,77 @@
+theme {
+  color {
+    primary = #635bff;
+    danger = #e5484d;
+    text = #111111;
+  }
+  space {
+    1 = 4px;
+    2 = 8px;
+    4 = 16px;
+  }
+  radius {
+    md = 8px;
+  }
+}
+
+recipe Focusable {
+  outline: none;
+  &:focus-visible {
+    outline: 2px solid color.primary;
+    outline-offset: 2px;
+  }
+}
+
+component Button {
+  base {
+    display: inline-flex;
+    align-items: center;
+    gap: space.1;
+    padding: space.2 space.4;
+    border-radius: radius.md;
+    color: white;
+    use Focusable;
+    &:hover {
+      filter: brightness(1.05);
+    }
+    icon {
+      flex-shrink: 0;
+    }
+  }
+
+  slots {
+    root {}
+    icon {}
+    label {
+      font-weight: 500;
+    }
+  }
+
+  variants {
+    size {
+      sm { font-size: 12px; }
+      md { font-size: 14px; }
+      lg {
+        font-size: 16px;
+        icon { width: 20px; }
+      }
+    }
+    tone {
+      primary { background: color.primary; }
+      danger { background: color.danger; }
+    }
+  }
+
+  defaults {
+    size: md;
+    tone: primary;
+  }
+
+  compound {
+    size: sm;
+    tone: danger;
+    root {
+      font-weight: 600;
+    }
+  }
+}

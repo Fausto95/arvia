@@ -1,0 +1,39 @@
+{
+  "name": "arvia-monorepo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm --filter './packages/**' -r build",
+    "dev": "pnpm --filter './packages/**' --parallel -r dev",
+    "demo": "pnpm --filter demo dev",
+    "demo:storybook": "pnpm --filter demo storybook",
+    "demo:docs": "pnpm --filter demo predocs",
+    "website": "pnpm --filter website dev",
+    "website:build": "pnpm --filter website build",
+    "test": "vitest run",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm build && changeset publish",
+    "pack:all": "pnpm -r --filter '@arviahq/*' exec npm pack",
+    "smoke:install": "node scripts/smoke-pack-install.mjs"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.8",
+    "@types/node": "^25.9.3",
+    "oxfmt": "^0.54.0",
+    "oxlint": "^1.69.0",
+    "tsdown": "^0.22.2",
+    "typescript": "^5.8.3",
+    "unrun": "^0.3.1",
+    "vitest": "^3.2.4"
+  },
+  "volta": {
+    "node": "20.19.0",
+    "pnpm": "9.1.2"
+  },
+  "packageManager": "pnpm@9.1.2"
+}

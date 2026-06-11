@@ -1,0 +1,41 @@
+// Text: typography tokens.
+
+component Text {
+  base {
+    margin: 0;
+  }
+
+  variants {
+    size {
+      sm { font-size: font.sm; }
+      md { font-size: font.md; }
+      lg { font-size: font.lg; }
+      xl {
+        font-size: font.xl;
+        letter-spacing: -0.01em;
+      }
+      2xl {
+        font-size: font.2xl;
+        letter-spacing: -0.02em;
+      }
+    }
+
+    weight {
+      regular { font-weight: 400; }
+      medium { font-weight: 500; }
+      bold { font-weight: 700; }
+    }
+
+    tone {
+      default { color: color.text; }
+      muted { color: color.muted; }
+      primary { color: color.primary; }
+    }
+  }
+
+  defaults {
+    size: md;
+    weight: regular;
+    tone: default;
+  }
+}

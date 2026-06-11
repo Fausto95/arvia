@@ -1,0 +1,21 @@
+theme {
+  color {
+    primary = #635bff;
+    danger = #e5484d;
+  }
+  space {
+    2 = 8px;
+    4 = 16px;
+  }
+}
+
+global {
+  * {
+    box-sizing: border-box;
+  }
+}
+
+recipe Surface {
+  border: 1px solid #e5e5e5;
+  background: white;
+}

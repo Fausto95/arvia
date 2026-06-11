@@ -1,0 +1,77 @@
+{
+  "name": "arvia",
+  "displayName": "Arvia",
+  "version": "0.2.0",
+  "description": "Syntax highlighting, diagnostics, completion and hover for .arv design system files.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fausto95/arvia.git",
+    "directory": "packages/vscode-extension"
+  },
+  "homepage": "https://github.com/Fausto95/arvia#readme",
+  "bugs": {
+    "url": "https://github.com/Fausto95/arvia/issues"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "publisher": "arviahq",
+  "main": "./dist/extension.cjs",
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
+    "package": "vsce package --no-dependencies",
+    "package:release": "vsce package",
+    "publish:marketplace": "vsce publish",
+    "publish:openvsx": "ovsx publish"
+  },
+  "dependencies": {
+    "@arviahq/language-server": "workspace:*",
+    "@arviahq/typescript-plugin": "workspace:*",
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@vscode/vsce": "^3.7.1",
+    "ovsx": "^0.10.8",
+    "typescript": "^5.8.3"
+  },
+  "contributes": {
+    "typescriptServerPlugins": [
+      {
+        "name": "@arviahq/typescript-plugin",
+        "enableForWorkspaceTypeScriptVersions": true
+      }
+    ],
+    "languages": [
+      {
+        "id": "arvia",
+        "aliases": [
+          "Arvia"
+        ],
+        "extensions": [
+          ".arv"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/arvia.svg",
+          "dark": "./icons/arvia.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "arvia",
+        "scopeName": "source.arv",
+        "path": "./syntaxes/arvia.tmLanguage.json"
+      }
+    ]
+  },
+  "activationEvents": [
+    "onLanguage:arvia"
+  ],
+  "engines": {
+    "vscode": "^1.74.0"
+  }
+}

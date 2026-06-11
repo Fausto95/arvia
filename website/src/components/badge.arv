@@ -1,0 +1,30 @@
+component Badge {
+  base {
+    display: inline-flex;
+    align-items: center;
+    padding: space.1 space.3;
+    border-radius: radius.full;
+    font-size: font.xs;
+    font-weight: 500;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    letter-spacing: 0.02em;
+    border: 1px solid color.border;
+    background: color.surfaceRaised;
+    color: color.muted;
+  }
+
+  variants {
+    tone {
+      default {}
+      accent {
+        border-color: color.accent;
+        color: color.accent;
+        background: transparent;
+      }
+    }
+  }
+
+  defaults {
+    tone: default;
+  }
+}

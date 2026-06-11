@@ -1,0 +1,43 @@
+component Nav {
+  base {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid color.border;
+    background: color.surface;
+    backdrop-filter: blur(8px);
+  }
+
+  slots {
+    root {}
+    inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: space.3 space.5;
+      gap: space.4;
+    }
+    brand {
+      display: flex;
+      align-items: center;
+      gap: space.3;
+      font-weight: 700;
+      font-size: font.md;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      color: color.text;
+    }
+    links {
+      display: flex;
+      align-items: center;
+      gap: space.4;
+    }
+    actions {
+      display: flex;
+      align-items: center;
+      gap: space.2;
+    }
+  }
+}

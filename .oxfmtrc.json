@@ -1,0 +1,3 @@
+{
+  "ignorePatterns": ["**/dist/**", "**/__snapshots__/**", "**/*.arv.d.ts"]
+}

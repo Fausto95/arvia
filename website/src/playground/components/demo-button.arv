@@ -1,0 +1,100 @@
+component DemoButton {
+  base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: space.2;
+    border: none;
+    border-radius: radius.md;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 120ms ease, transform 60ms ease;
+    use FocusRing;
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    icon {
+      display: inline-flex;
+      flex-shrink: 0;
+    }
+  }
+
+  slots {
+    root {}
+    icon {}
+    label {}
+  }
+
+  variants {
+    size {
+      sm {
+        font-size: font.sm;
+        padding: space.1 space.3;
+      }
+      md {
+        font-size: font.md;
+        padding: space.2 space.4;
+      }
+      lg {
+        font-size: font.lg;
+        padding: space.3 space.5;
+        icon {
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    tone {
+      primary {
+        background: color.primary;
+        color: white;
+        &:hover {
+          background: color.primaryHover;
+        }
+      }
+      danger {
+        background: color.danger;
+        color: white;
+        &:hover {
+          background: color.dangerHover;
+        }
+      }
+      ghost {
+        background: transparent;
+        color: color.text;
+        &:hover {
+          background: color.border;
+        }
+      }
+    }
+  }
+
+  defaults {
+    size: sm;
+    tone: primary;
+  }
+
+  responsive {
+    md { size: md; }
+    lg { size: lg; }
+  }
+
+  compound {
+    size: sm;
+    tone: danger;
+
+    root {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+component RecipeSlotsButton {
+  base {
+    display: inline-flex;
+    align-items: center;
+    gap: space.2;
+    padding: space.2 space.4;
+    border-radius: radius.md;
+    background: color.primary;
+    color: white;
+    border: none;
+    font: inherit;
+    icon { flex-shrink: 0; }
+  }
+
+  slots {
+    root {}
+    icon {}
+    label { font-weight: 500; }
+  }
+}

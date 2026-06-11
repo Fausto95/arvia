@@ -1,0 +1,60 @@
+name: Extension Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Extension version to publish (must match package.json)"
+        required: true
+        default: "0.2.0"
+
+concurrency:
+  group: extension-release
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  publish:
+    if: github.repository == 'Fausto95/arvia'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Prepare extension deps for marketplace
+        run: node scripts/prepare-extension-publish.mjs
+
+      - name: Install extension production deps
+        working-directory: packages/vscode-extension
+        run: pnpm install --prod
+
+      - name: Package extension
+        working-directory: packages/vscode-extension
+        run: pnpm package:release
+
+      - name: Publish to Marketplace
+        working-directory: packages/vscode-extension
+        run: pnpm publish:marketplace
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Publish to Open VSX
+        working-directory: packages/vscode-extension
+        run: pnpm publish:openvsx
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        continue-on-error: true

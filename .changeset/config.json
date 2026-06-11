@@ -1,0 +1,21 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.1.2/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [
+    [
+      "@arviahq/compiler",
+      "@arviahq/vite-plugin",
+      "@arviahq/typescript-plugin",
+      "@arviahq/language-server",
+      "@arviahq/docs",
+      "@arviahq/storybook",
+      "@arviahq/vite-plugin-react"
+    ]
+  ],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": ["arvia", "demo", "website"]
+}

@@ -1,0 +1,18 @@
+recipe Rounded {
+  border-radius: 8px;
+}
+
+recipe Surface {
+  use Rounded;
+  border: 1px solid #e5e5e5;
+  background: white;
+}
+
+component Card {
+  use Surface;
+
+  base {
+    padding: 16px;
+    background: #fafafa;
+  }
+}

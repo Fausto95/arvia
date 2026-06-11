@@ -1,0 +1,37 @@
+// Badge: tone variants.
+
+component Badge {
+  base {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px space.2;
+    border-radius: radius.full;
+    font-size: font.sm;
+    font-weight: 600;
+  }
+
+  variants {
+    tone {
+      neutral {
+        background: color.border;
+        color: color.text;
+      }
+      success {
+        background: #d3f9d8;
+        color: color.success;
+      }
+      warning {
+        background: #fef3c7;
+        color: color.warning;
+      }
+      danger {
+        background: #fee2e2;
+        color: color.danger;
+      }
+    }
+  }
+
+  defaults {
+    tone: neutral;
+  }
+}

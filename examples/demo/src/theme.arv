@@ -1,0 +1,116 @@
+// Shared design tokens, global styles and recipes.
+// Multi-mode theme: follows OS color scheme; setTheme() overrides via data-arvia-theme.
+
+theme {
+  modes: light | dark;
+
+  color {
+    primary = #635bff doc "Brand primary — CTAs and links";
+    primaryHover = #5249e6;
+    danger = #e5484d doc "Destructive actions";
+    dangerHover = #d33a3f;
+    success = #2f9e44;
+    warning = #b45309;
+    text = #18181b;
+    muted = #6b7280;
+    surface = #ffffff;
+    background = #f6f7f9;
+    border = #e5e7eb;
+
+    @dark {
+      text = #f4f4f5;
+      muted = #a1a1aa;
+      surface = #18181b;
+      background = #09090b;
+      border = #27272a;
+    }
+  }
+
+  space {
+    1 = 4px;
+    2 = 8px;
+    3 = 12px;
+    4 = 16px;
+    5 = 24px;
+    6 = 32px;
+  }
+
+  radius {
+    sm = 6px;
+    md = 8px;
+    lg = 12px;
+    full = 999px;
+  }
+
+  font {
+    sm = 13px;
+    md = 15px;
+    lg = 18px;
+    xl = 24px;
+    2xl = 32px;
+  }
+
+  duration {
+    fast = 120ms;
+    normal = 200ms;
+  }
+
+  easing {
+    default = ease;
+    out = cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  breakpoint {
+    sm = 640px;
+    md = 768px;
+    lg = 1024px;
+  }
+
+  container {
+    narrow = 320px;
+    wide = 560px;
+  }
+}
+
+keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+global {
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: color.background;
+    color: color.text;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+recipe Surface {
+  background: color.surface;
+  border: 1px solid color.border;
+  border-radius: radius.lg;
+}
+
+recipe FocusRing {
+  outline: none;
+  &:focus-visible {
+    outline: 2px solid color.primary;
+    outline-offset: 2px;
+  }
+}

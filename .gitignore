@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.arv.d.ts
+*.tsbuildinfo
+*.tgz
+*.vsix
+.DS_Store

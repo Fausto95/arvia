@@ -1,0 +1,5 @@
+theme {
+  color {
+    primary = #635bff;
+  }
+}

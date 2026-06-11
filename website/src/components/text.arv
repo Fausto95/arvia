@@ -1,0 +1,33 @@
+component Text {
+  variants {
+    size {
+      xs { font-size: font.xs; }
+      sm { font-size: font.sm; }
+      md { font-size: font.md; }
+      lg { font-size: font.lg; }
+    }
+    tone {
+      default { color: color.text; }
+      muted { color: color.muted; }
+      subtle { color: color.subtle; }
+      accent { color: color.accent; }
+    }
+    weight {
+      normal { font-weight: 400; }
+      medium { font-weight: 500; }
+      semibold { font-weight: 600; }
+      bold { font-weight: 700; }
+    }
+    family {
+      sans { font-family: inherit; }
+      mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+    }
+  }
+
+  defaults {
+    size: md;
+    tone: default;
+    weight: normal;
+    family: sans;
+  }
+}

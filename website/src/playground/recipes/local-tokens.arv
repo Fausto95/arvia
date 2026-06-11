@@ -1,0 +1,21 @@
+// Component-scoped tokens shadow the theme inside this component only:
+// `space.pad` is local, `space.2` still comes from the theme.
+component RecipeLocalTokenChip {
+  tokens {
+    space {
+      pad = 6px;
+    }
+    metrics {
+      radius = 999px;
+    }
+  }
+
+  base {
+    display: inline-flex;
+    padding: space.pad space.2;
+    border-radius: metrics.radius;
+    background: color.primary;
+    color: white;
+    font-size: font.sm;
+  }
+}

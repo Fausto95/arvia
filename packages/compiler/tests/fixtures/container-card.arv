@@ -1,0 +1,26 @@
+theme {
+  container {
+    wide = 480px;
+  }
+}
+
+component Card {
+  base {
+    display: block;
+  }
+
+  variants {
+    layout {
+      stacked { padding: 8px; }
+      row { padding: 16px; }
+    }
+  }
+
+  defaults {
+    layout: stacked;
+  }
+
+  container {
+    wide { layout: row; }
+  }
+}

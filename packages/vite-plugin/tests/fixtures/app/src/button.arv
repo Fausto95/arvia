@@ -1,0 +1,18 @@
+component Button {
+  base {
+    padding: space.2 space.4;
+    background: color.primary;
+    use Surface;
+  }
+
+  variants {
+    tone {
+      primary {}
+      danger { background: color.danger; }
+    }
+  }
+
+  defaults {
+    tone: primary;
+  }
+}

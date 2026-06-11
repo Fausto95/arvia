@@ -1,0 +1,26 @@
+component RecipeResponsiveButton {
+  base {
+    display: inline-flex;
+    border: none;
+    border-radius: radius.md;
+    background: color.primary;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  variants {
+    size {
+      sm { padding: space.1 space.3; font-size: font.sm; }
+      lg { padding: space.3 space.5; font-size: font.lg; }
+    }
+  }
+
+  defaults {
+    size: sm;
+  }
+
+  responsive {
+    md { size: lg; }
+  }
+}

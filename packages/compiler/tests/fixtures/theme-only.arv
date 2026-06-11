@@ -1,0 +1,23 @@
+theme {
+  color {
+    primary = #635bff;
+  }
+}
+
+global {
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    color: color.primary;
+  }
+}
+
+recipe Surface {
+  border: 1px solid #e5e5e5;
+  background: white;
+}

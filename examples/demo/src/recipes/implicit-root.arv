@@ -1,0 +1,16 @@
+component RecipeImplicitBadge {
+  padding: space.1 space.3;
+  border-radius: radius.full;
+  font-size: font.sm;
+
+  variants {
+    tone {
+      neutral { background: color.border; color: color.text; }
+      success { background: color.success; color: white; }
+    }
+  }
+
+  defaults {
+    tone: neutral;
+  }
+}

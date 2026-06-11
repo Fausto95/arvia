@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" role="img" aria-label="Arvia — the design system compiler for React">
+  <defs>
+    <linearGradient id="mark-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6358ff"/>
+      <stop offset="55%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#b44df0"/>
+    </linearGradient>
+    <radialGradient id="mark-shine" cx="0.28" cy="0.16" r="0.95">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.30"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-indigo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#6358ff" stop-opacity="0.38"/>
+      <stop offset="100%" stop-color="#6358ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-violet" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#b44df0" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#b44df0" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="panel-clip">
+      <rect x="24" y="16" width="1152" height="288" rx="24"/>
+    </clipPath>
+  </defs>
+
+  <!-- Panel -->
+  <rect x="24" y="16" width="1152" height="288" rx="24" fill="#0b0e1c"/>
+  <g clip-path="url(#panel-clip)">
+    <ellipse cx="180" cy="330" rx="420" ry="240" fill="url(#glow-indigo)"/>
+    <ellipse cx="1080" cy="10" rx="460" ry="250" fill="url(#glow-violet)"/>
+  </g>
+  <rect x="24" y="16" width="1152" height="288" rx="24" fill="none" stroke="#94a3ff" stroke-opacity="0.16"/>
+
+  <!-- Mark -->
+  <g transform="translate(84 104) scale(1.75)">
+    <rect x="2" y="2" width="60" height="60" rx="14.5" fill="url(#mark-bg)"/>
+    <rect x="2" y="2" width="60" height="60" rx="14.5" fill="url(#mark-shine)"/>
+    <path
+      d="M17.5 45.5 L32 16.5 L46.5 45.5"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="6.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <circle cx="32" cy="39.2" r="4.7" fill="#ffffff"/>
+  </g>
+
+  <!-- Wordmark + tagline -->
+  <g font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <text x="234" y="154" font-size="76" font-weight="800" letter-spacing="-0.03em" fill="#f4f5ff">Arvia</text>
+    <text x="236" y="198" font-size="26" font-weight="500" fill="#aab1d6">The design system compiler for React</text>
+  </g>
+
+  <!-- Token swatches -->
+  <g>
+    <circle cx="243" cy="234" r="7" fill="#6358ff"/>
+    <circle cx="265" cy="234" r="7" fill="#8b5cf6"/>
+    <circle cx="287" cy="234" r="7" fill="#d946ef"/>
+    <circle cx="309" cy="234" r="7" fill="#f59e0b"/>
+    <circle cx="331" cy="234" r="7" fill="#10b981"/>
+    <text
+      x="352"
+      y="240"
+      font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+      font-size="16"
+      fill="#7d85ad"
+    >tokens · variants · slots · modes</text>
+  </g>
+
+  <!-- Code card -->
+  <g>
+    <rect x="744" y="58" width="400" height="204" rx="14" fill="#10142b"/>
+    <rect x="744" y="58" width="400" height="204" rx="14" fill="none" stroke="#94a3ff" stroke-opacity="0.18"/>
+    <circle cx="768" cy="86" r="5" fill="#ff5f57"/>
+    <circle cx="788" cy="86" r="5" fill="#febc2e"/>
+    <circle cx="808" cy="86" r="5" fill="#28c840"/>
+    <text
+      x="826"
+      y="91"
+      font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+      font-size="14"
+      fill="#8f96bd"
+    >button.arv</text>
+    <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="17">
+      <text x="770" y="128"><tspan fill="#c4b5fd">component</tspan><tspan fill="#7dd3fc"> Button</tspan><tspan fill="#5b6480"> {</tspan></text>
+      <text x="792" y="154"><tspan fill="#c4b5fd">variants</tspan><tspan fill="#5b6480"> {</tspan></text>
+      <text x="814" y="180"><tspan fill="#c4b5fd">tone</tspan><tspan fill="#5b6480"> { </tspan><tspan fill="#fda4af">primary danger</tspan><tspan fill="#5b6480"> }</tspan></text>
+      <text x="792" y="206"><tspan fill="#5b6480">}</tspan></text>
+      <text x="770" y="232"><tspan fill="#5b6480">}</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "verbatimModuleSyntax": false
+  },
+  "include": ["src", "tests", "tsup.config.ts"],
+  "exclude": ["tests/fixtures"]
+}

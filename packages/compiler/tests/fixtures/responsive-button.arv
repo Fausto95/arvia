@@ -1,0 +1,26 @@
+theme {
+  breakpoint {
+    md = 768px;
+  }
+}
+
+component Button {
+  base {
+    display: inline-flex;
+  }
+
+  variants {
+    size {
+      sm { padding: 4px; }
+      lg { padding: 16px; }
+    }
+  }
+
+  defaults {
+    size: sm;
+  }
+
+  responsive {
+    md { size: lg; }
+  }
+}

@@ -1,0 +1,42 @@
+// Stack: layout primitive.
+
+component Stack {
+  base {
+    display: flex;
+  }
+
+  variants {
+    direction {
+      row { flex-direction: row; }
+      column { flex-direction: column; }
+    }
+
+    gap {
+      1 { gap: space.1; }
+      2 { gap: space.2; }
+      3 { gap: space.3; }
+      4 { gap: space.4; }
+      5 { gap: space.5; }
+      6 { gap: space.6; }
+    }
+
+    align {
+      start { align-items: flex-start; }
+      center { align-items: center; }
+      end { align-items: flex-end; }
+      stretch { align-items: stretch; }
+    }
+
+    wrap {
+      yes { flex-wrap: wrap; }
+      no { flex-wrap: nowrap; }
+    }
+  }
+
+  defaults {
+    direction: column;
+    gap: 3;
+    align: stretch;
+    wrap: no;
+  }
+}

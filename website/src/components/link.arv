@@ -1,0 +1,38 @@
+component Link {
+  base {
+    color: color.text;
+    text-decoration: none;
+    transition: color 120ms ease;
+    use FocusRing;
+
+    &:hover {
+      color: color.accent;
+    }
+  }
+
+  variants {
+    tone {
+      default {}
+      muted {
+        color: color.muted;
+        &:hover { color: color.text; }
+      }
+      accent {
+        color: color.accent;
+        &:hover { color: color.accentMuted; }
+      }
+    }
+    active {
+      no {}
+      yes {
+        color: color.accent;
+        font-weight: 500;
+      }
+    }
+  }
+
+  defaults {
+    tone: default;
+    active: no;
+  }
+}

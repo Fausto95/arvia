@@ -1,0 +1,12 @@
+// `style` — a standalone exported class, no component ceremony.
+style RecipeTruncate {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: space.2 space.3;
+  border-radius: radius.md;
+  background: color.surface;
+  border: 1px solid color.border;
+  font-size: font.sm;
+}

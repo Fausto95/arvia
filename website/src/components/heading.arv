@@ -1,0 +1,24 @@
+component Heading {
+  base {
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  variants {
+    level {
+      h1 { font-size: font.3xl; font-weight: 700; }
+      h2 { font-size: font.xl; font-weight: 600; }
+      h3 { font-size: font.lg; font-weight: 600; }
+      display {
+        font-size: font.3xl;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+    }
+  }
+
+  defaults {
+    level: h2;
+  }
+}

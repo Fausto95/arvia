@@ -1,0 +1,20 @@
+theme {
+  modes: light | dark;
+
+  color {
+    text = #111111;
+    background = #ffffff;
+
+    @dark {
+      text = #eeeeee;
+      background = #000000;
+    }
+  }
+}
+
+global {
+  body {
+    color: color.text;
+    background: color.background;
+  }
+}

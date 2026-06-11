@@ -1,0 +1,21 @@
+component Button {
+  base {
+    color: white;
+  }
+
+  slots {
+    root {}
+    label {}
+  }
+
+  variants {
+    tone {
+      primary { background: blue; }
+      danger { background: red; }
+    }
+  }
+
+  defaults {
+    tone: primary;
+  }
+}

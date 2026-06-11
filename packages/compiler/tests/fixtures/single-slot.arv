@@ -1,0 +1,15 @@
+component Badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+
+  variants {
+    tone {
+      neutral { background: #eee; }
+      success { background: #d3f9d8; }
+    }
+  }
+
+  defaults {
+    tone: neutral;
+  }
+}

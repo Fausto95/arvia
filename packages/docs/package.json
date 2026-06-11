@@ -1,0 +1,43 @@
+{
+  "name": "@arviahq/docs",
+  "version": "0.1.0",
+  "description": "Generate design token documentation from .arv theme files.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fausto95/arvia.git",
+    "directory": "packages/docs"
+  },
+  "homepage": "https://github.com/Fausto95/arvia#readme",
+  "bugs": {
+    "url": "https://github.com/Fausto95/arvia/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@arviahq/compiler": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "vitest": "^3.2.4"
+  }
+}

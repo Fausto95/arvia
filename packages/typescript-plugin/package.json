@@ -1,0 +1,57 @@
+{
+  "name": "@arviahq/typescript-plugin",
+  "version": "0.1.0",
+  "description": "TypeScript plugin for .arv files: virtual types and arvia-tsc CLI — no generated .d.ts files needed.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fausto95/arvia.git",
+    "directory": "packages/typescript-plugin"
+  },
+  "homepage": "https://github.com/Fausto95/arvia#readme",
+  "bugs": {
+    "url": "https://github.com/Fausto95/arvia/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "arvia-tsc": "./bin/arvia-tsc.cjs"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "type": "commonjs",
+  "main": "./dist/tsserver.cjs",
+  "types": "./dist/tsserver.d.cts",
+  "exports": {
+    ".": {
+      "types": "./dist/tsserver.d.cts",
+      "require": "./dist/tsserver.cjs"
+    },
+    "./plugin": {
+      "types": "./dist/languagePlugin.d.cts",
+      "require": "./dist/languagePlugin.cjs"
+    },
+    "./cli": {
+      "require": "./dist/cli.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@arviahq/compiler": "workspace:*",
+    "@volar/language-core": "^2.4.15",
+    "@volar/typescript": "^2.4.15"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  }
+}

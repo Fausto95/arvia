@@ -1,0 +1,61 @@
+component CodeBlock {
+  base {
+    width: 100%;
+    max-width: 100%;
+    margin: space.4 0;
+    border-radius: radius.md;
+    border: 1px solid color.border;
+    overflow: hidden;
+  }
+
+  slots {
+    root {}
+    header {
+      padding: space.2 space.4;
+      border-bottom: 1px solid color.border;
+      background: color.surfaceRaised;
+      font-size: font.xs;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: color.muted;
+    }
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      background: color.codeBg;
+      color: color.codeText;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+    }
+    scroll {
+      min-width: 0;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+  }
+
+  variants {
+    variant {
+      default {}
+      flat {
+        root {
+          margin: 0;
+          border: none;
+          border-radius: 0;
+        }
+        body {
+          background: transparent;
+        }
+      }
+    }
+  }
+
+  defaults {
+    variant: default;
+  }
+}

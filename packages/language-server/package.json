@@ -1,0 +1,49 @@
+{
+  "name": "@arviahq/language-server",
+  "version": "0.1.0",
+  "description": "Language Server Protocol implementation for .arv files.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fausto95/arvia.git",
+    "directory": "packages/language-server"
+  },
+  "homepage": "https://github.com/Fausto95/arvia#readme",
+  "bugs": {
+    "url": "https://github.com/Fausto95/arvia/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "arvia-language-server": "./bin/arvia-language-server.cjs"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "type": "commonjs",
+  "main": "./dist/server.cjs",
+  "types": "./dist/server.d.cts",
+  "exports": {
+    ".": {
+      "types": "./dist/server.d.cts",
+      "require": "./dist/server.cjs"
+    },
+    "./dist/server.cjs": "./dist/server.cjs"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@arviahq/compiler": "workspace:*",
+    "vscode-css-languageservice": "^6.3.10",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.12"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3"
+  }
+}

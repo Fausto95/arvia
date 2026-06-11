@@ -1,0 +1,34 @@
+theme {
+  space {
+    2 = 8px;
+    4 = 16px;
+  }
+  color {
+    primary = #635bff;
+  }
+}
+
+component Chip {
+  tokens {
+    space {
+      pad = 6px;
+    }
+    metrics {
+      radius = 999px;
+    }
+  }
+
+  base {
+    padding: space.pad space.2;
+    border-radius: metrics.radius;
+    background: color.primary;
+  }
+
+  variants {
+    size {
+      lg {
+        padding: calc(space.pad * 2);
+      }
+    }
+  }
+}

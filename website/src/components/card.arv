@@ -1,0 +1,23 @@
+component Card {
+  base {
+    border: 1px solid color.border;
+    border-radius: radius.lg;
+    background: color.surface;
+    padding: space.5;
+    transition: border-color 150ms ease;
+    &:hover {
+      border-color: color.subtle;
+    }
+  }
+
+  variants {
+    padding {
+      default {}
+      none { padding: 0; }
+    }
+  }
+
+  defaults {
+    padding: default;
+  }
+}

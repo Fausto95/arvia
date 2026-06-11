@@ -1,0 +1,9 @@
+component RecipeTokenBox {
+  base {
+    padding: space.4;
+    border-radius: radius.md;
+    background: color.primary;
+    color: white;
+    font-size: font.sm;
+  }
+}

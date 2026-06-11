@@ -1,0 +1,16 @@
+theme {
+  duration {
+    fast = 120ms;
+  }
+}
+
+keyframes pulse {
+  from { opacity: 1; }
+  to { opacity: 0.5; }
+}
+
+component Box {
+  base {
+    animation: keyframes.pulse duration.fast;
+  }
+}

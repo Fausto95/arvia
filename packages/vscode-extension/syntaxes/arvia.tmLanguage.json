@@ -1,0 +1,169 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Arvia",
+  "scopeName": "source.arv",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#namedBlocks"
+    },
+    {
+      "include": "#sectionKeywords"
+    },
+    {
+      "include": "#useStatement"
+    },
+    {
+      "include": "#stateSelector"
+    },
+    {
+      "include": "#tokenEntry"
+    },
+    {
+      "include": "#declaration"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.arv",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.arv",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "namedBlocks": {
+      "match": "\\b(recipe|component|keyframes|style)\\s+([A-Za-z_][A-Za-z0-9_-]*)",
+      "captures": {
+        "1": {
+          "name": "keyword.control.arv"
+        },
+        "2": {
+          "name": "entity.name.type.arv"
+        }
+      }
+    },
+    "sectionKeywords": {
+      "match": "\\b(theme|global|base|slots|variants|defaults|responsive|container|compound|tokens)\\b(?=\\s*\\{)",
+      "name": "keyword.control.arv"
+    },
+    "useStatement": {
+      "match": "\\b(use)\\s+([A-Za-z_][A-Za-z0-9_-]*)\\s*(?=;)",
+      "captures": {
+        "1": {
+          "name": "keyword.control.arv"
+        },
+        "2": {
+          "name": "entity.name.type.arv"
+        }
+      }
+    },
+    "stateSelector": {
+      "match": "(&)([^\\{]*)",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.entity.arv"
+        },
+        "2": {
+          "name": "entity.other.attribute-name.pseudo-class.arv"
+        }
+      }
+    },
+    "tokenEntry": {
+      "begin": "([A-Za-z0-9_-]+)\\s*(=)",
+      "end": ";",
+      "beginCaptures": {
+        "1": {
+          "name": "variable.other.constant.declaration.arv"
+        },
+        "2": {
+          "name": "keyword.operator.assignment.arv"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.terminator.arv"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#valueContent"
+        }
+      ]
+    },
+    "declaration": {
+      "begin": "([A-Za-z_-][A-Za-z0-9_-]*)\\s*(:)",
+      "end": ";",
+      "beginCaptures": {
+        "1": {
+          "name": "support.type.property-name.arv"
+        },
+        "2": {
+          "name": "punctuation.separator.key-value.arv"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.terminator.arv"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#valueContent"
+        }
+      ]
+    },
+    "valueContent": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "name": "string.quoted.double.arv",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.arv",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.arv",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.arv",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "constant.other.color.hex.arv",
+          "match": "#[0-9a-fA-F]{3,8}\\b"
+        },
+        {
+          "name": "variable.other.constant.token-ref.arv",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_-]*\\.[A-Za-z0-9_-]+\\b"
+        },
+        {
+          "name": "constant.numeric.arv",
+          "match": "(?<![\\w.])-?\\d+(\\.\\d+)?(px|rem|em|%|vh|vw|vmin|vmax|ms|s|fr|deg|rad|turn|ch|ex|cm|mm|in|pt|pc)?\\b"
+        },
+        {
+          "name": "support.function.arv",
+          "match": "\\b[A-Za-z-]+(?=\\()"
+        }
+      ]
+    }
+  }
+}

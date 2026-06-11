@@ -1,0 +1,27 @@
+theme {
+  color {
+    accent = #635bff;
+  }
+  space {
+    2 = 8px;
+  }
+}
+
+recipe Surface {
+  border: 1px solid #e5e5e5;
+  background: white;
+}
+
+style truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+style panel {
+  use Surface;
+  padding: space.2;
+  &:hover {
+    border-color: color.accent;
+  }
+}

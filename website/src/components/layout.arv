@@ -1,0 +1,228 @@
+component DocsLayout {
+  base {
+    display: grid;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 57px);
+  }
+
+  slots {
+    root {}
+    sidebar {
+      border-right: 1px solid color.border;
+      padding: space.5 space.4;
+      position: sticky;
+      top: 57px;
+      height: calc(100vh - 57px);
+      overflow-y: auto;
+    }
+    content {
+      padding: space.6 space.7;
+      min-width: 0;
+      width: 100%;
+    }
+  }
+
+  variants {
+    sidebar {
+      show {
+        root { grid-template-columns: 240px 1fr; }
+        sidebar { display: block; }
+      }
+      hide {
+        root { grid-template-columns: 1fr; }
+        sidebar { display: none; }
+      }
+    }
+  }
+
+  defaults {
+    sidebar: hide;
+  }
+
+  responsive {
+    lg { sidebar: show; }
+  }
+}
+
+component Page {
+  base {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: space.7 space.5;
+  }
+}
+
+component Stack {
+  variants {
+    direction {
+      column { display: flex; flex-direction: column; }
+      row { display: flex; flex-direction: row; flex-wrap: wrap; }
+    }
+    gap {
+      2 { gap: space.2; }
+      3 { gap: space.3; }
+      4 { gap: space.4; }
+      5 { gap: space.5; }
+      6 { gap: space.6; }
+    }
+    align {
+      start { align-items: flex-start; }
+      center { align-items: center; }
+    }
+  }
+
+  defaults {
+    direction: column;
+    gap: 4;
+    align: start;
+  }
+}
+
+component Grid {
+  base {
+    display: grid;
+    gap: space.4;
+  }
+
+  variants {
+    cols {
+      1 { grid-template-columns: 1fr; }
+      2 { grid-template-columns: repeat(2, 1fr); }
+      3 { grid-template-columns: repeat(3, 1fr); }
+    }
+  }
+
+  defaults {
+    cols: 1;
+  }
+
+  responsive {
+    md { cols: 2; }
+    lg { cols: 3; }
+  }
+}
+
+component SidebarSection {
+  base {
+    margin-bottom: space.5;
+  }
+
+  slots {
+    root {}
+    title {
+      font-size: font.xs;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: color.subtle;
+      margin: 0 0 space.2;
+    }
+    links {
+      display: flex;
+      flex-direction: column;
+      gap: space.1;
+    }
+  }
+}
+
+component HeroShell {
+  base {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  slots {
+    root {}
+    backdrop {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    content {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+
+component Hero {
+  base {
+    text-align: center;
+    padding: space.9 space.5 space.8;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  slots {
+    root {}
+    badge { margin-bottom: space.4; }
+    title { margin-bottom: space.4; }
+    subtitle {
+      color: color.muted;
+      font-size: font.md;
+      max-width: 640px;
+      margin: 0 auto space.6;
+      line-height: 1.65;
+    }
+    actions {
+      display: flex;
+      gap: space.3;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+component InlineCode {
+  padding: 2px 6px;
+  border-radius: radius.sm;
+  background: color.surfaceRaised;
+  border: 1px solid color.border;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.9em;
+  color: color.accent;
+}
+
+component Prose {
+  base {
+    max-width: 42rem;
+    line-height: 1.7;
+  }
+
+  slots {
+    root {}
+
+    p {
+      margin: 0 0 space.4;
+      color: color.muted;
+    }
+
+    ul {
+      margin: 0 0 space.4;
+      padding-left: space.5;
+      color: color.muted;
+    }
+
+    li {
+      margin-bottom: space.2;
+    }
+
+    h2 {
+      margin: space.7 0 space.3;
+      font-size: font.xl;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: color.text;
+    }
+
+    h3 {
+      margin: space.5 0 space.2;
+      font-size: font.lg;
+      font-weight: 600;
+      color: color.text;
+    }
+  }
+}

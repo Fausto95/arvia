@@ -1,0 +1,61 @@
+component DemoCard {
+  use Surface;
+
+  base {
+    overflow: hidden;
+    animation: keyframes.fadeIn duration.normal easing.out;
+
+    header {
+      padding: space.4 space.5;
+      border-bottom: 1px solid color.border;
+      font-weight: 600;
+    }
+
+    body {
+      padding: space.5;
+    }
+
+    footer {
+      padding: space.3 space.5;
+      border-top: 1px solid color.border;
+      background: color.background;
+    }
+  }
+
+  slots {
+    root {}
+    header {}
+    body {}
+    footer {}
+  }
+
+  variants {
+    layout {
+      stacked {
+        body {
+          display: flex;
+          flex-direction: column;
+          gap: space.3;
+        }
+      }
+      horizontal {
+        body {
+          display: flex;
+          flex-direction: row;
+          gap: space.4;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  defaults {
+    layout: stacked;
+  }
+
+  container {
+    wide {
+      layout: horizontal;
+    }
+  }
+}

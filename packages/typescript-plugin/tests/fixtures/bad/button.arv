@@ -1,0 +1,8 @@
+component Button {
+  variants {
+    tone {
+      primary {}
+      danger {}
+    }
+  }
+}
