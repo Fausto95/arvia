@@ -173,6 +173,12 @@ component Hero {
       justify-content: center;
       flex-wrap: wrap;
     }
+    frameworks {
+      margin-top: space.5;
+      color: color.muted;
+      font-size: font.sm;
+      line-height: 1.5;
+    }
   }
 }
 

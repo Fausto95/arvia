@@ -114,6 +114,16 @@ export function SiteHero() {
             Try playground
           </RouterLinkBase>
         </div>
+        <p className={hero.frameworks}>
+          Supported frameworks:{" "}
+          <RouterLinkBase to="/docs/installation" className={Link({ tone: "accent" }).root}>
+            React
+          </RouterLinkBase>
+          {" · "}
+          <RouterLinkBase to="/docs/installation" className={Link({ tone: "accent" }).root}>
+            Preact
+          </RouterLinkBase>
+        </p>
       </section>
     </div>
   );
