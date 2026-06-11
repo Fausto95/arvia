@@ -295,7 +295,7 @@
       "tokens": [],
       "translations": [
         {
-          "translation": "Responsive",
+          "translation": "Responsivo",
           "variations": {}
         }
       ],
@@ -319,7 +319,7 @@
       "tokens": [],
       "translations": [
         {
-          "translation": "Keyframes",
+          "translation": "Quadros-chave",
           "variations": {}
         }
       ],
@@ -723,7 +723,7 @@
     },
     "IYUmtYxQtGdt1MucjXrsVA==": {
       "description": "Label with meaning 'at least number'",
-      "status": "new",
+      "status": "translated",
       "tokens": [],
       "translations": [
         {
@@ -735,7 +735,7 @@
     },
     "ZIF1WhVQwt7WZJvFTEbMWw==": {
       "description": "Label with meaning 'less than number'",
-      "status": "new",
+      "status": "translated",
       "tokens": [],
       "translations": [
         {
@@ -747,7 +747,7 @@
     },
     "Oc/9PrbjfyLHS60BXceD1A==": {
       "description": "A list of items of various types, for example: \"San Francisco; London; Tokyo\". {previous items} and {following items} are themselves lists that contain one or more items.",
-      "status": "new",
+      "status": "translated",
       "tokens": [],
       "translations": [
         {
@@ -759,7 +759,7 @@
     },
     "AXXbKEUZuc0ji1IClRrOOw==": {
       "description": "A list of items of various types separated by bullets, for example: \"San Francisco \\u2022 London \\u2022 Tokyo\". {previous items} and {following items} are themselves lists that contain one or more items.",
-      "status": "new",
+      "status": "translated",
       "tokens": [],
       "translations": [
         {
@@ -771,7 +771,7 @@
     },
     "89ACgPMtnwlLDSeqhLBx2Q==": {
       "description": "A list of items of various types separated by commas, for example: \"San Francisco, London, Tokyo\". {previous items} and {following items} are themselves lists that contain one or more items.",
-      "status": "new",
+      "status": "translated",
       "tokens": [],
       "translations": [
         {
@@ -783,11 +783,11 @@
     },
     "5hL7VXOBVnetm46YAjpX0g==": {
       "description": "A list of items of various types with a serial comma, for example: \"item1, item2, and item3\"",
-      "status": "new",
+      "status": "translated",
       "tokens": [],
       "translations": [
         {
-          "translation": "{list of items}, and {last item}",
+          "translation": "{list of items} e {last item}",
           "variations": {}
         }
       ],
@@ -795,11 +795,11 @@
     },
     "icNetEL/crQv/PS6yhySVQ==": {
       "description": "A list of items of various types, for example: \"item1, item2, item3 and item4\"",
-      "status": "new",
+      "status": "translated",
       "tokens": [],
       "translations": [
         {
-          "translation": "{list of items} and {last item}",
+          "translation": "{list of items} e {last item}",
           "variations": {}
         }
       ],
@@ -807,11 +807,11 @@
     },
     "8kLAQ3ffiiFnQ/bWPqXfuQ==": {
       "description": "A list of items of various types with a serial comma, for example: \"item1, item2, or item3\"",
-      "status": "new",
+      "status": "translated",
       "tokens": [],
       "translations": [
         {
-          "translation": "{list of items}, or {last item}",
+          "translation": "{list of items} ou {last item}",
           "variations": {}
         }
       ],
@@ -819,11 +819,11 @@
     },
     "8eSaAzrWtAqn9ktNKfkaEg==": {
       "description": "A list of items of various types, for example: \"item1, item2, item3 or item4\"",
-      "status": "new",
+      "status": "translated",
       "tokens": [],
       "translations": [
         {
-          "translation": "{list of items} or {last item}",
+          "translation": "{list of items} ou {last item}",
           "variations": {}
         }
       ],
@@ -831,7 +831,7 @@
     },
     "+IBI7kr/mMKdzp+3stDvkw==": {
       "description": "A list of items of various types, for example: \"San Francisco; London; Tokyo\". {previous items} itself contains one or more items.",
-      "status": "new",
+      "status": "translated",
       "tokens": [],
       "translations": [
         {
@@ -843,7 +843,7 @@
     },
     "55IeE8c0qqtjTU0lo7q9AA==": {
       "description": "A list of items of various types separated by bullets, for example: \"San Francisco \\u2022 London \\u2022 Tokyo\". {previous items} contains one or more items.",
-      "status": "new",
+      "status": "translated",
       "tokens": [],
       "translations": [
         {
@@ -855,7 +855,7 @@
     },
     "6PRJS0QalZfvaN8CkKCUCw==": {
       "description": "A list of items of various types, for example: \"item1, item2, item3, item4\"",
-      "status": "new",
+      "status": "translated",
       "tokens": [],
       "translations": [
         {
@@ -884,6 +884,1890 @@
       "translations": [
         {
           "translation": "Mudar para modo escuro",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "n/UrtmTYsMAXAJjHcVrzOA==": {
+      "description": "Playground template group label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Iniciais",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "haeiaWeFx77ebt91ukwaNw==": {
+      "description": "Playground template group label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Componentes de demo",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "N9ttxXN+di7kFBwvlKfyiA==": {
+      "description": "Playground demo component label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Botão",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "1b0JxNNQLpQMiKIusPiR0Q==": {
+      "description": "Playground demo component label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Distintivo",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "DUeZ5/NDqDw7EKB5p+SnGA==": {
+      "description": "Playground demo component label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Cartão",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "dzWfxYthNPFZDviMiRrnsQ==": {
+      "description": "Playground demo component label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Texto",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "KjpNkAi6V5QWgSMQ8j03Xw==": {
+      "description": "Playground demo component label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Pilha",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "erzt/hdP2u6TXmW9Wvs+Ew==": {
+      "description": "Playground demo component label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Pulso",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "uzOwiVLi28KjrFvpQTcZLQ==": {
+      "description": "Playground template group label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Receitas",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "eOzdEhg9icdXE+tvRV/3Rw==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Tokens de tema",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "rqTIRgFEsysCmGAQwcM3IQ==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Slot root implícito",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "gPfReRyoO9YJMvuQVbsAhg==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Slots",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "QdQpgUpeS8QkZ6B0vfGZGQ==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Variantes e predefinições",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "UvC5i0Ycpwpwq6w3TBoRkQ==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Variantes compostas",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "Y0l8b9ty/iLLkIn14kaPsQ==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Pseudoestados",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "SRtx31+ssRJK/vRi0IeYNg==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "use recipe",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "ZWSt5e6SOtg2kXTKOhnEww==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Receitas aninhadas",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "h5XOC5jKFDy3Ho2lA+jCCQ==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Quadros-chave",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "T0z6bFGqJbrZrN62vPhc+Q==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Estilos (classe exportada)",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "SjKWDGGumMxY2Rvns2B81g==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Tokens locais",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "EKdeyZNgDKN8gIaEkHOExQ==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Responsivo",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "/QrOsSw8iBO+9I7w+/CfiQ==": {
+      "description": "Playground recipe title",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Container queries",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "zoMreXM97xTdc5Q2qQccHQ==": {
+      "description": "Playground starter template label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Botão",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "4PXGTLgppmmUVgCKhY0Tag==": {
+      "description": "Playground starter template label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Distintivo",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "CC+TQZ3dW7cnuYneOM1OUA==": {
+      "description": "Playground starter template label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Variantes",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "hx4X7QjukBjqbwbkfGwM0Q==": {
+      "description": "Playground starter template label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Slots",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "VnGF9SpoknGQTd5J5RRbgA==": {
+      "description": "Playground starter template label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Responsivo",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "dqV7snRHoP01iQRXXK2I9w==": {
+      "description": "Docs page title — Introduction",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Introdução",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "NlNXMhBo0bEBzg1ofNCp3A==": {
+      "description": "Docs page description — What Arvia is and how it fits in your stack.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "O que é Arvia e como ele se encaixa na sua pilha.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "yaa7+BL0azvA1asa33uAwQ==": {
+      "description": "Docs content — Arvia is a framework-agnostic design system comp…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Arvia é um compilador de sistema de design independente de estrutura. Você escreve arquivos .arv que descrevem themes, tokens, recipes e componentes - o compilador emite APIs CSS otimizadas e TypeScript digitadas com custo zero de estilo runtime. Use as APIs geradas de React, Preact ou qualquer estrutura JSX.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "hd8TyAgLYYq82H43nF4eqg==": {
+      "description": "Docs content — Unlike CSS-in-JS, styles are resolved at build t…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Ao contrário de CSS-in-JS, os estilos são resolvidos em tempo de construção. Ao contrário de CSS Modules, você obtém variants, slots de primeira classe, regras compostas e design tokens com segurança de tipo total.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "mPcJUOqZuiNEDaczC7aagA==": {
+      "description": "Docs page title — Installation",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Instalação",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "/ktji6OONYtoCJx9GI8wfg==": {
+      "description": "Docs page description — Add Arvia to a Vite project (React or Preact).",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Adicione Arvia a um projeto Vite (React ou Preact).",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "tTpxXiJxPYJJ1jCTgxWm6w==": {
+      "description": "Docs content — React",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "React",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "3EIYAnn8ohxh4M0SKqapxw==": {
+      "description": "Docs content — Preact",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Preact",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "TjDi/EfYNdQugX95spaXgg==": {
+      "description": "Docs content — TypeScript",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "TypeScript",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "/P8mcpZ5zW0XCqedXzOHqA==": {
+      "description": "Docs content — Install the Arvia VS Code extension for syntax h…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Instale a extensão Arvia VS Code para realce de sintaxe, diagnóstico, conclusão e documentos instantâneos em tokens.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "jLxwrNoLSVkpXqmrsLkzxw==": {
+      "description": "Docs page title — Quick start",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Início rápido",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "V3VJi/BgOGY8xlYPZkkFyw==": {
+      "description": "Docs page description — From zero to a styled button in minutes.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "De zero a um botão estilizado em minutos.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "AZzqTz+VrBB9gT8GDz/J8A==": {
+      "description": "Docs content — 1. Define tokens",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "1. Defina tokens",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "YzSBY4Hes7RbSxNYhEPg2w==": {
+      "description": "Docs content — 2. Import the theme",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "2. Importe o theme",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "lneYsmvNjOFmZ9Eag1soyw==": {
+      "description": "Docs content — 3. Create a component",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "3. Crie um componente",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "sxxnP4Q+efNiDbR1mY40ag==": {
+      "description": "Docs content — 4. Use in your app",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "4. Use em seu aplicativo",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "xcWOOC9z4l3ateabS2DRmA==": {
+      "description": "Docs page title — Theme & tokens",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Tema e tokens",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "nzqNMNqQI/iMih4n9fV8xQ==": {
+      "description": "Docs page description — Design tokens as the foundation of every style.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Design tokens como base de cada estilo.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "Pjd2VNd4EB/d8OXYTebfVQ==": {
+      "description": "Docs content — A theme block defines named token groups. Refere…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Um bloco theme define grupos de tokens nomeados. Referência tokens com notação de ponto: color.primary, space.4, radius.md.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "iT4v828hKYEZNeWNRC7nsg==": {
+      "description": "Docs content — Tokens compile to CSS custom properties (--arvia…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Tokens compila para propriedades personalizadas CSS (--arvia-color-primary, etc.) quando modes estão habilitados ou valores embutidos em projetos theme únicos.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "TqMMQzhaUk9Z9Itr/7V4bw==": {
+      "description": "Docs page title — Theme modes",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Modos de tema",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "s/pMHhoYL6KqIbjHnxShyA==": {
+      "description": "Docs page description — Light/dark themes with system preference and opt…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Claro/escuro themes com preferência de sistema e substituições opcionais.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "cxxRFibJsueIgKkvXzzTYw==": {
+      "description": "Docs content — The first mode follows the OS color scheme via p…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "O primeiro mode segue o esquema de cores do SO via prefers-color-scheme. Defina data-arvia-theme em <html> para substituí-lo.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "aKZn2oSQNESkJwP4YJQbrw==": {
+      "description": "Docs page title — Global styles",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Estilos globais",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "FWH42paoNVFBFubfaeut+A==": {
+      "description": "Docs page description — Resets, typography, and document-level rules.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Redefinições, tipografia e regras em nível de documento.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "IAVsLM/li+GxU5qdOaDtjA==": {
+      "description": "Docs content — Import your theme file once (e.g. in main.tsx) t…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Importe seu arquivo theme uma vez (por exemplo, em main.tsx) para enviar regras globais junto com variáveis ​​de token.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "AKkF/pSg/f3VtQJUHzFAtQ==": {
+      "description": "Docs page title — Recipes",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Receitas",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "v5+QnafX+MLPjYI5xp5+gg==": {
+      "description": "Docs page description — Reusable style fragments composed with use.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Fragmentos de estilo reutilizáveis ​​compostos com use.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "U+XpN7JffbekEu1FEYE7iA==": {
+      "description": "Docs content — Recipes can include pseudo-states and nest other…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Recipes pode incluir pseudoestados e aninhar outros recipes. Eles nunca geram APIs independentes – apenas componentes o fazem.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "/BaefFLX1OlYpz+mvDGG4A==": {
+      "description": "Docs page title — Components",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Componentes",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "9Y86sECvM3b3/t1g9jg0Yw==": {
+      "description": "Docs page description — Slots, base styles, and typed component APIs.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Estilos Slots, base e APIs de componentes digitados.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "pgDINW5CIIpUF4CotdZdCA==": {
+      "description": "Docs content — Bare declarations at the top level map to the im…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Declarações simples no nível superior são mapeadas para o root slot implícito. Nomeado slot bloqueia elementos filhos de estilo.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "6h5vnkaqADtiKNcVH/ZiTw==": {
+      "description": "Docs page title — Slots",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Slots",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "6G8VLdnln8a14chMoyoXdQ==": {
+      "description": "Docs page description — Named parts of a multi-element component, each w…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Partes nomeadas de um componente multielemento, cada uma com sua própria classe.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "+0VO5KzEf9XWo+ymC+sLiQ==": {
+      "description": "Docs content — The slots block declares a component's named par…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "O bloco slots declara as partes nomeadas de um componente. As declarações dentro de um slot são seus estilos base. Cada componente tem um root slot - declarações simples no nível superior ou no estilo base, portanto, componentes sem um bloco slots ainda exportam root.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "CmYkH0UlQxOCauiofdeohA==": {
+      "description": "Docs content — Styling slots from anywhere",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Estilizar slots a partir de qualquer lugar",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "9OLgMLUHE0zOLPTGgWtCeQ==": {
+      "description": "Docs content — A nested slot block inside base, a variant value…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Um bloco slot aninhado dentro de base, um valor variant, uma regra composta ou um &-state tem como alvo slot quando a condição circundante se aplica - aqui o ícone muda ao passar o mouse sobre root e aumenta para size: lg.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "qkgMo/02m66T4XbaaSqeZA==": {
+      "description": "Docs content — Using slots in JSX",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Usar slots em JSX",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "PW52Fu8vkLx/3G3rw7mgmA==": {
+      "description": "Docs content — The component function returns one class per slo…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "A função componente retorna uma classe por slot, com variant e classes compostas já mescladas. Os tipos gerados conhecem cada nome de slot, então styles.icno é um erro de compilação.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "10eD/vGnbnhfLVzJ4BLhfg==": {
+      "description": "Docs page title — Variants & defaults",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Variantes e predefinições",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "9wp1M95aGBBzhoYmo42uYQ==": {
+      "description": "Docs page description — Prop-driven style branches with defaults.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Ramificações de estilo orientadas por prop com padrões.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "qgNyZljOOXPrtCG6CowzcQ==": {
+      "description": "Docs page title — Compound variants",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Variantes compostas",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "Gyr/ek+pDKjvVslEqnwH2g==": {
+      "description": "Docs page description — Styles that apply when multiple variants match.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Estilos que se aplicam quando vários variants correspondem.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "ZANgbkXCmtAcl59/FxiNqQ==": {
+      "description": "Docs content — Compound blocks target a slot and only emit when…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Os blocos compostos têm como alvo um slot e só são emitidos quando cada variant listado corresponde ao props atual.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "bYYqOrmZqbWYmYrTw6J0hg==": {
+      "description": "Docs page title — States",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Estados",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "uVUReKTKAeQ2MDeg14xHJw==": {
+      "description": "Docs page description — Pseudo-classes, combinators, and group hover.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Pseudoclasses, combinadores e foco de grupo.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "SViHz9PzqixKJNdfuL36Ug==": {
+      "description": "Docs content — Selector lists expand per part. Whitespace after…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "As listas de seletores são expandidas por peça. O espaço em branco após & é significativo: `& .child` estiliza descendentes e `& > svg` filhos diretos, enquanto `&.active` permanece um composto no mesmo elemento.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "VxE9L7rDYKckjoNPHDKXNw==": {
+      "description": "Docs content — Group hover",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Hover de grupo",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "2//EyAmsUKN4RnhUXd4ESw==": {
+      "description": "Docs content — A slot block inside a state styles that slot whe…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Um bloco slot dentro de um estado estiliza que slot quando o proprietário corresponde - o padrão clássico de ícone reage ao passar o mouse sobre o botão:",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "AU8ghEouPhe6mckGvG+t2A==": {
+      "description": "Docs content — Compiles to .Button_root:hover .Button_icon { … …",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Compila para .Button_root:hover .Button_icon { … }. Funciona também com corpos variant; o alvo sempre corresponde à classe base do slot.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "14y6b98Ef94DODje2jekqw==": {
+      "description": "Docs page title — Responsive",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Responsivo",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "/1uF+02ojl8d86WsvcTeYg==": {
+      "description": "Docs page description — Breakpoint-driven variant overrides.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Substituições variant orientadas por ponto de interrupção.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "DFN9eTF1to/dSk3InnYrZg==": {
+      "description": "Docs content — Override variants per breakpoint from your app w…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Substitua variants por breakpoint do seu aplicativo pelo objeto props:",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "YkeV77p2eqE+3OFZzUnRhg==": {
+      "description": "Docs page title — Container queries",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Container queries",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "gWjJ/Fv+bQvGZOqd9LiAzw==": {
+      "description": "Docs page description — Layout that responds to container width, not vie…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Layout que responde à largura do contêiner, não à janela de visualização.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "lyVbcdlWIkttkH47lN2Pig==": {
+      "description": "Docs content — Container props use a $ prefix. The root slot ge…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Contêiner props use um prefixo $. O root slot obtém container-type: inline-size automaticamente.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "8hJheC1Y17HqJIfsDJNOVw==": {
+      "description": "Docs page title — Styles",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Estilos",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "v3yG42dmMYP4211L2Jp91g==": {
+      "description": "Docs page description — Standalone exported classes — no component cerem…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Aulas exportadas independentes — sem cerimônia de componentes.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "Z/1HOWVbLEvbAzJ5eGSFFQ==": {
+      "description": "Docs content — Not everything is a component. A style declarati…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Nem tudo é um componente. Uma declaração de estilo é compilada em uma única classe de hash e a exporta como uma constante de string simples — ideal para utilitários únicos, auxiliares de layout e estilos de nível de página.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "eCwXz5ZRPgDmXgAMGs/CJQ==": {
+      "description": "Docs content — Styles support declarations, use, and &-states —…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Os estilos suportam declarações, use e &-states - mas não slots ou variants. Quando um estilo crescer variants, transforme-o em um componente. Os estilos são emitidos após os componentes do CSS, portanto, um estilo composto vence a cascata.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "pNEVwFhx0w2VFe7iRdSyRw==": {
+      "description": "Docs page title — Local tokens",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Tokens locais",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "nPgmK+mnJazkKWRLo5xZZQ==": {
+      "description": "Docs page description — Component-scoped tokens that shadow the theme.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "tokens com escopo de componente que sombreia o theme.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "JVkvv5Hc1iEZOvGPtQdfOg==": {
+      "description": "Docs content — A tokens block inside a component declares value…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Um bloco tokens dentro de um componente declara valores visíveis apenas para aquele componente. As pesquisas verificam primeiro o componente tokens, depois o arquivo e o theme compartilhado - mesma sintaxe group.name, sem novo estilo de referência.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "BhFbnE4oZzB1Z0oxDTeWwg==": {
+      "description": "Docs content — Local tokens are compile-time constants: they in…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "tokens locais são constantes em tempo de compilação: elas se inserem em literais mesmo quando theme modes estão ativos, nunca se tornam variáveis ​​CSS e nunca vazam para outros componentes, exportações ou catálogo de tokens. Substituições de Mode (@dark) não são permitidas dentro do componente tokens - os valores modificados pertencem ao theme.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "0SLDTtKHOE6QfmEQgywBTQ==": {
+      "description": "Docs page title — Keyframes",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Quadros-chave",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "CoSnghlr2H1tpNpij86zZQ==": {
+      "description": "Docs page description — Named animations referenced from components.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Animações nomeadas referenciadas em componentes.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "2iV1pVNhOQs0D8elCsTo7Q==": {
+      "description": "Docs page title — Token docs",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Documentação de tokens",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "gPOTQh/pCd9aes8jnUcStw==": {
+      "description": "Docs page description — Document tokens for designers and developers.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Documento tokens para designers e desenvolvedores.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "kszvYOGaxgivx6iaDCiM2g==": {
+      "description": "Docs content — Doc strings appear in LSP hover and in generated…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "As strings de documentos aparecem no foco LSP e nos catálogos de tokens gerados via arvia gen --docs.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "G3U0fl4ddd15WgjX/Byveg==": {
+      "description": "Docs page title — Packages",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Pacotes",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "o/TRn/nTbC5J5I+h5natiw==": {
+      "description": "Docs page description — npm packages under @arviahq.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "npm pacotes em @arviahq.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "aXkirpe3OwLHhDCCkJlVOA==": {
+      "description": "Docs content — Install @arviahq/vite-plugin-react for React + V…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Instale @arviahq/vite-plugin-react para projetos React + Vite ou @arviahq/vite-plugin-preact para Preact + Vite. O compilador e o plugin TypeScript são independentes de estrutura - o futuro @arviahq/vite-plugin-vue irá reutilizá-los.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "DxBx9/IZ6PVXiylzFbsYTw==": {
+      "description": "Docs list item — @arviahq/vite-plugin-react — React + Vite (Vite …",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "@arviahq/vite-plugin-react — React + Vite (plug-in Vite + arvia CLI)",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "IbWIuM03oO21kB4T/vHIJw==": {
+      "description": "Docs list item — @arviahq/vite-plugin-preact — Preact + Vite (Vit…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "@arviahq/vite-plugin-preact — Preact + Vite (plug-in Vite + arvia CLI)",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "fPbHtieQH9Y8Yikjz8Go7g==": {
+      "description": "Docs list item — @arviahq/typescript-plugin — tsconfig plugin + a…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "@arviahq/typescript-plugin — plugin tsconfig + arvia-tsc",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "2SOxgAmSeG649l6suOxveg==": {
+      "description": "Docs list item — @arviahq/compiler — lexer, parser, checker, code…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "@arviahq/compiler — lexer, analisador, verificador, geração de código",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "m/lYxVQ4sp335COEJ4P8UQ==": {
+      "description": "Docs list item — @arviahq/vite-plugin — framework-agnostic Vite i…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "@arviahq/vite-plugin — integração Vite independente de estrutura",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "CoqjvsQH7Tt7/gSVthI/ng==": {
+      "description": "Docs list item — @arviahq/language-server — LSP for editors",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "@arviahq/language-server — LSP para editores",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "fy+nQrAuvDfEZmvRQPG7GA==": {
+      "description": "Docs page title — Vite plugin",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Plugin Vite",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "q8rjcItYCM6lV1qE94Dxyw==": {
+      "description": "Docs page description — Compile .arv files at build time with HMR.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Compile arquivos .arv em tempo de construção com HMR.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "UXaEHIonqGALoY7vQUgAxw==": {
+      "description": "Docs content — The Arvia compiler integration is the same for e…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "A integração do compilador Arvia é a mesma para todos os frameworks — apenas o plugin JSX em sua configuração Vite é diferente.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "8QjaT4j7N6/qsbLsaAlBHQ==": {
+      "description": "Docs list item — Compiles each .arv import to JS + extracted CSS",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Compila cada importação .arv para JS + CSS extraído",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "+bDeay1DlV4gq+j5Ej2BYA==": {
+      "description": "Docs list item — Theme edits trigger full reload; style-only edit…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Theme edições acionam recarga completa; edições somente de estilo hot-swap CSS",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "V1lRN0GlTxzHq22TYaPjug==": {
+      "description": "Docs list item — Phantom .arv.css modules integrate with Vite's C…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Módulos Phantom .arv.css integram-se ao pipeline CSS de Vite",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "iQV79lQU6hUHq7KsAUlxqg==": {
+      "description": "Docs page title — CLI",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "CLI",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "m8muyWkNlmI6NnM5XpH4Mg==": {
+      "description": "Docs page description — Generate types and docs without running Vite.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Gere tipos e documentos sem executar Vite.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "WYrLmkva6DtiB16NX7YIIQ==": {
+      "description": "Docs page title — Language server",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Servidor de linguagem",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "lOAx4lVQ4TqlLa5vB5wJbQ==": {
+      "description": "Docs page description — Editor intelligence for .arv files.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Inteligência do editor para arquivos .arv.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "Xp6F8AHEvx1g6n7IxpaVcg==": {
+      "description": "Docs list item — Diagnostics for syntax and type errors",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Diagnóstico para erros de sintaxe e tipo",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "EMmLSA6Ybod3wSMv7SkW6Q==": {
+      "description": "Docs list item — Completion for tokens, variants, and keywords",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Conclusão para tokens, variants e palavras-chave",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "dvWKhGHwUGE1mzHBf4O+xA==": {
+      "description": "Docs list item — Hover showing token values and doc strings",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Passe o mouse mostrando valores de token e strings de documentos",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "GDA9emr1YpUgGUZZQD0baw==": {
+      "description": "Docs list item — VS Code extension starts the server automaticall…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "A extensão VS Code inicia o servidor automaticamente",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "NmIqRXzytmCjiIUlIWgKeg==": {
+      "description": "Docs content — TypeScript variant props are provided by @arviah…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "TypeScript variant props são fornecidos por @arviahq/typescript-plugin como declarações de módulo virtual - nenhum arquivo .d.ts no disco é necessário durante o desenvolvimento.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "h/uNCAZPsfUByzb5xNIgWQ==": {
+      "description": "Docs page title — Storybook",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Storybook",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "Atsmq9+kKlVjerMXzuQlPw==": {
+      "description": "Docs page description — Auto-generate stories from component variants.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Gere histórias automaticamente a partir do componente variants.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "G2KIylUqX49CA99SQRPU8w==": {
+      "description": "Docs content — The generator reads variants, defaults, and slot…",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "O gerador lê variants, padrões e slots para produzir histórias CSF. Execute pnpm demo:storybook no monorepo para vê-lo em ação.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "Uw+Hn+D8zivSK3BVn+K1VQ==": {
+      "description": "Docs page title — Theme tokens",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Tokens de tema",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "gQcJWotlYqmU3pT5nS0pMg==": {
+      "description": "Docs page description — Named design tokens in groups.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Design nomeado tokens em grupos.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "3QH5jvX1t0I64K7x6ofGeA==": {
+      "description": "Docs page description — Light and dark with @dark overrides.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Claro e escuro com substituições @dark.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "t0Wxxbu4y4zZK+jwgfyR9w==": {
+      "description": "Docs page description — doc metadata on tokens.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "doc metadados em tokens.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "yIsUjsOANo/Dzfqlw4XmlQ==": {
+      "description": "Docs page description — Document-level rules.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Regras em nível de documento.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "8aFxr7VnPSBTpSBfqva5KA==": {
+      "description": "Docs page description — Composable style fragments.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Fragmentos de estilo combináveis.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "3RxGp7B68T4zje5OICE74Q==": {
+      "description": "Docs page title — Implicit root",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Root implícito",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "fX6PBUna39OIcFNPOIDicA==": {
+      "description": "Docs page description — Top-level declarations become root styles.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "As declarações de nível superior tornam-se estilos root.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "JLGVECwsNM+E5baVWHRgDA==": {
+      "description": "Docs page description — Named parts of a component.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Partes nomeadas de um componente.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "S6sDqwsKqic+9N/rHnCVdw==": {
+      "description": "Docs page title — Variants",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Variantes",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "tUucmuMMKKeqkC1ip31mvw==": {
+      "description": "Docs page description — Prop-driven style branches.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Ramos de estilo acionados por suporte.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "OZkvHNLAKb7ulE7Lgpddzw==": {
+      "description": "Docs page description — Multi-variant rules.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Regras multi-variant.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "9464Q6s1kJaa7ykj2mt8AQ==": {
+      "description": "Docs page description — Pseudo-class styles.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Estilos de pseudoclasse.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "GANBxiPw/HfUNjLNVFW0Yg==": {
+      "description": "Docs page description — Breakpoint overrides.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Substituições de ponto de interrupção.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "0sdXMm0uoa/UsONF8CiQMg==": {
+      "description": "Docs page description — Container-width layout.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Layout da largura do contêiner.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "by54RdClnAHBYU4bmFK/Ng==": {
+      "description": "Docs page description — Named animations.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Animações nomeadas.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "0WabqDVQpTvkr6jrVtNE0Q==": {
+      "description": "Docs page description — Exported one-class utilities.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Utilitários de classe única exportados.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "tvqNVaz7/DEKbxj7lT7LWQ==": {
+      "description": "Docs page description — Component-scoped values.",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Valores com escopo de componente.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "TYZNxz7HQL0JUOC3pJa+FQ==": {
+      "description": "Open docs search dialog",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Pesquisar na documentação",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "ctj2N04t0oT5EMQrV+Moag==": {
+      "description": "Docs search trigger label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Pesquisar",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "oVYyiefs16+rF3x+8Pxgcw==": {
+      "description": "Docs search dialog aria label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Pesquisar na documentação",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "kUTt5uz0YeZviOL/p1EY0Q==": {
+      "description": "Docs search input placeholder",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Pesquisar na documentação…",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "waf3Rn/gP91C9saVMWclfw==": {
+      "description": "Docs search empty state",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Sem resultados para {query}",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "EirulVjg8Ny7LN3nrr2cUg==": {
+      "description": "Docs search idle hint",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Escreva para pesquisar nos docs",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "nHQNvXIKSAeJfmPgjBYpHQ==": {
+      "description": "Playground output tab label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "pré-visualização",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "c5jEGOrXU2/BF4n7yX7SHw==": {
+      "description": "Playground output tab label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "css",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "1erOTs+MLvYZmGiSZZHAjQ==": {
+      "description": "Playground output tab label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "tipos",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "jmxCw2DOh4cxVh0m1+f0lw==": {
+      "description": "Playground preview button label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Clique em mim",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "Xed/MRoryGN+LI1ClIP+qQ==": {
+      "description": "Playground preview placeholder text",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Luís argüia à Júlia que brações, fé, chá, óxido, pôr, zângão",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "1kZGNHLJ9lOVan43/ZU6aw==": {
+      "description": "Playground empty preview hint",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "defina um componente ou estilo para o pré-visualizar",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "yMvzH+XwfdQQRNIzNZS9yA==": {
+      "description": "Playground editor header label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "editável",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "AcKvGU/RXsOgoUebiR/UMw==": {
+      "description": "Playground output pane header",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "saída",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "4SGVwx+WG6Gjxc5QLtk+eA==": {
+      "description": "Playground generated App.tsx placeholder comment",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "// defina um componente ou estilo para ver a sua utilização",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "SX2uWTTbx7imUlxTOC6nnw==": {
+      "description": "Language selector aria label",
+      "status": "translated",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Linguagem",
           "variations": {}
         }
       ],

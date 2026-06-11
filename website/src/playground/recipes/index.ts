@@ -1,3 +1,4 @@
+import { fbt } from "fbtee";
 import compoundSource from "./compound.arv?raw";
 import containerSource from "./container.arv?raw";
 import implicitRootSource from "./implicit-root.arv?raw";
@@ -19,43 +20,85 @@ export type RecipeEntry = {
   source: string;
 };
 
-export const RECIPES: RecipeEntry[] = [
-  { id: "tokens", file: "tokens.arv", title: "Theme tokens", source: tokensSource },
-  {
-    id: "implicit-root",
-    file: "implicit-root.arv",
-    title: "Implicit root slot",
-    source: implicitRootSource,
-  },
-  { id: "slots", file: "slots.arv", title: "Slots", source: slotsSource },
-  { id: "variants", file: "variants.arv", title: "Variants & defaults", source: variantsSource },
-  { id: "compound", file: "compound.arv", title: "Compound variants", source: compoundSource },
-  { id: "states", file: "states.arv", title: "Pseudo states", source: statesSource },
-  { id: "use-recipe", file: "use-recipe.arv", title: "use recipe", source: useRecipeSource },
-  {
-    id: "recipe-nested",
-    file: "recipe-nested.arv",
-    title: "Nested recipes",
-    source: recipeNestedSource,
-  },
-  { id: "keyframes", file: "keyframes.arv", title: "Keyframes", source: keyframesSource },
-  {
-    id: "style-decl",
-    file: "style-decl.arv",
-    title: "Styles (exported class)",
-    source: styleDeclSource,
-  },
-  {
-    id: "local-tokens",
-    file: "local-tokens.arv",
-    title: "Local tokens",
-    source: localTokensSource,
-  },
-  { id: "responsive", file: "responsive.arv", title: "Responsive", source: responsiveSource },
-  {
-    id: "container",
-    file: "container.arv",
-    title: "Container queries",
-    source: containerSource,
-  },
-];
+export function getRecipes(): RecipeEntry[] {
+  return [
+    {
+      id: "tokens",
+      file: "tokens.arv",
+      title: fbt("Theme tokens", "Playground recipe title"),
+      source: tokensSource,
+    },
+    {
+      id: "implicit-root",
+      file: "implicit-root.arv",
+      title: fbt("Implicit root slot", "Playground recipe title"),
+      source: implicitRootSource,
+    },
+    {
+      id: "slots",
+      file: "slots.arv",
+      title: fbt("Slots", "Playground recipe title"),
+      source: slotsSource,
+    },
+    {
+      id: "variants",
+      file: "variants.arv",
+      title: fbt("Variants & defaults", "Playground recipe title"),
+      source: variantsSource,
+    },
+    {
+      id: "compound",
+      file: "compound.arv",
+      title: fbt("Compound variants", "Playground recipe title"),
+      source: compoundSource,
+    },
+    {
+      id: "states",
+      file: "states.arv",
+      title: fbt("Pseudo states", "Playground recipe title"),
+      source: statesSource,
+    },
+    {
+      id: "use-recipe",
+      file: "use-recipe.arv",
+      title: fbt("use recipe", "Playground recipe title"),
+      source: useRecipeSource,
+    },
+    {
+      id: "recipe-nested",
+      file: "recipe-nested.arv",
+      title: fbt("Nested recipes", "Playground recipe title"),
+      source: recipeNestedSource,
+    },
+    {
+      id: "keyframes",
+      file: "keyframes.arv",
+      title: fbt("Keyframes", "Playground recipe title"),
+      source: keyframesSource,
+    },
+    {
+      id: "style-decl",
+      file: "style-decl.arv",
+      title: fbt("Styles (exported class)", "Playground recipe title"),
+      source: styleDeclSource,
+    },
+    {
+      id: "local-tokens",
+      file: "local-tokens.arv",
+      title: fbt("Local tokens", "Playground recipe title"),
+      source: localTokensSource,
+    },
+    {
+      id: "responsive",
+      file: "responsive.arv",
+      title: fbt("Responsive", "Playground recipe title"),
+      source: responsiveSource,
+    },
+    {
+      id: "container",
+      file: "container.arv",
+      title: fbt("Container queries", "Playground recipe title"),
+      source: containerSource,
+    },
+  ];
+}

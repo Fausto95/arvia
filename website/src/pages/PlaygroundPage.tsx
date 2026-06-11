@@ -1,7 +1,7 @@
 import { Playground } from "../components/Playground";
 import { Heading, Page, Text } from "../components/ui";
 import { getThemeCss, getThemeEnv } from "../playground/theme-env";
-import { TEMPLATE_GROUPS } from "../playground/templates";
+import { getTemplateGroups } from "../playground/templates";
 
 export function PlaygroundPage() {
   const page = Page();
@@ -24,7 +24,7 @@ export function PlaygroundPage() {
         height={520}
         env={getThemeEnv()}
         baseCss={getThemeCss()}
-        templates={TEMPLATE_GROUPS}
+        templates={getTemplateGroups()}
       />
     </div>
   );

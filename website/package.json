@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "typecheck": "arvia-tsc --noEmit",
     "fbtee:collect": "fbtee collect --src src",
-    "fbtee:translate": "fbtee translate --translations translations/*.json --output-dir src/translations"
+    "fbtee:merge": "node scripts/merge-source-strings.mjs",
+    "fbtee:apply": "node scripts/apply-translations.mjs",
+    "fbtee:translate": "fbtee translate --translations translations/*.json --output-dir src/translations",
+    "i18n:sync": "pnpm fbtee:collect && pnpm fbtee:merge && pnpm fbtee:apply && pnpm fbtee:translate"
   },
   "dependencies": {
     "@arviahq/compiler": "workspace:*",

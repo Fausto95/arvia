@@ -145,7 +145,7 @@ function DocsSearchDialog() {
         if (event.target === event.currentTarget) closeSearch();
       }}
     >
-      <div className={styles.dialog} role="dialog" aria-modal="true" aria-label="Search documentation">
+      <div className={styles.dialog} role="dialog" aria-modal="true" aria-label={fbt("Search documentation", "Docs search dialog aria label")}>
         <div className={styles.field}>
           <span className={styles.icon}>
             <SearchIcon />

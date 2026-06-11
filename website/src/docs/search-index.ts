@@ -1,5 +1,5 @@
 import MiniSearch from "minisearch";
-import { DOCS, type DocBlock } from "./content";
+import { getDocs, type DocBlock } from "./content";
 
 function blockText(block: DocBlock): string {
   switch (block.type) {
@@ -14,21 +14,25 @@ function blockText(block: DocBlock): string {
   }
 }
 
-const docRecords = Object.values(DOCS).map((doc) => ({
-  id: doc.slug,
-  slug: doc.slug,
-  title: doc.title,
-  description: doc.description,
-  body: doc.blocks.map(blockText).join(" "),
-}));
+function buildIndex() {
+  const index = new MiniSearch({
+    idField: "id",
+    fields: ["title", "description", "body"],
+    storeFields: ["slug", "title", "description", "body"],
+  });
 
-export const docSearchIndex = new MiniSearch({
-  idField: "id",
-  fields: ["title", "description", "body"],
-  storeFields: ["slug", "title", "description", "body"],
-});
+  index.addAll(
+    Object.values(getDocs()).map((doc) => ({
+      id: doc.slug,
+      slug: doc.slug,
+      title: doc.title,
+      description: doc.description,
+      body: doc.blocks.map(blockText).join(" "),
+    })),
+  );
 
-docSearchIndex.addAll(docRecords);
+  return index;
+}
 
 export type DocSearchHit = {
   slug: string;
@@ -67,7 +71,9 @@ export function searchDocs(query: string, limit = 8): DocSearchHit[] {
   const trimmed = query.trim();
   if (!trimmed) return [];
 
-  return docSearchIndex
+  const index = buildIndex();
+
+  return index
     .search(trimmed, {
       fuzzy: 0.2,
       prefix: true,

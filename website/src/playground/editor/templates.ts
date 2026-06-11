@@ -1,14 +1,17 @@
+import { fbt } from "fbtee";
+
 export type EditorTemplate = {
   id: string;
   label: string;
   source: string;
 };
 
-export const EDITOR_TEMPLATES: EditorTemplate[] = [
-  {
-    id: "button",
-    label: "Button",
-    source: `component Button {
+export function getEditorTemplates(): EditorTemplate[] {
+  return [
+    {
+      id: "button",
+      label: fbt("Button", "Playground starter template label"),
+      source: `component Button {
   base {
     display: inline-flex;
     align-items: center;
@@ -28,11 +31,11 @@ export const EDITOR_TEMPLATES: EditorTemplate[] = [
   }
 }
 `,
-  },
-  {
-    id: "badge",
-    label: "Badge",
-    source: `component Badge {
+    },
+    {
+      id: "badge",
+      label: fbt("Badge", "Playground starter template label"),
+      source: `component Badge {
   display: inline-flex;
   padding: space.1 space.3;
   border-radius: radius.full;
@@ -53,11 +56,11 @@ export const EDITOR_TEMPLATES: EditorTemplate[] = [
   }
 }
 `,
-  },
-  {
-    id: "variants",
-    label: "Variants",
-    source: `component Pill {
+    },
+    {
+      id: "variants",
+      label: fbt("Variants", "Playground starter template label"),
+      source: `component Pill {
   base {
     display: inline-flex;
     padding: space.1 space.3;
@@ -88,11 +91,11 @@ export const EDITOR_TEMPLATES: EditorTemplate[] = [
   }
 }
 `,
-  },
-  {
-    id: "slots",
-    label: "Slots",
-    source: `component IconButton {
+    },
+    {
+      id: "slots",
+      label: fbt("Slots", "Playground starter template label"),
+      source: `component IconButton {
   base {
     display: inline-flex;
     align-items: center;
@@ -113,11 +116,11 @@ export const EDITOR_TEMPLATES: EditorTemplate[] = [
   }
 }
 `,
-  },
-  {
-    id: "responsive",
-    label: "Responsive",
-    source: `component ResponsiveButton {
+    },
+    {
+      id: "responsive",
+      label: fbt("Responsive", "Playground starter template label"),
+      source: `component ResponsiveButton {
   base {
     display: inline-flex;
     border: none;
@@ -144,7 +147,10 @@ export const EDITOR_TEMPLATES: EditorTemplate[] = [
   }
 }
 `,
-  },
-];
+    },
+  ];
+}
 
-export const DEFAULT_TEMPLATE = EDITOR_TEMPLATES[0]!;
+export function getDefaultTemplate(): EditorTemplate {
+  return getEditorTemplates()[0]!;
+}

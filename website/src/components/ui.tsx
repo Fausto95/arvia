@@ -141,7 +141,7 @@ export function SiteNav(props: {
             <DocsSearchTrigger variant="nav" />
           )}
           <select
-            aria-label="Language"
+            aria-label={fbt("Language", "Language selector aria label")}
             value={props.locale}
             onChange={(e) => props.onLocaleChange(e.target.value as SiteLocale)}
             className={controlClass}

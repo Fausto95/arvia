@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ElementType } from "react";
+import { fbt } from "fbtee";
 import { compile, LineIndex, type CompileResult, type ThemeEnv } from "@arviahq/compiler";
 import { CodeBlock } from "./code-block.arv";
 import { Playground as PlaygroundStyles } from "./playground.arv";
@@ -87,6 +88,23 @@ export function Playground(
   const outputBlock = CodeBlock();
   const siteTheme = useSiteTheme();
   const height = props.height ?? 300;
+  const previewLabel = fbt("preview", "Playground output tab label");
+  const cssLabel = fbt("css", "Playground output tab label");
+  const typesLabel = fbt("types", "Playground output tab label");
+  const outputTabs = [
+    { id: "preview" as const, label: previewLabel },
+    { id: "css" as const, label: cssLabel },
+    { id: "types" as const, label: typesLabel },
+  ];
+  const clickMe = fbt("Click me", "Playground preview button label");
+  const sampleText = fbt(
+    "The quick brown fox jumps over the lazy dog",
+    "Playground preview placeholder text",
+  );
+  const emptyPreviewHint = fbt(
+    "define a component or style to preview it",
+    "Playground empty preview hint",
+  );
 
   const firstTemplate = props.templates?.[0]?.items[0];
   const [source, setSource] = useState(firstTemplate?.source ?? DEFAULT_SOURCE);
@@ -118,7 +136,7 @@ export function Playground(
   const errors = result.diagnostics.filter((d) => d.severity === "error");
 
   // App.tsx follows the compiled component until the user edits it by hand.
-  const tsx = editedTsx ?? usageSnippet(meta, css);
+  const tsx = editedTsx ?? usageSnippet(meta, css, clickMe, sampleText);
 
   useEffect(() => {
     if (tab === "preview") return;
@@ -216,7 +234,9 @@ export function Playground(
               ))}
             </select>
           ) : (
-            <span style={{ marginLeft: "auto", fontWeight: 500 }}>editable</span>
+            <span style={{ marginLeft: "auto", fontWeight: 500 }}>
+              {fbt("editable", "Playground editor header label")}
+            </span>
           )}
         </div>
         <div className={editorBlock.body} style={{ overflow: "hidden" }}>
@@ -255,17 +275,17 @@ export function Playground(
       <div className={outputBlock.root} style={{ margin: 0 }}>
         <div className={outputBlock.header}>
           {dotsOf(outputBlock)}
-          output
+          {fbt("output", "Playground output pane header")}
           <span className={pg.tabs}>
-            {(["preview", "css", "types"] as const).map((name) => (
+            {outputTabs.map(({ id, label }) => (
               <button
-                key={name}
+                key={id}
                 type="button"
                 className={pg.tab}
-                data-active={tab === name}
-                onClick={() => setTab(name)}
+                data-active={tab === id}
+                onClick={() => setTab(id)}
               >
-                {name}
+                {label}
               </button>
             ))}
           </span>
@@ -273,7 +293,14 @@ export function Playground(
         {tab === "preview" ? (
           <div className={pg.preview} style={{ height }}>
             <style>{props.baseCss ? `${props.baseCss}\n${css}` : css}</style>
-            <LivePreview meta={meta} tsx={tsx} css={css} />
+            <LivePreview
+              meta={meta}
+              tsx={tsx}
+              css={css}
+              sampleText={sampleText}
+              emptyHint={emptyPreviewHint}
+              clickMe={clickMe}
+            />
           </div>
         ) : (
           <div className={outputBlock.body} style={{ margin: 0 }}>
@@ -307,14 +334,24 @@ function childTagFor(slot: string): string {
 }
 
 /** How you'd consume the compiled component from React. */
-function usageSnippet(meta: CompileResult["meta"], css: string): string {
+function usageSnippet(
+  meta: CompileResult["meta"],
+  css: string,
+  clickMe: string,
+  sampleText: string,
+): string {
   const component = meta.components[0];
   if (!component) {
     const style = meta.styles[0];
-    if (!style) return "// define a component or style to see its usage";
+    if (!style) {
+      return fbt(
+        "// define a component or style to see its usage",
+        "Playground generated App.tsx placeholder comment",
+      );
+    }
     return `import { ${style.name} } from "./playground.arv";
 
-<p className={${style.name}}>The quick brown fox jumps over the lazy dog</p>;
+<p className={${style.name}}>${sampleText}</p>;
 `;
   }
 
@@ -326,11 +363,11 @@ function usageSnippet(meta: CompileResult["meta"], css: string): string {
 
   const tag = previewTagFor(css);
   const childSlots = component.slots.filter((s) => s !== "root");
-  const rootText = childSlots.some((s) => s !== "icon") ? "" : "\n  Click me";
+  const rootText = childSlots.some((s) => s !== "icon") ? "" : `\n  ${clickMe}`;
   const children = childSlots
     .map((slot) => {
       const t = childTagFor(slot);
-      return `\n  <${t} className={styles.${slot}}>${slotSampleText(slot, "Click me")}</${t}>`;
+      return `\n  <${t} className={styles.${slot}}>${slotSampleText(slot, clickMe)}</${t}>`;
     })
     .join("");
 
@@ -394,10 +431,16 @@ function LivePreview({
   meta,
   tsx,
   css,
+  sampleText,
+  emptyHint,
+  clickMe,
 }: {
   meta: CompileResult["meta"];
   tsx: string;
   css: string;
+  sampleText: string;
+  emptyHint: string;
+  clickMe: string;
 }) {
   const component = meta.components[0];
   if (!component) {
@@ -406,12 +449,12 @@ function LivePreview({
       const text = tsx.match(/>([^<{]+)</)?.[1]?.trim();
       return (
         <p className={style.className} style={{ margin: 0 }}>
-          {text || "The quick brown fox jumps over the lazy dog"}
+          {text || sampleText}
         </p>
       );
     }
     return (
-      <span style={{ opacity: 0.6, fontSize: 13 }}>define a component or style to preview it</span>
+      <span style={{ opacity: 0.6, fontSize: 13 }}>{emptyHint}</span>
     );
   }
 
@@ -506,8 +549,8 @@ function LivePreview({
       component.name,
       {},
       defaultTag,
-      defaultRootText(component.name),
-      defaultChildren(component.name),
+      defaultRootText(clickMe),
+      defaultChildren(clickMe),
     );
   }
   return (
@@ -517,8 +560,8 @@ function LivePreview({
           value,
           { [firstVariant.name]: value },
           defaultTag,
-          defaultRootText(value),
-          defaultChildren(value),
+          defaultRootText(clickMe),
+          defaultChildren(clickMe),
         ),
       )}
     </>
