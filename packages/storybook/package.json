@@ -1,6 +1,6 @@
 {
   "name": "@arviahq/storybook",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Generate Storybook CSF stories from .arv component metadata.",
   "homepage": "https://github.com/Fausto95/arvia#readme",
   "bugs": {

@@ -1,6 +1,6 @@
 {
   "name": "@arviahq/vite-plugin-react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Arvia for React + Vite — compile .arv design system files with HMR and the arvia CLI.",
   "homepage": "https://github.com/Fausto95/arvia#readme",
   "bugs": {
