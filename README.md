@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="Arvia — the design system compiler for React" width="100%" />
+  <img src="assets/banner.svg" alt="Arvia — the design system compiler" width="100%" />
 </p>
 
 # Arvia
 
-**A design system compiler for React.**
+**A framework-agnostic design system compiler.**
 
 Write `.arv` files — themes, tokens, recipes, components — and compile them to optimized CSS and typed TypeScript APIs. Zero runtime styling cost.
 
@@ -38,6 +38,10 @@ Then open [localhost:5173](http://localhost:5173) — start at **Docs → Introd
 
 ## Install
 
+Arvia ships framework-specific Vite entrypoints. Pick React or Preact:
+
+### React
+
 ```bash
 npm install -D @arviahq/vite-plugin-react
 ```
@@ -50,6 +54,23 @@ import { arvia } from "@arviahq/vite-plugin-react";
 
 export default defineConfig({
   plugins: [arvia({ theme: "src/theme.arv" }), react()],
+});
+```
+
+### Preact
+
+```bash
+npm install -D @arviahq/vite-plugin-preact @preact/preset-vite preact
+```
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import preact from "@preact/preset-vite";
+import { arvia } from "@arviahq/vite-plugin-preact";
+
+export default defineConfig({
+  plugins: [arvia({ theme: "src/theme.arv" }), preact()],
 });
 ```
 
@@ -69,7 +90,8 @@ Or in VS Code: **Extensions → ⋯ → Install from VSIX…** Works in Cursor a
 
 | Package                                                  | Install? | Purpose                                             |
 | -------------------------------------------------------- | -------- | --------------------------------------------------- |
-| `@arviahq/vite-plugin-react`                             | **yes**  | Vite plugin, CLI, TypeScript integration            |
+| `@arviahq/vite-plugin-react`                             | **yes**  | React + Vite entrypoint (plugin, CLI, TypeScript)   |
+| `@arviahq/vite-plugin-preact`                            | **yes**  | Preact + Vite entrypoint (plugin, CLI, TypeScript)  |
 | `@arviahq/compiler`                                      |          | Core compiler                                       |
 | `@arviahq/language-server`                               |          | LSP for `.arv` files                                |
 | `@arviahq/storybook`                                     |          | Storybook story generator                           |

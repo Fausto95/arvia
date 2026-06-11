@@ -61,7 +61,7 @@ export const DOCS: Record<string, DocSection> = {
     blocks: [
       {
         type: "p",
-        text: "Arvia is a design system compiler for React. You write .arv files that describe themes, tokens, recipes, and components — the compiler emits optimized CSS and typed TypeScript APIs with zero runtime styling cost.",
+        text: "Arvia is a framework-agnostic design system compiler. You write .arv files that describe themes, tokens, recipes, and components — the compiler emits optimized CSS and typed TypeScript APIs with zero runtime styling cost. Use the generated APIs from React, Preact, or any JSX framework.",
       },
       {
         type: "p",
@@ -97,16 +97,16 @@ const styles = Button({ size: "lg", tone: "primary" });
   installation: {
     title: "Installation",
     slug: "installation",
-    description: "Add Arvia to a Vite + React project.",
+    description: "Add Arvia to a Vite project (React or Preact).",
     blocks: [
+      {
+        type: "h2",
+        text: "React",
+      },
       {
         type: "code",
         label: "terminal",
         code: `npm install -D @arviahq/vite-plugin-react`,
-      },
-      {
-        type: "h2",
-        text: "Vite config",
       },
       {
         type: "code",
@@ -119,6 +119,29 @@ export default defineConfig({
   plugins: [
     arvia({ theme: "src/theme.arv" }),
     react(),
+  ],
+});`,
+      },
+      {
+        type: "h2",
+        text: "Preact",
+      },
+      {
+        type: "code",
+        label: "terminal",
+        code: `npm install -D @arviahq/vite-plugin-preact @preact/preset-vite preact`,
+      },
+      {
+        type: "code",
+        label: "vite.config.ts",
+        code: `import { defineConfig } from "vite";
+import preact from "@preact/preset-vite";
+import { arvia } from "@arviahq/vite-plugin-preact";
+
+export default defineConfig({
+  plugins: [
+    arvia({ theme: "src/theme.arv" }),
+    preact(),
   ],
 });`,
       },
@@ -190,7 +213,7 @@ export default defineConfig({
       },
       {
         type: "h2",
-        text: "4. Use in React",
+        text: "4. Use in your app",
       },
       {
         type: "code",
@@ -343,7 +366,7 @@ component Card {
   components: {
     title: "Components",
     slug: "components",
-    description: "Slots, base styles, and typed React APIs.",
+    description: "Slots, base styles, and typed component APIs.",
     blocks: [
       {
         type: "code",
@@ -367,7 +390,7 @@ component Card {
       },
       {
         type: "code",
-        label: "React",
+        label: "App.tsx",
         code: `const s = Button();
 <button className={s.root}>
   <span className={s.icon}>★</span>
@@ -431,11 +454,11 @@ component Card {
       },
       {
         type: "h2",
-        text: "Using slots from React",
+        text: "Using slots in JSX",
       },
       {
         type: "code",
-        label: "React",
+        label: "App.tsx",
         code: `const styles = Button({ size: "lg" });
 
 <button className={styles.root}>
@@ -588,7 +611,7 @@ component Button {
       },
       {
         type: "p",
-        text: "Override variants per breakpoint from React with object props:",
+        text: "Override variants per breakpoint from your app with object props:",
       },
       {
         type: "code",
@@ -776,8 +799,19 @@ component Box {
     description: "Compile .arv files at build time with HMR.",
     blocks: [
       {
+        type: "p",
+        text: "The Arvia compiler integration is the same for every framework — only the JSX plugin in your Vite config differs.",
+      },
+      {
+        type: "h2",
+        text: "React",
+      },
+      {
         type: "code",
-        code: `import { arvia } from "@arviahq/vite-plugin-react";
+        label: "vite.config.ts",
+        code: `import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { arvia } from "@arviahq/vite-plugin-react";
 
 export default defineConfig({
   plugins: [
@@ -786,6 +820,27 @@ export default defineConfig({
       dts: false,              // optional: emit .d.ts siblings
     }),
     react(),
+  ],
+});`,
+      },
+      {
+        type: "h2",
+        text: "Preact",
+      },
+      {
+        type: "code",
+        label: "vite.config.ts",
+        code: `import { defineConfig } from "vite";
+import preact from "@preact/preset-vite";
+import { arvia } from "@arviahq/vite-plugin-preact";
+
+export default defineConfig({
+  plugins: [
+    arvia({
+      theme: "src/theme.arv",
+      dts: false,
+    }),
+    preact(),
   ],
 });`,
       },
@@ -862,7 +917,7 @@ export type Example = {
   title: string;
   description: string;
   arv: string;
-  react?: string;
+  usage?: string;
 };
 
 export const EXAMPLES: Example[] = [
@@ -967,7 +1022,7 @@ export const EXAMPLES: Example[] = [
     arv: `responsive {
   md { size: lg; }
 }`,
-    react: `Button({ size: { initial: "sm", md: "lg" } });`,
+    usage: `Button({ size: { initial: "sm", md: "lg" } });`,
   },
   {
     id: "container",
@@ -976,7 +1031,7 @@ export const EXAMPLES: Example[] = [
     arv: `container {
   wide { layout: row; }
 }`,
-    react: `Card({ layout: { initial: "stacked", $wide: "row" } });`,
+    usage: `Card({ layout: { initial: "stacked", $wide: "row" } });`,
   },
   {
     id: "keyframes",
@@ -995,7 +1050,7 @@ export const EXAMPLES: Example[] = [
   overflow: hidden;
   text-overflow: ellipsis;
 }`,
-    react: `import { truncate } from "./utils.arv";
+    usage: `import { truncate } from "./utils.arv";
 
 <p className={truncate}>Long text…</p>;`,
   },

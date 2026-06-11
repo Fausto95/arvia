@@ -103,7 +103,8 @@ export function SiteHero() {
         <p className={hero.subtitle}>
           Extend familiar CSS with first-class tokens, themes, variants, slots, and components.
           <br />
-          Compile to optimized CSS, generated types, and typed React APIs — zero runtime overhead.
+          Compile to optimized CSS, generated types, and typed component APIs — zero runtime
+          overhead.
         </p>
         <div className={hero.actions}>
           <RouterLinkBase to="/docs/quick-start" className={Button({ tone: "primary" }).root}>
@@ -262,7 +263,7 @@ export function ExampleCard(props: {
   title: string;
   description: string;
   arv: string;
-  react?: string;
+  usage?: string;
 }) {
   const stack = Stack({ gap: "3" });
   return (
@@ -272,7 +273,7 @@ export function ExampleCard(props: {
         <p className={Text({ tone: "muted", size: "sm" }).root}>{props.description}</p>
       </div>
       <Code label=".arv">{props.arv}</Code>
-      {props.react ? <Code label="React">{props.react}</Code> : null}
+      {props.usage ? <Code label="App.tsx">{props.usage}</Code> : null}
     </div>
   );
 }
