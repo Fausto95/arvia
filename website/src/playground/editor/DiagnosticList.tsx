@@ -9,7 +9,16 @@ export function DiagnosticList(props: { diagnostics: Diagnostic[] }) {
   }
 
   return (
-    <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+    <ul
+      style={{
+        margin: 0,
+        padding: 0,
+        listStyle: "none",
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+      }}
+    >
       {props.diagnostics.map((d, i) => (
         <li
           key={i}
@@ -22,7 +31,8 @@ export function DiagnosticList(props: { diagnostics: Diagnostic[] }) {
               d.severity === "error"
                 ? "color-mix(in srgb, var(--arvia-color-danger) 12%, transparent)"
                 : "color-mix(in srgb, var(--arvia-color-warning) 12%, transparent)",
-            color: d.severity === "error" ? "var(--arvia-color-danger)" : "var(--arvia-color-warning)",
+            color:
+              d.severity === "error" ? "var(--arvia-color-danger)" : "var(--arvia-color-warning)",
             border: `1px solid color-mix(in srgb, ${d.severity === "error" ? "var(--arvia-color-danger)" : "var(--arvia-color-warning)"} 25%, transparent)`,
           }}
         >

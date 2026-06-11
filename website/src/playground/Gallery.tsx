@@ -45,9 +45,7 @@ function GalleryButton(props: {
   responsive?: boolean;
 }) {
   const styles = DemoButton({
-    size: props.responsive
-      ? ({ initial: "sm", md: "md", lg: "lg" } as const)
-      : props.size,
+    size: props.responsive ? ({ initial: "sm", md: "md", lg: "lg" } as const) : props.size,
     tone: props.tone,
   });
   return (
@@ -110,10 +108,7 @@ export function Gallery() {
         </div>
       </Section>
 
-      <Section
-        title="Badge & status"
-        description="Tone variants in a notification-style row."
-      >
+      <Section title="Badge & status" description="Tone variants in a notification-style row.">
         <div className={row.root}>
           {BADGE_TONES.map((t) => (
             <span key={t} className={DemoBadge({ tone: t }).root}>
@@ -138,9 +133,7 @@ export function Gallery() {
 
       <Section title="Typography" description="Type scale driven by font tokens.">
         <div className={DemoStack({ gap: "2" }).root}>
-          <p className={DemoText({ size: "2xl", weight: "bold" }).root}>
-            Display scale (2xl)
-          </p>
+          <p className={DemoText({ size: "2xl", weight: "bold" }).root}>Display scale (2xl)</p>
           <p className={DemoText({ size: "xl", weight: "medium" }).root}>Heading xl</p>
           <p className={DemoText({ size: "lg" }).root}>Body large</p>
           <p className={DemoText({ size: "md" }).root}>Body default</p>
@@ -205,7 +198,10 @@ export function Gallery() {
           });
           return (
             <div>
-              <p className={DemoText({ size: "sm", tone: "muted" }).root} style={{ marginBottom: 12 }}>
+              <p
+                className={DemoText({ size: "sm", tone: "muted" }).root}
+                style={{ marginBottom: 12 }}
+              >
                 Width: {Math.round(containerWidth)}px
               </p>
               <div

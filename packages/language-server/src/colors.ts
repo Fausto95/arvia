@@ -6,6 +6,10 @@ import { walkValues } from "./walk.js";
 const HEX_RE = /^#(?:[0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/;
 const FN_RE = /^(rgba?|hsla?)\(([^)]*)\)$/;
 
+const to255 = (v: number) => Math.round(v * 255);
+const rgbChannel = (raw: string) =>
+  raw.endsWith("%") ? parseFloat(raw) / 100 : parseFloat(raw) / 255;
+
 /** Inline color swatches for literal color values (hex / rgb / hsl). */
 export function getDocumentColors(analysis: DocumentAnalysis): ColorInformation[] {
   const out: ColorInformation[] = [];
@@ -24,7 +28,6 @@ export function getColorPresentations(
   span: { start: number; end: number },
 ): ColorPresentation[] {
   void span;
-  const to255 = (v: number) => Math.round(v * 255);
   const hex2 = (v: number) => to255(v).toString(16).padStart(2, "0");
   const hex =
     color.alpha < 1
@@ -71,9 +74,7 @@ function parseHex(text: string): Color {
 }
 
 function parseRgbArgs(args: string[]): Color | null {
-  const channel = (raw: string) =>
-    raw.endsWith("%") ? parseFloat(raw) / 100 : parseFloat(raw) / 255;
-  const [r, g, b] = [channel(args[0]!), channel(args[1]!), channel(args[2]!)];
+  const [r, g, b] = [rgbChannel(args[0]!), rgbChannel(args[1]!), rgbChannel(args[2]!)];
   if ([r, g, b].some((v) => Number.isNaN(v))) return null;
   const alpha = args[3] !== undefined ? parseAlpha(args[3]) : 1;
   return { red: clamp01(r), green: clamp01(g), blue: clamp01(b), alpha };

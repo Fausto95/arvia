@@ -114,7 +114,7 @@ component X { base { background: color.primary; } }`;
       readFileOr,
     );
     const edits = Object.values(edit!.changes!)[0]!;
-    const texts = edits.map((e) => e.newText).sort();
+    const texts = edits.map((e) => e.newText).toSorted();
     // base entry + @dark override entry + alias ref + component ref
     expect(texts).toEqual(["brand", "brand", "color.brand", "color.brand"]);
   });

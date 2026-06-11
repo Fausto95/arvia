@@ -2,18 +2,15 @@
   "name": "@arviahq/vite-plugin-react",
   "version": "0.1.0",
   "description": "Arvia for React + Vite — compile .arv design system files with HMR and the arvia CLI.",
+  "homepage": "https://github.com/Fausto95/arvia#readme",
+  "bugs": {
+    "url": "https://github.com/Fausto95/arvia/issues"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Fausto95/arvia.git",
     "directory": "packages/vite-plugin-react"
-  },
-  "homepage": "https://github.com/Fausto95/arvia#readme",
-  "bugs": {
-    "url": "https://github.com/Fausto95/arvia/issues"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "bin": {
     "arvia": "./bin/arvia.mjs",
@@ -32,6 +29,9 @@
         "default": "./dist/index.mjs"
       }
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsdown",

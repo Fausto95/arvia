@@ -10,7 +10,7 @@ export function Recipes() {
 
   useEffect(() => {
     function onScroll() {
-      for (const recipe of [...RECIPES].reverse()) {
+      for (const recipe of RECIPES.toReversed()) {
         const el = document.getElementById(`recipe-${recipe.id}`);
         if (!el) continue;
         const rect = el.getBoundingClientRect();
@@ -59,8 +59,10 @@ export function Recipes() {
               padding: "8px 12px",
               borderRadius: 6,
               border: "none",
-              background: activeId === recipe.id ? "var(--arvia-color-surfaceRaised)" : "transparent",
-              color: activeId === recipe.id ? "var(--arvia-color-text)" : "var(--arvia-color-muted)",
+              background:
+                activeId === recipe.id ? "var(--arvia-color-surfaceRaised)" : "transparent",
+              color:
+                activeId === recipe.id ? "var(--arvia-color-text)" : "var(--arvia-color-muted)",
               fontWeight: activeId === recipe.id ? 500 : 400,
               fontSize: 14,
               cursor: "pointer",

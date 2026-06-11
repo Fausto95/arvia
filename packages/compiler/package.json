@@ -2,18 +2,15 @@
   "name": "@arviahq/compiler",
   "version": "0.1.0",
   "description": "Compiler for .arv design-system files: CSS, JS and TypeScript declaration generation.",
+  "homepage": "https://github.com/Fausto95/arvia#readme",
+  "bugs": {
+    "url": "https://github.com/Fausto95/arvia/issues"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Fausto95/arvia.git",
     "directory": "packages/compiler"
-  },
-  "homepage": "https://github.com/Fausto95/arvia#readme",
-  "bugs": {
-    "url": "https://github.com/Fausto95/arvia/issues"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "files": [
     "dist"
@@ -33,6 +30,9 @@
         "default": "./dist/index.cjs"
       }
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsdown",

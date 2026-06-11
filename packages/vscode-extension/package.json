@@ -3,19 +3,19 @@
   "displayName": "Arvia",
   "version": "0.2.0",
   "description": "Syntax highlighting, diagnostics, completion and hover for .arv design system files.",
+  "categories": [
+    "Programming Languages"
+  ],
+  "homepage": "https://github.com/Fausto95/arvia#readme",
+  "bugs": {
+    "url": "https://github.com/Fausto95/arvia/issues"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Fausto95/arvia.git",
     "directory": "packages/vscode-extension"
   },
-  "homepage": "https://github.com/Fausto95/arvia#readme",
-  "bugs": {
-    "url": "https://github.com/Fausto95/arvia/issues"
-  },
-  "categories": [
-    "Programming Languages"
-  ],
   "publisher": "arviahq",
   "main": "./dist/extension.cjs",
   "scripts": {

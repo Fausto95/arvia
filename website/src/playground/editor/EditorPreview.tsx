@@ -4,10 +4,7 @@ import { Text } from "../../components/text.arv";
 
 type PreviewModule = Record<string, (...args: unknown[]) => Record<string, string>>;
 
-export function EditorPreview(props: {
-  result: CompileResult | null;
-  themeCss: string;
-}) {
+export function EditorPreview(props: { result: CompileResult | null; themeCss: string }) {
   const [error, setError] = useState<string | null>(null);
   const [preview, setPreview] = useState<ReactNode>(null);
 

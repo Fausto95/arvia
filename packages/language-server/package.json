@@ -2,18 +2,15 @@
   "name": "@arviahq/language-server",
   "version": "0.1.0",
   "description": "Language Server Protocol implementation for .arv files.",
+  "homepage": "https://github.com/Fausto95/arvia#readme",
+  "bugs": {
+    "url": "https://github.com/Fausto95/arvia/issues"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Fausto95/arvia.git",
     "directory": "packages/language-server"
-  },
-  "homepage": "https://github.com/Fausto95/arvia#readme",
-  "bugs": {
-    "url": "https://github.com/Fausto95/arvia/issues"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "bin": {
     "arvia-language-server": "./bin/arvia-language-server.cjs"
@@ -31,6 +28,9 @@
       "require": "./dist/server.cjs"
     },
     "./dist/server.cjs": "./dist/server.cjs"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsdown",

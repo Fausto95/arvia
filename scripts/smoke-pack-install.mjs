@@ -66,10 +66,7 @@ if (!tsconfigText.includes("@arviahq/typescript-plugin")) {
 }
 
 fs.mkdirSync(path.join(app, "src"), { recursive: true });
-fs.writeFileSync(
-  path.join(app, "src", "theme.arv"),
-  `theme { color { primary = #635bff; } }\n`,
-);
+fs.writeFileSync(path.join(app, "src", "theme.arv"), `theme { color { primary = #635bff; } }\n`);
 fs.writeFileSync(
   path.join(app, "src", "button.arv"),
   `component Button { base { color: color.primary; padding: 8px; } }\n`,

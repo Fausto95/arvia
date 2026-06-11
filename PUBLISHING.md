@@ -13,11 +13,11 @@ Manual steps required before the first release (cannot be automated in CI setup 
 
 Add repository secrets (Settings → Secrets and variables → Actions):
 
-| Secret | Purpose |
-|--------|---------|
+| Secret      | Purpose                                            |
+| ----------- | -------------------------------------------------- |
 | `NPM_TOKEN` | Automation token with publish access to `@arviahq` |
-| `VSCE_PAT` | Visual Studio Marketplace publish token |
-| `OVSX_PAT` | (Optional) Open VSX publish token |
+| `VSCE_PAT`  | Visual Studio Marketplace publish token            |
+| `OVSX_PAT`  | (Optional) Open VSX publish token                  |
 
 ## 3. Visual Studio Marketplace publisher
 

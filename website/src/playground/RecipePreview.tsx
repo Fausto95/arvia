@@ -105,9 +105,7 @@ export function RecipePreview(props: { id: string }) {
       );
 
     case "local-tokens":
-      return (
-        <span className={RecipeLocalTokenChip().root}>space.pad = 6px (local)</span>
-      );
+      return <span className={RecipeLocalTokenChip().root}>space.pad = 6px (local)</span>;
 
     case "responsive":
       return (
