@@ -5,7 +5,6 @@
 ### Minor Changes
 
 - cd2d964: First public release under the `@arviahq` scope.
-
   - Design system compiler for `.arv` files (tokens, recipes, components, styles)
   - Vite plugin with HMR and `arvia` CLI
   - TypeScript virtual types via `@arviahq/typescript-plugin`

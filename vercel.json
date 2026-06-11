@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm run website:build",
+  "outputDirectory": "website/dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}

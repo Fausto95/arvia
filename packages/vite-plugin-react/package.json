@@ -34,6 +34,7 @@
     "access": "public"
   },
   "scripts": {
+    "prepublishOnly": "pnpm run build",
     "build": "tsdown",
     "dev": "tsdown --watch",
     "typecheck": "tsc --noEmit"

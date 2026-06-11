@@ -9,7 +9,7 @@
     "demo:storybook": "pnpm --filter demo storybook",
     "demo:docs": "pnpm --filter demo predocs",
     "website": "pnpm --filter website dev",
-    "website:build": "pnpm --filter website build",
+    "website:build": "pnpm --filter \"website...\" -r run build",
     "test": "vitest run",
     "typecheck": "pnpm -r typecheck",
     "lint": "oxlint",
@@ -35,7 +35,7 @@
     "node": ">=22.12.0"
   },
   "volta": {
-    "node": "20.19.0",
+    "node": "22.12.0",
     "pnpm": "9.1.2"
   },
   "packageManager": "pnpm@9.1.2"
