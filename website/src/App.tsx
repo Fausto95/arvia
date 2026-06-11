@@ -28,7 +28,7 @@ export function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/docs/:slug" element={<DocPage />} />
-        <Route path="/examples" element={<PlaygroundPage />} />
+        <Route path="/playground" element={<PlaygroundPage />} />
       </Routes>
     </SiteThemeProvider>
   );

@@ -57,7 +57,7 @@ export function SiteNav(props: { onThemeToggle: () => void; themeLabel: string }
           <RouterLink to="/docs/introduction" tone="muted">
             Docs
           </RouterLink>
-          <RouterLink to="/examples" tone="muted">
+          <RouterLink to="/playground" tone="muted">
             Playground
           </RouterLink>
           <a
@@ -109,7 +109,7 @@ export function SiteHero() {
           <RouterLinkBase to="/docs/quick-start" className={Button({ tone: "primary" }).root}>
             Get started
           </RouterLinkBase>
-          <RouterLinkBase to="/examples" className={Button({ tone: "surface" }).root}>
+          <RouterLinkBase to="/playground" className={Button({ tone: "surface" }).root}>
             Try playground
           </RouterLinkBase>
         </div>

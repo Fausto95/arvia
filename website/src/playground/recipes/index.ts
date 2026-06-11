@@ -59,5 +59,3 @@ export const RECIPES: RecipeEntry[] = [
     source: containerSource,
   },
 ];
-
-export type RecipePreviewProps = { id: string };

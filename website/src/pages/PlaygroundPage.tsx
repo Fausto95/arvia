@@ -1,47 +1,20 @@
-import { useState } from "react";
-import { Button, DocsShell, Heading, Text } from "../components/ui";
-import { Editor } from "../playground/editor/Editor";
-import { Gallery } from "../playground/Gallery";
-import { PlaygroundTabBar } from "../playground/playground-layout.arv";
-import { Recipes } from "../playground/Recipes";
-
-type Tab = "gallery" | "recipes" | "editor";
-
-function TabButton(props: { active: boolean; onClick: () => void; children: string }) {
-  const styles = Button({ tone: props.active ? "primary" : "ghost", size: "sm" });
-  return (
-    <button type="button" className={styles.root} onClick={props.onClick}>
-      {props.children}
-    </button>
-  );
-}
+import { Playground } from "../components/Playground";
+import { Heading, Page, Text } from "../components/ui";
+import { getThemeEnv } from "../playground/theme-env";
+import { TEMPLATE_GROUPS } from "../playground/templates";
 
 export function PlaygroundPage() {
-  const [tab, setTab] = useState<Tab>("gallery");
-  const tabBar = PlaygroundTabBar();
-
+  const page = Page();
   return (
-    <DocsShell>
+    <div className={page.root}>
       <header style={{ marginBottom: 32 }}>
         <h1 className={Heading({ level: "h1" }).root}>Playground</h1>
         <p className={Text({ tone: "muted", size: "lg" }).root}>
-          Interactive demos, language recipes, and a live <code>.arv</code> editor — every style
-          compiled at build time, zero runtime CSS.
+          Edit the <code>.arv</code> or <code>App.tsx</code> — the preview, CSS, and types compile
+          live in your browser. Load any demo from the select.
         </p>
-        <div className={tabBar.root} style={{ marginTop: 20 }}>
-          <TabButton active={tab === "gallery"} onClick={() => setTab("gallery")}>
-            Gallery
-          </TabButton>
-          <TabButton active={tab === "recipes"} onClick={() => setTab("recipes")}>
-            Recipes
-          </TabButton>
-          <TabButton active={tab === "editor"} onClick={() => setTab("editor")}>
-            Editor
-          </TabButton>
-        </div>
       </header>
-
-      {tab === "gallery" ? <Gallery /> : tab === "recipes" ? <Recipes /> : <Editor />}
-    </DocsShell>
+      <Playground height={520} env={getThemeEnv()} templates={TEMPLATE_GROUPS} />
+    </div>
   );
 }
