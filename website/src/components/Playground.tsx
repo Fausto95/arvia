@@ -46,7 +46,7 @@ component Button {
 }
 `;
 
-type OutputTab = "preview" | "css" | "types";
+type OutputTab = "preview" | "tsx" | "css" | "types";
 
 interface LastGood {
   css: string;
@@ -87,11 +87,13 @@ export function Playground() {
     };
   }, [source, siteTheme]);
 
+  const tsx = useMemo(() => usageSnippet(meta), [meta]);
+
   useEffect(() => {
     if (tab === "preview") return;
-    const code = tab === "css" ? css : dts;
+    const code = tab === "css" ? css : tab === "types" ? dts : tsx;
     let cancelled = false;
-    highlightCode(code || "/* empty */", tab === "css" ? "css" : "typescript", siteTheme)
+    highlightCode(code || "/* empty */", tab === "css" ? "css" : "tsx", siteTheme)
       .then((html) => {
         if (!cancelled) setOutputHtml(html);
       })
@@ -99,7 +101,7 @@ export function Playground() {
     return () => {
       cancelled = true;
     };
-  }, [tab, css, dts, siteTheme]);
+  }, [tab, css, dts, tsx, siteTheme]);
 
   const syncScroll = (event: React.UIEvent<HTMLTextAreaElement>) => {
     const target = event.currentTarget;
@@ -177,7 +179,7 @@ export function Playground() {
           {dotsOf(outputBlock)}
           output
           <span className={pg.tabs}>
-            {(["preview", "css", "types"] as const).map((name) => (
+            {(["preview", "tsx", "css", "types"] as const).map((name) => (
               <button
                 key={name}
                 type="button"
@@ -201,7 +203,9 @@ export function Playground() {
               {outputHtml ? (
                 <div dangerouslySetInnerHTML={{ __html: outputHtml }} />
               ) : (
-                <pre style={{ margin: 0, padding: 16 }}>{tab === "css" ? css : dts}</pre>
+                <pre style={{ margin: 0, padding: 16 }}>
+                  {tab === "css" ? css : tab === "types" ? dts : tsx}
+                </pre>
               )}
             </div>
           </div>
@@ -209,6 +213,35 @@ export function Playground() {
       </div>
     </div>
   );
+}
+
+/** How you'd consume the compiled component from React. */
+function usageSnippet(meta: CompileResult["meta"]): string {
+  const component = meta.components[0];
+  if (!component) {
+    const style = meta.styles[0];
+    if (!style) return "// define a component or style to see its usage";
+    return `import { ${style.name} } from "./playground.arv";
+
+<p className={${style.name}}>Hello</p>;
+`;
+  }
+
+  const variant = component.variants[0];
+  const props =
+    variant && variant.values.length > 0
+      ? `{ ${variant.name}: "${variant.values[variant.values.length - 1]}" }`
+      : "";
+  const icon = component.slots.includes("icon") ? `\n  <span className={styles.icon}>→</span>` : "";
+
+  return `import { ${component.name} } from "./playground.arv";
+
+const styles = ${component.name}(${props});
+
+<button className={styles.root}>
+  Click me${icon}
+</button>;
+`;
 }
 
 const emptyMeta: CompileResult["meta"] = {

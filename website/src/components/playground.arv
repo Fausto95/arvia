@@ -17,12 +17,13 @@ component Playground {
 
     editor {
       position: relative;
-      min-height: 380px;
+      height: 300px;
+      overflow: hidden;
 
       & pre {
         margin: 0;
         padding: space.4;
-        min-height: 380px;
+        height: 100%;
         overflow: hidden;
       }
     }
@@ -73,8 +74,7 @@ component Playground {
     }
 
     output {
-      min-height: 380px;
-      max-height: 480px;
+      height: 300px;
       overflow: auto;
     }
 
@@ -84,7 +84,7 @@ component Playground {
       align-items: center;
       justify-content: center;
       gap: space.4;
-      min-height: 380px;
+      height: 300px;
       padding: space.5;
       background: color.surface;
     }
