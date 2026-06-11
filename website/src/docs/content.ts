@@ -30,6 +30,7 @@ export const DOC_NAV: { section: string; items: { title: string; slug: string }[
       { title: "Recipes", slug: "recipes" },
       { title: "Styles", slug: "styles" },
       { title: "Components", slug: "components" },
+      { title: "Slots", slug: "slots" },
       { title: "Local tokens", slug: "local-tokens" },
       { title: "Variants & defaults", slug: "variants" },
       { title: "Compound variants", slug: "compound" },
@@ -372,6 +373,79 @@ component Card {
   <span className={s.icon}>★</span>
   <span className={s.label}>Save</span>
 </button>`,
+      },
+    ],
+  },
+
+  slots: {
+    title: "Slots",
+    slug: "slots",
+    description: "Named parts of a multi-element component, each with its own class.",
+    blocks: [
+      {
+        type: "code",
+        code: `component Button {
+  slots {
+    root {}
+    icon { flex-shrink: 0; }
+    label { font-weight: 500; }
+  }
+}`,
+      },
+      {
+        type: "p",
+        text: "The slots block declares a component's named parts. Declarations inside a slot are its base styles. Every component has a root slot — bare declarations at the top level or in base style it, so components without a slots block still export root.",
+      },
+      {
+        type: "h2",
+        text: "Styling slots from anywhere",
+      },
+      {
+        type: "code",
+        code: `component Button {
+  slots { root {} icon {} }
+
+  base {
+    display: inline-flex;
+    gap: space.2;
+    icon { flex-shrink: 0; }
+
+    &:hover {
+      icon { transform: translateX(3px); }
+    }
+  }
+
+  variants {
+    size {
+      lg {
+        font-size: font.lg;
+        icon { transform: scale(1.2); }
+      }
+    }
+  }
+}`,
+      },
+      {
+        type: "p",
+        text: "A nested slot block inside base, a variant value, a compound rule, or an &-state targets that slot when the surrounding condition applies — here the icon shifts on hover of the root and scales up for size: lg.",
+      },
+      {
+        type: "h2",
+        text: "Using slots from React",
+      },
+      {
+        type: "code",
+        label: "React",
+        code: `const styles = Button({ size: "lg" });
+
+<button className={styles.root}>
+  <span className={styles.icon}>★</span>
+  <span className={styles.label}>Save</span>
+</button>`,
+      },
+      {
+        type: "p",
+        text: "The component function returns one class per slot, with variant and compound classes already merged in. The generated types know every slot name, so styles.icno is a compile error.",
       },
     ],
   },

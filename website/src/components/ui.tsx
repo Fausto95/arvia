@@ -61,7 +61,7 @@ export function SiteNav(props: { onThemeToggle: () => void; themeLabel: string }
             Playground
           </RouterLink>
           <a
-            href="https://github.com"
+            href="https://github.com/Fausto95/arvia"
             className={Text({ size: "sm", tone: "muted" }).root}
             target="_blank"
             rel="noreferrer"
