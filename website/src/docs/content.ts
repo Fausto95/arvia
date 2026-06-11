@@ -754,12 +754,13 @@ component Box {
     blocks: [
       {
         type: "p",
-        text: "Install @arviahq/vite-plugin-react for React + Vite projects. The compiler and TypeScript plugin are framework-agnostic — future @arviahq/vite-plugin-vue will reuse them.",
+        text: "Install @arviahq/vite-plugin-react for React + Vite projects, or @arviahq/vite-plugin-preact for Preact + Vite. The compiler and TypeScript plugin are framework-agnostic — future @arviahq/vite-plugin-vue will reuse them.",
       },
       {
         type: "ul",
         items: [
-          "@arviahq/vite-plugin-react — primary install (Vite + arvia CLI)",
+          "@arviahq/vite-plugin-react — React + Vite (Vite plugin + arvia CLI)",
+          "@arviahq/vite-plugin-preact — Preact + Vite (Vite plugin + arvia CLI)",
           "@arviahq/typescript-plugin — tsconfig plugin + arvia-tsc",
           "@arviahq/compiler — lexer, parser, checker, code generation",
           "@arviahq/vite-plugin — framework-agnostic Vite integration",

@@ -20,6 +20,7 @@ const packages = [
   "typescript-plugin",
   "vite-plugin",
   "vite-plugin-react",
+  "vite-plugin-preact",
 ];
 
 const tarballs = [];

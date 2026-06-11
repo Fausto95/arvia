@@ -71,6 +71,10 @@ component CodeBlock {
       max-width: 100%;
       overflow-x: auto;
     }
+    actions {
+      margin-left: auto;
+      flex-shrink: 0;
+    }
   }
 
   variants {

@@ -70,24 +70,19 @@
 
   <!-- Code card -->
   <g>
-    <rect x="744" y="58" width="400" height="204" rx="14" fill="#10142b"/>
-    <rect x="744" y="58" width="400" height="204" rx="14" fill="none" stroke="#94a3ff" stroke-opacity="0.18"/>
-    <circle cx="768" cy="86" r="5" fill="#ff5f57"/>
-    <circle cx="788" cy="86" r="5" fill="#febc2e"/>
-    <circle cx="808" cy="86" r="5" fill="#28c840"/>
-    <text
-      x="826"
-      y="91"
-      font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
-      font-size="14"
-      fill="#8f96bd"
-    >button.arv</text>
-    <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="17">
-      <text x="770" y="128"><tspan fill="#c4b5fd">component</tspan><tspan fill="#7dd3fc"> Button</tspan><tspan fill="#5b6480"> {</tspan></text>
-      <text x="792" y="154"><tspan fill="#c4b5fd">variants</tspan><tspan fill="#5b6480"> {</tspan></text>
-      <text x="814" y="180"><tspan fill="#c4b5fd">tone</tspan><tspan fill="#5b6480"> { </tspan><tspan fill="#fda4af">primary danger</tspan><tspan fill="#5b6480"> }</tspan></text>
-      <text x="792" y="206"><tspan fill="#5b6480">}</tspan></text>
-      <text x="770" y="232"><tspan fill="#5b6480">}</tspan></text>
-    </g>
+    <rect x="704" y="36" width="456" height="254" rx="14" fill="#10142b"/>
+    <rect x="704" y="36" width="456" height="254" rx="14" fill="none" stroke="#94a3ff" stroke-opacity="0.18"/>
+    <circle cx="728" cy="62" r="5" fill="#ff5f57"/>
+    <circle cx="748" cy="62" r="5" fill="#febc2e"/>
+    <circle cx="768" cy="62" r="5" fill="#28c840"/>
+    <text x="786" y="67" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#8f96bd">button.arv</text>
+    <text x="728" y="101.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14.5" xml:space="preserve"><tspan fill="#ff7b72">component</tspan><tspan fill="#e6edf3"> Button {</tspan></text>
+    <text x="728" y="125" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14.5" xml:space="preserve"><tspan fill="#e6edf3">  </tspan><tspan fill="#ff7b72">base</tspan><tspan fill="#e6edf3"> {</tspan></text>
+    <text x="728" y="148.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14.5" xml:space="preserve"><tspan fill="#e6edf3">    </tspan><tspan fill="#7ee787">padding</tspan><tspan fill="#e6edf3">: </tspan><tspan fill="#ffa657">space.2</tspan><tspan fill="#e6edf3"> </tspan><tspan fill="#ffa657">space.4</tspan><tspan fill="#e6edf3">;</tspan></text>
+    <text x="728" y="172" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14.5" xml:space="preserve"><tspan fill="#e6edf3">    </tspan><tspan fill="#7ee787">background</tspan><tspan fill="#e6edf3">: </tspan><tspan fill="#ffa657">color.primary</tspan><tspan fill="#e6edf3">;</tspan></text>
+    <text x="728" y="195.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14.5" xml:space="preserve"><tspan fill="#e6edf3">  }</tspan></text>
+    <text x="728" y="219" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14.5" xml:space="preserve"><tspan fill="#e6edf3">  </tspan><tspan fill="#ff7b72">variants</tspan><tspan fill="#e6edf3"> { tone { primary {} danger {} } }</tspan></text>
+    <text x="728" y="242.5" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14.5" xml:space="preserve"><tspan fill="#e6edf3">  </tspan><tspan fill="#ff7b72">defaults</tspan><tspan fill="#e6edf3"> { </tspan><tspan fill="#7ee787">tone</tspan><tspan fill="#e6edf3">: primary; }</tspan></text>
+    <text x="728" y="266" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14.5" xml:space="preserve"><tspan fill="#e6edf3">}</tspan></text>
   </g>
 </svg>

@@ -152,6 +152,21 @@ importers:
         specifier: ^7.3.0
         version: 7.3.5(@types/node@25.9.3)
 
+  packages/vite-plugin-preact:
+    dependencies:
+      '@arviahq/typescript-plugin':
+        specifier: workspace:*
+        version: link:../typescript-plugin
+      '@arviahq/vite-plugin':
+        specifier: workspace:*
+        version: link:../vite-plugin
+      typescript:
+        specifier: '>=5.0.0'
+        version: 5.9.3
+      vite:
+        specifier: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+        version: 7.3.5(@types/node@25.9.3)
+
   packages/vite-plugin-react:
     dependencies:
       '@arviahq/typescript-plugin':

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Button } from "./button.arv";
 import { CodeBlock } from "./code-block.arv";
 import { highlightCode, langFromLabel } from "./highlight";
 import { useSiteTheme } from "../site-theme";
@@ -13,6 +14,25 @@ export function Code(props: {
   const siteTheme = useSiteTheme();
   const lang = props.lang ?? langFromLabel(props.label, props.children);
   const [html, setHtml] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+  const copiedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (copiedTimer.current) clearTimeout(copiedTimer.current);
+    };
+  }, []);
+
+  async function copyCode() {
+    try {
+      await navigator.clipboard.writeText(props.children);
+      setCopied(true);
+      if (copiedTimer.current) clearTimeout(copiedTimer.current);
+      copiedTimer.current = setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard unavailable — leave button in idle state.
+    }
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -39,6 +59,17 @@ export function Code(props: {
             <span className={block.dotGreen} />
           </span>
           {props.label}
+          <div className={block.actions}>
+            <button
+              type="button"
+              className={Button({ tone: "ghost", size: "sm" }).root}
+              aria-label={copied ? "Copied" : "Copy code"}
+              aria-live="polite"
+              onClick={copyCode}
+            >
+              {copied ? "Copied" : "Copy"}
+            </button>
+          </div>
         </div>
       ) : null}
       <div className={block.body}>

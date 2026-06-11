@@ -6,3 +6,5 @@ dist/
 *.vsix
 !packages/vscode-extension/arvia.vsix
 .DS_Store
+
+*.pnpm-store/

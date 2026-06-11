@@ -10,7 +10,8 @@
       "@arviahq/language-server",
       "@arviahq/docs",
       "@arviahq/storybook",
-      "@arviahq/vite-plugin-react"
+      "@arviahq/vite-plugin-react",
+      "@arviahq/vite-plugin-preact"
     ]
   ],
   "linked": [],

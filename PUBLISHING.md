@@ -7,7 +7,7 @@ Manual steps required before the first release (cannot be automated in CI setup 
 1. Sign in at [npmjs.com](https://www.npmjs.com/).
 2. Create org **`arviahq`**: [npmjs.com/org/create](https://www.npmjs.com/org/create).
 3. Confirm these package names are available under `@arviahq/`:
-   - `compiler`, `vite-plugin`, `typescript-plugin`, `language-server`, `docs`, `storybook`, `vite-plugin-react`
+   - `compiler`, `vite-plugin`, `typescript-plugin`, `language-server`, `docs`, `storybook`, `vite-plugin-react`, `vite-plugin-preact`
 
 ## 2. GitHub secrets
 

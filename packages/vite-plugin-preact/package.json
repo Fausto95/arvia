@@ -1,0 +1,55 @@
+{
+  "name": "@arviahq/vite-plugin-preact",
+  "version": "0.2.0",
+  "description": "Arvia for Preact + Vite — compile .arv design system files with HMR and the arvia CLI.",
+  "homepage": "https://github.com/Fausto95/arvia#readme",
+  "bugs": {
+    "url": "https://github.com/Fausto95/arvia/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fausto95/arvia.git",
+    "directory": "packages/vite-plugin-preact"
+  },
+  "bin": {
+    "arvia": "./bin/arvia.mjs",
+    "arvia-tsc": "./bin/arvia-tsc.cjs"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepublishOnly": "pnpm run build",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@arviahq/typescript-plugin": "workspace:*",
+    "@arviahq/vite-plugin": "workspace:*"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0",
+    "vite": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  }
+}
