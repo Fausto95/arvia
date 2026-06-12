@@ -19,6 +19,7 @@ export type { DtsAnchor } from "./generators/dts/emit.js";
 export { parse, type ParseResult } from "./parser/parser.js";
 export type * from "./ast/nodes.js";
 export { LineIndex, type Position, type SpanRange } from "./position.js";
+export { formatArv, type FormatOptions } from "./format/format.js";
 
 export interface AnalyzeResult {
   /** Recovered AST — present even when diagnostics contain errors. */

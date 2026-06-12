@@ -15,6 +15,7 @@ import { toLspDiagnostics } from "./diagnostics.js";
 import { lintDiagnostics } from "./lints.js";
 import { DocumentStore, fileForUri } from "./documents.js";
 import { getFoldingRanges } from "./folding.js";
+import { getFormattingEdits } from "./formatting.js";
 import { getHover } from "./hover.js";
 import { getSelectionRanges } from "./selection-ranges.js";
 import { getSemanticTokens, semanticTokensLegend } from "./semantic-tokens.js";
@@ -95,6 +96,7 @@ connection.onInitialize((_params: InitializeParams): InitializeResult => {
       foldingRangeProvider: true,
       selectionRangeProvider: true,
       workspaceSymbolProvider: true,
+      documentFormattingProvider: true,
       semanticTokensProvider: {
         legend: semanticTokensLegend,
         full: true,
@@ -208,6 +210,12 @@ connection.onSelectionRanges((params) => {
 
 connection.onWorkspaceSymbol((params) => {
   return getWorkspaceSymbols(params.query, workspaces.values(), contentFor);
+});
+
+connection.onDocumentFormatting((params) => {
+  const doc = documents.get(params.textDocument.uri);
+  if (!doc) return [];
+  return getFormattingEdits(store.analysisFor(doc), params.options);
 });
 
 connection.languages.semanticTokens.on((params) => {
