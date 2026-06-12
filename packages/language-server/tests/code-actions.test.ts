@@ -101,13 +101,13 @@ describe("lints: unused slot", () => {
   }
 }`;
     const analysis = analysisOf(source);
-    const lints = lintDiagnostics(analysis);
-    const unused = lints.filter((l) => l.code === "unused-slot");
+    const unused = lintDiagnostics(analysis).filter((l) => l.code === "unused-slot");
     expect(unused).toHaveLength(1);
     expect(unused[0]!.message).toContain("ghost");
 
     const actions = actionsFor(source, unused);
     expect(actions[0]!.title).toContain("may be used from TSX");
+    expect(actions[0]!.isPreferred).toBe(false);
     const fixed = apply(source, actions[0]!.edit!.changes![URI]!);
     expect(fixed).not.toContain("ghost");
     expect(analysisOf(fixed).diagnostics).toEqual([]);

@@ -989,6 +989,7 @@ class Parser {
     return {
       kind: "decl",
       property: property.text,
+      propertySpan: property.span,
       value,
       span: { ...property.span, end: semi.span.end },
     };

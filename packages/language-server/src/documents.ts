@@ -1,3 +1,4 @@
+import path from "node:path";
 import { analyze, LineIndex, type AnalyzeResult } from "@arviahq/compiler";
 import type { TextDocument } from "vscode-languageserver-textdocument";
 import type { WorkspaceState } from "./workspace.js";
@@ -23,8 +24,10 @@ export class DocumentStore {
     if (cached && cached.version === doc.version) return cached.analysis;
     const file = fileForUri(doc.uri);
     const source = doc.getText();
-    const env = this.workspaceFor(doc.uri).envFor(file);
-    const result = analyze(source, { filename: file, env });
+    const workspace = this.workspaceFor(doc.uri);
+    const env = workspace.envFor(file);
+    const sharedEnvFile = workspace.themePathFor(file) === path.resolve(file);
+    const result = analyze(source, { filename: file, env, sharedEnvFile });
     const analysis: DocumentAnalysis = {
       ...result,
       index: new LineIndex(source),

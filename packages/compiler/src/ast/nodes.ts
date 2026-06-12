@@ -234,6 +234,8 @@ export type StyleItem = Declaration | UseStmt | StateBlock;
 export interface Declaration {
   kind: "decl";
   property: string;
+  /** Span of the property name alone (diagnostics target it precisely). */
+  propertySpan: Span;
   value: RawValue;
   span: Span;
 }

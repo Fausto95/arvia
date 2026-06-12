@@ -44,8 +44,83 @@ describe("checker diagnostics", () => {
   });
 
   it("ARV101: only fires for known theme groups", () => {
-    // `foo.bar` is not a theme group → passes through as literal CSS.
-    expect(codes("theme { color { x = red; } } component X { grid-area: foo.bar; }")).toEqual([]);
+    // `foo.bar` is not a theme group → passes through as literal CSS
+    // (the value-syntax warning may still fire; only ARV101 must not).
+    expect(codes("theme { color { x = red; } } component X { grid-area: foo.bar; }")).not.toContain(
+      "ARV101",
+    );
+  });
+
+  it("ARV180: unknown CSS property, with did-you-mean and fix", () => {
+    const source = "component X { base { colr: red; } }";
+    const d = firstDiag(source);
+    expect(d).toMatchObject({ code: "ARV180", severity: "warning" });
+    expect(d!.hint).toContain("color");
+    expect(d!.fix!.edits[0]!.newText).toBe("color");
+    expect(source.slice(d!.fix!.edits[0]!.span.start, d!.fix!.edits[0]!.span.end)).toBe("colr");
+  });
+
+  it("ARV180: skips custom properties", () => {
+    expect(codes("component X { base { --brand: red; } }")).toEqual([]);
+  });
+
+  it("ARV181: value-syntax mismatch is a warning", () => {
+    const d = firstDiag("component X { base { display: 12px; } }");
+    expect(d).toMatchObject({ code: "ARV181", severity: "warning" });
+  });
+
+  it("ARV181: skips var()-bearing values (moded theme refs)", () => {
+    expect(
+      codes(
+        "theme { modes: light | dark; color { a = red; @dark { a = blue; } } } component X { base { color: color.a; } }",
+      ),
+    ).toEqual([]);
+  });
+
+  it("ARV181: skips values whose refs pass through unresolved (no theme env)", () => {
+    // Without an env, `space.2` stays literal text — not judged as CSS.
+    expect(codes("component X { base { gap: space.2; padding: space.1 space.2; } }")).toEqual([]);
+  });
+
+  it("ARV181: does not cascade from unresolved token refs", () => {
+    // Only the unknown-token error — no syntax warning for the unresolved text.
+    expect(codes("theme { color { a = red; } } component X { base { color: color.b; } }")).toEqual([
+      "ARV101",
+    ]);
+  });
+
+  it("css option: 'names' skips value checks, false skips everything", () => {
+    const source = "component X { base { colr: red; display: 12px; } }";
+    const names = compile(source, { filename: "t.arv", css: "names" });
+    expect(names.diagnostics.map((d) => d.code)).toEqual(["ARV180"]);
+    const off = compile(source, { filename: "t.arv", css: false });
+    expect(off.diagnostics).toEqual([]);
+  });
+
+  it("ARV181: tolerates !important", () => {
+    expect(codes("component X { base { color: red !important; } }")).toEqual([]);
+  });
+
+  it("unused slots are deliberately not a compiler warning (TSX hooks)", () => {
+    expect(codes("component X { slots { ghost {} } }")).toEqual([]);
+  });
+
+  it("ARV171: unused component token", () => {
+    expect(codes("component X { tokens { m { pad = 4px; } } }")).toEqual(["ARV171"]);
+    expect(codes("component X { tokens { m { pad = 4px; } } base { padding: m.pad; } }")).toEqual(
+      [],
+    );
+  });
+
+  it("ARV172: unused file-local recipe, suppressed for shared theme files", () => {
+    const source = "recipe Dead { color: red; }";
+    expect(codes(source)).toEqual(["ARV172"]);
+    expect(compile(source, { filename: "theme.arv", sharedEnvFile: true }).diagnostics).toEqual([]);
+    expect(codes("recipe Live { color: red; } component X { use Live; }")).toEqual([]);
+  });
+
+  it("ARV173: variant with no values", () => {
+    expect(codes("component X { variants { tone {} } }")).toEqual(["ARV173"]);
   });
 
   it("ARV102: unknown recipe", () => {
@@ -61,7 +136,11 @@ describe("checker diagnostics", () => {
   });
 
   it("ARV111: duplicate recipe", () => {
-    expect(codes("recipe R { color: red; } recipe R { color: blue; }")).toEqual(["ARV111"]);
+    // The surviving R is also unused in this file → ARV172.
+    expect(codes("recipe R { color: red; } recipe R { color: blue; }")).toEqual([
+      "ARV111",
+      "ARV172",
+    ]);
   });
 
   it("ARV112: duplicate theme group and token", () => {
@@ -145,7 +224,7 @@ describe("checker diagnostics", () => {
   it("merges a passed-in env (theme file pattern)", () => {
     const theme = compile(
       "theme { color { primary = #635bff; } } recipe Surface { background: white; }",
-      { filename: "theme.arv" },
+      { filename: "theme.arv", sharedEnvFile: true },
     );
     expect(theme.diagnostics).toEqual([]);
 

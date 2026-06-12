@@ -53,6 +53,9 @@ export function lintDiagnostics(analysis: DocumentAnalysis): LspDiagnostic[] {
       }
     }
 
+    // Unused slots stay editor-only (Hint + Unnecessary): an unstyled slot
+    // consumed as a TSX className hook is legitimate, so this must never
+    // surface in builds — the compiler deliberately has no such warning.
     for (const block of item.items) {
       if (block.kind !== "slots") continue;
       for (const slot of block.slots) {

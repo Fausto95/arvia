@@ -154,8 +154,11 @@ describe("component-scoped tokens", () => {
   });
 
   it("ARV115: duplicate tokens section", () => {
+    // Both local tokens are unused → ARV171 each.
     expect(codes("component X { tokens { m { a = 1px; } } tokens { n { b = 2px; } } }")).toEqual([
       "ARV115",
+      "ARV171",
+      "ARV171",
     ]);
   });
 

@@ -39,5 +39,11 @@
     "build": "tsdown",
     "dev": "tsdown --watch",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "css-tree": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/css-tree": "^2.3.11"
   }
 }

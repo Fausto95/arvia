@@ -38,8 +38,10 @@ describe("token refs inside functions", () => {
   });
 
   it("does not touch decimals or url paths", () => {
+    // Deliberately nonsense CSS — only substitution behavior matters here,
+    // so the value-syntax warning is expected.
     const { css, diagnostics } = compileDecl("grid: calc(1.5fr) url(a.png);");
-    expect(diagnostics).toEqual([]);
+    expect(diagnostics.filter((d) => d.severity === "error")).toEqual([]);
     expect(css).toContain("calc(1.5fr) url(a.png)");
   });
 });

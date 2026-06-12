@@ -8,12 +8,14 @@ import {
 } from "../diagnostics.js";
 import type {
   ComponentDecl,
+  Declaration,
   ArviaFile,
   RawValue,
   RecipeDecl,
   StyleBody,
   StyleItem,
 } from "../ast/nodes.js";
+import { isKnownProperty, knownPropertyNames, matchValueSyntax } from "./css-validate.js";
 import { emptyEnv, type RecipeIR, type ThemeEnv, type TokenModes } from "../ir/ir.js";
 import { hashName } from "../ir/hash.js";
 import {
@@ -26,6 +28,12 @@ import {
 export interface CheckOptions {
   filename: string;
   env?: ThemeEnv;
+  /** CSS validation level: property names + value syntax (default), names
+   *  only, or off. All CSS diagnostics are warnings. */
+  css?: false | "names" | "syntax";
+  /** True for the conventional shared theme file: its recipes/tokens are
+   *  consumed by other files, so unused-in-file warnings are suppressed. */
+  sharedEnvFile?: boolean;
 }
 
 export interface CheckResult {
@@ -91,6 +99,9 @@ class Checker {
   private fileStyleNames = new Set<string>();
   /** Component-scoped tokens, set while checking a component's declarations. */
   private localTokens: LocalTokens | null = null;
+  /** `group.name` refs that hit a component token (for unused warnings). */
+  private usedLocalTokens = new Set<string>();
+  private usedRecipes = new Set<string>();
 
   constructor(
     private ast: ArviaFile,
@@ -137,7 +148,24 @@ class Checker {
     this.checkStyles();
     this.checkGlobals();
     this.checkComponents();
+    this.checkUnusedRecipes();
     return { diagnostics: this.diagnostics, env: this.env };
+  }
+
+  /** Recipes only travel across files through the shared theme, so in any
+   *  other file a recipe nobody `use`s is dead code. */
+  private checkUnusedRecipes() {
+    if (this.options.sharedEnvFile) return;
+    for (const [name, decl] of this.fileRecipes) {
+      if (this.usedRecipes.has(name)) continue;
+      this.report(
+        "ARV172",
+        `recipe '${name}' is never used in this file`,
+        decl.nameSpan,
+        "only the shared theme file exports recipes to other files",
+        "warning",
+      );
+    }
   }
 
   // --- theme -----------------------------------------------------------------
@@ -283,7 +311,7 @@ class Checker {
       }
       names.add(item.name);
       for (const step of item.steps) {
-        for (const decl of step.decls) this.resolveValue(decl.value);
+        for (const decl of step.decls) this.checkDecl(decl);
       }
       const rel = this.options.filename.replace(/\\/g, "/");
       this.env.keyframes[item.name] = `${item.name}_${hashName(rel, item.name)}`;
@@ -438,8 +466,9 @@ class Checker {
   /** Resolves one style item (decl / use / state) into a RecipeIR while validating. */
   private applyStyleItem(item: StyleItem, ir: RecipeIR) {
     if (item.kind === "decl") {
-      ir.decls.push({ property: item.property, value: this.resolveValue(item.value) });
+      ir.decls.push({ property: item.property, value: this.checkDecl(item) });
     } else if (item.kind === "use") {
+      this.usedRecipes.add(item.recipe);
       const inlined = this.resolveRecipe(item.recipe, item.recipeSpan);
       if (inlined) {
         ir.decls.push(...inlined.decls);
@@ -450,9 +479,66 @@ class Checker {
       // component bodies, so recipes/styles never carry them here.
       ir.states.push({
         selectors: item.selectors,
-        decls: item.items.map((d) => ({ property: d.property, value: this.resolveValue(d.value) })),
+        decls: item.items.map((d) => ({ property: d.property, value: this.checkDecl(d) })),
       });
     }
+  }
+
+  /**
+   * Validates a declaration: resolves token refs, then warns on unknown
+   * property names (ARV180) and grammar-mismatched values (ARV181).
+   * Returns the resolved value text.
+   */
+  private checkDecl(decl: Declaration): string {
+    const before = this.diagnostics.length;
+    const resolved = this.resolveValue(decl.value);
+    const css = this.options.css ?? "syntax";
+    if (css === false) return resolved;
+
+    // Custom properties take any name and any value.
+    if (decl.property.startsWith("--")) return resolved;
+
+    if (!isKnownProperty(decl.property)) {
+      const hint = didYouMean(decl.property, knownPropertyNames());
+      this.report(
+        "ARV180",
+        `unknown CSS property '${decl.property}'`,
+        decl.propertySpan,
+        hint ? `did you mean '${hint}'?` : undefined,
+        "warning",
+        hint ? replaceFix(decl.propertySpan, hint) : undefined,
+      );
+      return resolved;
+    }
+
+    if (css !== "syntax") return resolved;
+    // Unresolved refs already produced an error; don't cascade.
+    if (this.diagnostics.length > before) return resolved;
+    // A ref that did not resolve (unknown group, or no theme env at all)
+    // passes through as literal `group.name` text — never judge it as CSS.
+    const hasUnresolvedRef = decl.value.words.some((w) => {
+      if (w.kind !== "ref") return false;
+      if (this.localTokens?.[w.group]?.[w.name] !== undefined) return false;
+      if (w.group === "keyframes") return this.env.keyframes[w.name] === undefined;
+      return this.env.tokens[w.group]?.[w.name] === undefined;
+    });
+    if (hasUnresolvedRef) return resolved;
+    // css-tree cannot match trees containing var()/env() — this also skips
+    // every moded-theme value, where refs become var(--arvia-…).
+    if (resolved.includes("var(") || resolved.includes("env(")) return resolved;
+
+    const text = resolved.replace(/\s*!important\s*$/i, "");
+    const mismatch = matchValueSyntax(decl.property, text);
+    if (mismatch) {
+      this.report(
+        "ARV181",
+        `value does not match the syntax of '${decl.property}'`,
+        decl.value.span,
+        mismatch,
+        "warning",
+      );
+    }
+    return resolved;
   }
 
   // --- values ----------------------------------------------------------------
@@ -494,6 +580,13 @@ class Checker {
 
   /** Validates token refs in a value and returns the text with refs inlined. */
   resolveValue(value: RawValue): string {
+    if (this.localTokens) {
+      for (const word of value.words) {
+        if (word.kind === "ref" && this.localTokens[word.group]?.[word.name] !== undefined) {
+          this.usedLocalTokens.add(`${word.group}.${word.name}`);
+        }
+      }
+    }
     return substituteRefs(
       value,
       this.env,
@@ -531,7 +624,7 @@ class Checker {
     for (const item of this.ast.items) {
       if (item.kind !== "global") continue;
       for (const rule of item.rules) {
-        for (const decl of rule.decls) this.resolveValue(decl.value);
+        for (const decl of rule.decls) this.checkDecl(decl);
       }
     }
   }
@@ -574,6 +667,7 @@ class Checker {
     const sectionCounts = new Map<string, Span[]>();
     const localTokens: LocalTokens = {};
     let hasLocalTokens = false;
+    const localTokenSpans = new Map<string, Span>();
 
     for (const item of component.items) {
       if (
@@ -603,6 +697,7 @@ class Checker {
             }
             bucket[entry.name] = entry.value.text;
             hasLocalTokens = true;
+            localTokenSpans.set(`${group.name}.${entry.name}`, entry.nameSpan);
           }
           for (const override of group.overrides) {
             this.report(
@@ -632,6 +727,15 @@ class Checker {
           if (variants.has(variant.name)) {
             this.report("ARV114", `duplicate variant '${variant.name}'`, variant.nameSpan);
             continue;
+          }
+          if (variant.values.length === 0) {
+            this.report(
+              "ARV173",
+              `variant '${variant.name}' has no values`,
+              variant.nameSpan,
+              "its generated prop type is `never`, making the component uninstantiable",
+              "warning",
+            );
           }
           const values = new Map<string, Span>();
           for (const value of variant.values) {
@@ -685,7 +789,7 @@ class Checker {
             for (const slot of item.slots) {
               checkSlotName(slot.name, slot.nameSpan);
               for (const decl of slot.items) {
-                if (decl.kind === "decl") this.resolveValue(decl.value);
+                if (decl.kind === "decl") this.checkDecl(decl);
               }
             }
           }
@@ -696,12 +800,14 @@ class Checker {
 
     // Pass 2: validate everything, with component tokens shadowing the theme.
     this.localTokens = hasLocalTokens ? localTokens : null;
+    this.usedLocalTokens.clear();
     for (const item of component.items) {
       switch (item.kind) {
         case "decl":
-          this.resolveValue(item.value);
+          this.checkDecl(item);
           break;
         case "use":
+          this.usedRecipes.add(item.recipe);
           this.resolveRecipe(item.recipe, item.recipeSpan);
           break;
         case "base":
@@ -939,16 +1045,31 @@ class Checker {
         }
       }
     }
+
+    // Unused *slots* are deliberately not a compiler warning: an unstyled
+    // slot consumed only as a TSX className hook is a legitimate pattern the
+    // compiler cannot see. The language server surfaces those as hints.
+    for (const [key, span] of localTokenSpans) {
+      if (this.usedLocalTokens.has(key)) continue;
+      this.report(
+        "ARV171",
+        `component token '${key}' is never used in '${component.name}'`,
+        span,
+        undefined,
+        "warning",
+      );
+    }
     this.localTokens = null;
   }
 
   private checkStyleItem(item: StyleItem) {
     if (item.kind === "decl") {
-      this.resolveValue(item.value);
+      this.checkDecl(item);
     } else if (item.kind === "use") {
+      this.usedRecipes.add(item.recipe);
       this.resolveRecipe(item.recipe, item.recipeSpan);
     } else {
-      for (const decl of item.items) this.resolveValue(decl.value);
+      for (const decl of item.items) this.checkDecl(decl);
     }
   }
 }

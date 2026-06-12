@@ -36,13 +36,23 @@ export interface AnalyzeResult {
  */
 export function analyze(
   source: string,
-  options: { filename: string; env?: ThemeEnv },
+  options: {
+    filename: string;
+    env?: ThemeEnv;
+    css?: false | "names" | "syntax";
+    sharedEnvFile?: boolean;
+  },
 ): AnalyzeResult {
   const { ast, diagnostics: parseDiagnostics } = parse(source, options.filename);
   if (parseDiagnostics.length > 0) {
     return { ast, diagnostics: parseDiagnostics, env: options.env ?? emptyEnv() };
   }
-  const { diagnostics, env } = check(ast, { filename: options.filename, env: options.env });
+  const { diagnostics, env } = check(ast, {
+    filename: options.filename,
+    env: options.env,
+    css: options.css,
+    sharedEnvFile: options.sharedEnvFile,
+  });
   return { ast, diagnostics, env };
 }
 
@@ -55,6 +65,12 @@ export interface CompileOptions {
   root?: string;
   /** Shared environment (tokens + recipes), typically from the theme file. */
   env?: ThemeEnv;
+  /** CSS validation level (warnings): property names + value syntax
+   *  (default), names only, or off. */
+  css?: false | "names" | "syntax";
+  /** True when compiling the conventional shared theme file — suppresses
+   *  unused-in-file warnings for recipes other files consume. */
+  sharedEnvFile?: boolean;
 }
 
 export interface CompileResult {
@@ -137,7 +153,12 @@ export function compile(source: string, options: CompileOptions): CompileResult 
     };
   }
 
-  const { diagnostics, env } = check(ast, { filename: options.filename, env: options.env });
+  const { diagnostics, env } = check(ast, {
+    filename: options.filename,
+    env: options.env,
+    css: options.css,
+    sharedEnvFile: options.sharedEnvFile,
+  });
 
   if (diagnostics.some((d) => d.severity === "error")) {
     return {
