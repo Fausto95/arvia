@@ -18,8 +18,8 @@ import { searchDocs } from "../docs/search-index";
 export function isAlgoliaDocSearchEnabled(): boolean {
   return Boolean(
     import.meta.env.VITE_DOCSEARCH_APP_ID &&
-      import.meta.env.VITE_DOCSEARCH_API_KEY &&
-      import.meta.env.VITE_DOCSEARCH_INDEX_NAME,
+    import.meta.env.VITE_DOCSEARCH_API_KEY &&
+    import.meta.env.VITE_DOCSEARCH_INDEX_NAME,
   );
 }
 
@@ -145,7 +145,12 @@ function DocsSearchDialog() {
         if (event.target === event.currentTarget) closeSearch();
       }}
     >
-      <div className={styles.dialog} role="dialog" aria-modal="true" aria-label={fbt("Search documentation", "Docs search dialog aria label")}>
+      <div
+        className={styles.dialog}
+        role="dialog"
+        aria-modal="true"
+        aria-label={fbt("Search documentation", "Docs search dialog aria label")}
+      >
         <div className={styles.field}>
           <span className={styles.icon}>
             <SearchIcon />
@@ -189,9 +194,7 @@ function DocsSearchDialog() {
             </p>
           )
         ) : (
-          <p className={styles.empty}>
-            {fbt("Type to search docs", "Docs search idle hint")}
-          </p>
+          <p className={styles.empty}>{fbt("Type to search docs", "Docs search idle hint")}</p>
         )}
       </div>
     </div>
@@ -220,10 +223,7 @@ export function DocsSearchProvider(props: { children: ReactNode }) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [useAlgolia]);
 
-  const value = useMemo(
-    () => ({ open, openSearch, closeSearch }),
-    [open, openSearch, closeSearch],
-  );
+  const value = useMemo(() => ({ open, openSearch, closeSearch }), [open, openSearch, closeSearch]);
 
   return (
     <DocsSearchContext.Provider value={value}>

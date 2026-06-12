@@ -3,10 +3,7 @@ import { lazy, Suspense } from "react";
 import { fbt } from "fbtee";
 import { Link as RouterLinkBase, useMatch } from "react-router-dom";
 import { getDocNav } from "../docs/nav";
-import {
-  DocsSearchTrigger,
-  isAlgoliaDocSearchEnabled,
-} from "./DocsSearch";
+import { DocsSearchTrigger, isAlgoliaDocSearchEnabled } from "./DocsSearch";
 
 const AlgoliaDocSearch = lazy(() =>
   import("./AlgoliaDocSearch").then((mod) => ({ default: mod.AlgoliaDocSearch })),

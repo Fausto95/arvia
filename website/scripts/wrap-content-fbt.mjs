@@ -62,13 +62,10 @@ src = src.replace(
 );
 src = src.replace(/^];(\s*)$/m, "  ];\n}$1");
 
-src = src.replace(
-  /(id: "[^"]+",\s*\n\s*)title: "((?:\\.|[^"\\])*)"/g,
-  (_m, prefix, value) => {
-    const unescaped = value.replace(/\\"/g, '"').replace(/\\\\/g, "\\");
-    return `${prefix}title: fbt("${escapeJs(unescaped)}", "${escapeJs(descFor("title", unescaped))}")`;
-  },
-);
+src = src.replace(/(id: "[^"]+",\s*\n\s*)title: "((?:\\.|[^"\\])*)"/g, (_m, prefix, value) => {
+  const unescaped = value.replace(/\\"/g, '"').replace(/\\\\/g, "\\");
+  return `${prefix}title: fbt("${escapeJs(unescaped)}", "${escapeJs(descFor("title", unescaped))}")`;
+});
 
 src = src.replace(
   /(title: fbt\([^)]+\),\s*\n\s*)description: "((?:\\.|[^"\\])*)"/g,
