@@ -2,6 +2,14 @@
 
 Syntax highlighting, bracket behavior and a file icon for `.arv` design system files.
 
+## Install
+
+Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=arviahq.arvia), or from the command line:
+
+```bash
+code --install-extension arviahq.arvia
+```
+
 ## Develop
 
 Open this repository in VS Code and press <kbd>F5</kbd> (the "Run Arvia VS Code Extension"

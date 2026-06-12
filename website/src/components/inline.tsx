@@ -2,11 +2,12 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { InlineCode, proseLink } from "./layout.arv";
 
-/** `code` spans and [text](/docs/slug) links inside docs prose. */
-const INLINE_RE = /`([^`]+)`|\[([^\]]+)\]\((\/[^()\s]+)\)/g;
+/** `code` spans and [text](/docs/slug) or [text](https://…) links inside docs prose. */
+const INLINE_RE = /`([^`]+)`|\[([^\]]+)\]\((https?:\/\/[^()\s]+|\/[^()\s]+)\)/g;
 
 /** Renders docs prose, turning `backtick` spans into inline code and
- *  [text](/path) into router links. Plain strings pass through untouched. */
+ *  [text](/path) into router links (external URLs open in a new tab).
+ *  Plain strings pass through untouched. */
 export function renderInline(value: string): ReactNode {
   const text = String(value);
   if (!text.includes("`") && !text.includes("](")) {
@@ -27,11 +28,20 @@ export function renderInline(value: string): ReactNode {
         </code>,
       );
     } else {
-      nodes.push(
-        <Link key={index} className={proseLink} to={match[3]!}>
-          {match[2]}
-        </Link>,
-      );
+      const href = match[3]!;
+      if (href.startsWith("http")) {
+        nodes.push(
+          <a key={index} className={proseLink} href={href} target="_blank" rel="noopener noreferrer">
+            {match[2]}
+          </a>,
+        );
+      } else {
+        nodes.push(
+          <Link key={index} className={proseLink} to={href}>
+            {match[2]}
+          </Link>,
+        );
+      }
     }
     cursor = index + match[0].length;
   }

@@ -151,7 +151,7 @@ const styles = Button({ size: "lg", tone: "primary" });
         type: "ul",
         items: [
           fbt(
-            "VS Code — install the Arvia extension; it bundles syntax highlighting and starts the language server automatically.",
+            "VS Code — install the [Arvia extension](https://marketplace.visualstudio.com/items?itemName=arviahq.arvia); it bundles syntax highlighting and starts the language server automatically.",
             "Docs list item — vscode setup",
           ),
           fbt(

@@ -101,13 +101,13 @@ See **Docs → Quick start** in the site for the full setup.
 
 ## Editor support
 
-- **VS Code** — syntax highlighting, diagnostics, completion, hover, and formatting. The packaged extension ships in this repo at [`packages/vscode-extension/arvia.vsix`](./packages/vscode-extension/arvia.vsix):
+- **VS Code** — syntax highlighting, diagnostics, completion, hover, and formatting. Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=arviahq.arvia):
 
   ```bash
-  code --install-extension packages/vscode-extension/arvia.vsix
+  code --install-extension arviahq.arvia
   ```
 
-  Or in VS Code: **Extensions → ⋯ → Install from VSIX…** Works in Cursor and other VS Code forks too.
+  Works in Cursor and other VS Code forks too.
 
 - **Zed** — install the Arvia extension from [`packages/zed-extension`](./packages/zed-extension).
 - **Neovim & others** — tree-sitter grammar in [`packages/tree-sitter-arvia`](./packages/tree-sitter-arvia), plus `@arviahq/language-server` for any LSP client.
@@ -125,7 +125,7 @@ See **Docs → Quick start** in the site for the full setup.
 | `@arviahq/language-server`                               |          | LSP for `.arv` files                                       |
 | `@arviahq/storybook`                                     |          | Storybook story generator                                  |
 | `@arviahq/docs`                                          |          | Token catalog generator                                    |
-| [`arvia` VS Code extension](./packages/vscode-extension) | vsix     | Syntax highlighting, diagnostics, completion, hover        |
+| [Arvia VS Code extension](https://marketplace.visualstudio.com/items?itemName=arviahq.arvia) | marketplace | Syntax highlighting, diagnostics, completion, hover        |
 
 ## Development
 

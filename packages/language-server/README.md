@@ -10,7 +10,7 @@ Language Server Protocol implementation for `.arv` files.
 
 ## Usage
 
-The VS Code extension (`arvia-vscode`) starts this server automatically.
+The [Arvia VS Code extension](https://marketplace.visualstudio.com/items?itemName=arviahq.arvia) starts this server automatically.
 
 Standalone:
 

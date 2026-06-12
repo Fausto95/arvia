@@ -12960,6 +12960,30 @@
         }
       ],
       "types": []
+    },
+    "hPRu7ES4kELZvWyQ/sGR8Q==": {
+      "description": "Docs list item — vscode setup",
+      "status": "new",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "VS Code — install the [Arvia extension](https://marketplace.visualstudio.com/items?itemName=arviahq.arvia); it bundles syntax highlighting and starts the language server automatically.",
+          "variations": {}
+        }
+      ],
+      "types": []
+    },
+    "gJEH2PGMGLQdPcuP8S/FFQ==": {
+      "description": "Docs table cell — lsp vscode setup",
+      "status": "new",
+      "tokens": [],
+      "translations": [
+        {
+          "translation": "Install the [Arvia extension](https://marketplace.visualstudio.com/items?itemName=arviahq.arvia) — syntax highlighting and the server are bundled and start automatically.",
+          "variations": {}
+        }
+      ],
+      "types": []
     }
   }
 }

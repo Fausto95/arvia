@@ -53,7 +53,7 @@ export function languageServer(): DocSection {
           [
             fbt("VS Code", "Docs table cell — lsp vscode"),
             fbt(
-              "Install the Arvia extension — syntax highlighting and the server are bundled and start automatically.",
+              "Install the [Arvia extension](https://marketplace.visualstudio.com/items?itemName=arviahq.arvia) — syntax highlighting and the server are bundled and start automatically.",
               "Docs table cell — lsp vscode setup",
             ),
           ],
