@@ -1,5 +1,6 @@
 component FeatureCard {
   base {
+    position: relative;
     border: 1px solid color.border;
     border-radius: radius.lg;
     background: color.surface;
@@ -7,24 +8,47 @@ component FeatureCard {
     display: flex;
     flex-direction: column;
     gap: space.2;
+    transition: border-color duration.normal easing.out, transform duration.normal easing.out, box-shadow duration.normal easing.out;
+
+    &:hover {
+      border-color: color-mix(in srgb, color.accent 45%, color.border);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px -20px color.accent;
+
+      icon {
+        background: color-mix(in srgb, color.accent 16%, transparent);
+        border-color: color-mix(in srgb, color.accent 40%, transparent);
+      }
+    }
   }
 
   slots {
     root {}
     icon {
-      font-size: font.lg;
-      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: radius.md;
+      color: color.accent;
+      background: color-mix(in srgb, color.accent 9%, transparent);
+      border: 1px solid color-mix(in srgb, color.accent 22%, transparent);
+      margin-bottom: space.2;
+      transition: background duration.normal easing.out, border-color duration.normal easing.out;
     }
     title {
       font-weight: 600;
       font-size: font.md;
       margin: 0;
+      letter-spacing: -0.01em;
     }
     body {
       color: color.muted;
       font-size: font.sm;
       margin: 0;
-      line-height: 1.5;
+      line-height: 1.55;
     }
   }
 }
