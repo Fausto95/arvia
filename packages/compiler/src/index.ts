@@ -1,7 +1,7 @@
 import { parse } from "./parser/parser.js";
 import { check } from "./checker/checker.js";
 import { buildIR } from "./ir/build.js";
-import { emitCss } from "./generators/css/emit.js";
+import { emitCssWithMap, type CssSourceMap } from "./generators/css/emit.js";
 import { emitJs } from "./generators/js/emit.js";
 import { emitDts, emitDtsWithAnchors, type DtsAnchor } from "./generators/dts/emit.js";
 import { emptyEnv, type ThemeEnv } from "./ir/ir.js";
@@ -10,8 +10,23 @@ import type { ArviaFile } from "./ast/nodes.js";
 
 export type { Diagnostic, DiagnosticFix, Severity, Span } from "./diagnostics.js";
 export { ArviaError, renderDiagnostic } from "./diagnostics.js";
-export type { ThemeEnv, RecipeIR, StyleIR, DeclIR, StateIR, TokenModes } from "./ir/ir.js";
+export type {
+  ThemeEnv,
+  RecipeIR,
+  StyleIR,
+  DeclIR,
+  StateIR,
+  TokenModes,
+  FileIR,
+  ComponentIR,
+  StyleDeclIR,
+  KeyframesIR,
+  VariantIR,
+  VariantValueIR,
+} from "./ir/ir.js";
 export { emptyEnv } from "./ir/ir.js";
+export { buildIR } from "./ir/build.js";
+export { emitCss, emitCssWithMap, type CssSourceMap } from "./generators/css/emit.js";
 export type { DtsAnchor } from "./generators/dts/emit.js";
 
 // Editor tooling surface: the recovered AST, position utilities and a
@@ -79,6 +94,8 @@ export interface CompileResult {
   css: string | null;
   js: string | null;
   dts: string | null;
+  /** Rule-level source map for `css` (rules → declaring name in source). */
+  cssMap: CssSourceMap | null;
   diagnostics: Diagnostic[];
   /** Merged environment exported by this file (its own theme/recipes win). */
   env: ThemeEnv;
@@ -148,6 +165,7 @@ export function compile(source: string, options: CompileOptions): CompileResult 
       css: null,
       js: null,
       dts: null,
+      cssMap: null,
       diagnostics: parseDiagnostics,
       env: options.env ?? emptyEnv(),
       meta: { components: [], tokens: [], keyframes: [], styles: [] },
@@ -166,6 +184,7 @@ export function compile(source: string, options: CompileOptions): CompileResult 
       css: null,
       js: null,
       dts: null,
+      cssMap: null,
       diagnostics,
       env,
       meta: { components: [], tokens: [], keyframes: [], styles: [] },
@@ -173,11 +192,13 @@ export function compile(source: string, options: CompileOptions): CompileResult 
   }
 
   const ir = buildIR(ast, env, { filename: options.filename, root: options.root });
+  const { css, map } = emitCssWithMap(ir, { file: options.filename, content: source });
 
   return {
-    css: emitCss(ir),
+    css,
     js: emitJs(ir),
     dts: emitDts(ir),
+    cssMap: map,
     diagnostics,
     env,
     meta: {

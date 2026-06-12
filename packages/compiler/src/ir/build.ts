@@ -118,6 +118,7 @@ export function buildIR(ast: ArviaFile, env: ThemeEnv, options: BuildOptions): F
     if (top.kind === "keyframes") {
       keyframes.push({
         name: top.name,
+        nameSpan: top.nameSpan,
         cssName: env.keyframes[top.name]!,
         steps: top.steps.map((step) => ({
           selector: step.selector,

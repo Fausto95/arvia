@@ -5,6 +5,7 @@ import {
   compile,
   renderDiagnostic,
   type CompileResult,
+  type CssSourceMap,
   type Diagnostic,
   type ThemeEnv,
 } from "@arviahq/compiler";
@@ -39,7 +40,7 @@ export function arvia(options: ArviaOptions = {}): Plugin {
   let conventionalThemePath = "";
   let themeEnv: ThemeEnv | undefined;
   /** Compiled CSS per .arv file, served through the phantom `<file>.arv.css` module. */
-  const cssCache = new Map<string, string>();
+  const cssCache = new Map<string, { css: string; map: CssSourceMap | null }>();
   /** Last generated JS per .arv file, used to detect style-only edits in HMR. */
   const jsCache = new Map<string, string>();
   /** Component name → defining files, to warn about cross-file name clashes. */
@@ -152,7 +153,7 @@ export function arvia(options: ArviaOptions = {}): Plugin {
           try {
             const result = compileFile(file, fs.readFileSync(file, "utf8"));
             if (!firstError(result.diagnostics)) {
-              cssCache.set(file, result.css!);
+              cssCache.set(file, { css: result.css!, map: result.cssMap });
               jsCache.set(file, result.js!);
               scheduleDtsWrite(`${file}.d.ts`, result.dts!);
             }
@@ -205,14 +206,14 @@ export function arvia(options: ArviaOptions = {}): Plugin {
       if (!ARV_CSS_RE.test(id)) return;
       const arviaPath = id.slice(0, -".css".length);
       const cached = cssCache.get(arviaPath);
-      if (cached !== undefined) return cached;
+      if (cached !== undefined) return { code: cached.css, map: cached.map };
       // Cache miss (server restart ordering, programmatic builds): compile from disk.
       const code = fs.readFileSync(arviaPath, "utf8");
       const result = compileFile(arviaPath, code);
       const error = firstError(result.diagnostics);
       if (error) this.error(renderDiagnostic(error));
-      cssCache.set(arviaPath, result.css!);
-      return result.css!;
+      cssCache.set(arviaPath, { css: result.css!, map: result.cssMap });
+      return { code: result.css!, map: result.cssMap };
     },
 
     transform(code, id) {
@@ -230,7 +231,7 @@ export function arvia(options: ArviaOptions = {}): Plugin {
         if (warning.severity === "warning") this.warn(renderDiagnostic(warning));
       }
 
-      cssCache.set(id, result.css!);
+      cssCache.set(id, { css: result.css!, map: result.cssMap });
       jsCache.set(id, result.js!);
       trackComponents(
         id,
@@ -274,7 +275,7 @@ export function arvia(options: ArviaOptions = {}): Plugin {
       }
 
       if (result && !firstError(result.diagnostics)) {
-        cssCache.set(ctx.file, result.css!);
+        cssCache.set(ctx.file, { css: result.css!, map: result.cssMap });
         if (options.dts === true) scheduleDtsWrite(`${ctx.file}.d.ts`, result.dts!);
 
         // Style-only edit: class names are path-hashed, so the JS is

@@ -71,6 +71,9 @@ export interface ThemeVarIR {
 
 export interface KeyframesIR {
   name: string;
+  /** Span of the keyframes name in the .arv source (for editor navigation
+   *  and CSS source maps). */
+  nameSpan: Span;
   /** Hashed CSS animation name emitted in @keyframes. */
   cssName: string;
   steps: { selector: string; decls: DeclIR[] }[];

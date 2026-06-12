@@ -1,3 +1,4 @@
+import type { Span } from "../../diagnostics.js";
 import type { DeclIR, FileIR, StyleIR } from "../../ir/ir.js";
 import { cssVarName } from "../../ir/ir.js";
 import {
@@ -7,10 +8,31 @@ import {
   responsiveVariantClass,
   variantClass,
 } from "../../ir/names.js";
+import { buildCssSourceMap, type CssMapping, type CssSourceMap } from "./sourcemap.js";
+
+export type { CssSourceMap } from "./sourcemap.js";
 
 /** Emits static, minification-ready CSS. */
 export function emitCss(ir: FileIR): string {
-  const out: string[] = [];
+  return emitCssWithMap(ir).css;
+}
+
+/**
+ * CSS plus a rule-level source map: every rule maps back to the name of the
+ * component/style/keyframes it was generated from (devtools jump-to-source).
+ */
+export function emitCssWithMap(
+  ir: FileIR,
+  source?: { file: string; content: string | null },
+): { css: string; map: CssSourceMap | null } {
+  const chunks: { text: string; span: Span | null }[] = [];
+  // The declaration anchor for whatever section is currently emitting.
+  let anchor: Span | null = null;
+  const out = {
+    push: (text: string) => {
+      chunks.push({ text, span: anchor });
+    },
+  };
 
   const rule = (selector: string, decls: DeclIR[]) => {
     if (decls.length === 0) return;
@@ -135,6 +157,7 @@ export function emitCss(ir: FileIR): string {
   }
 
   for (const kf of ir.keyframes) {
+    anchor = kf.nameSpan;
     const steps = kf.steps
       .map((step) => {
         const body = step.decls.map((d) => `  ${d.property}: ${d.value};`).join("\n");
@@ -144,11 +167,13 @@ export function emitCss(ir: FileIR): string {
     out.push(`@keyframes ${kf.cssName} {\n${steps}\n}`);
   }
 
+  anchor = null;
   for (const global of ir.globals) {
     rule(global.selector, global.decls);
   }
 
   for (const c of ir.components) {
+    anchor = c.nameSpan;
     if (c.containers.length > 0) {
       const root = baseClass(c, "root");
       rule(`.${root}`, [{ property: "container-type", value: "inline-size" }]);
@@ -192,8 +217,20 @@ export function emitCss(ir: FileIR): string {
 
   // Standalone styles last (utilities-last): composed styles win the cascade.
   for (const s of ir.styles) {
+    anchor = s.nameSpan;
     styleRules(s.className, s.style);
   }
 
-  return out.length > 0 ? out.join("\n\n") + "\n" : "";
+  if (chunks.length === 0) return { css: "", map: null };
+
+  const css = chunks.map((c) => c.text).join("\n\n") + "\n";
+  if (!source) return { css, map: null };
+
+  const mappings: CssMapping[] = [];
+  let line = 0;
+  for (const chunk of chunks) {
+    if (chunk.span) mappings.push({ generatedLine: line, span: chunk.span });
+    line += chunk.text.split("\n").length + 1; // +1 for the blank separator
+  }
+  return { css, map: buildCssSourceMap(mappings, source) };
 }

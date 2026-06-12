@@ -2,6 +2,7 @@ import type { Hover, Range } from "vscode-languageserver";
 import { MarkupKind } from "vscode-languageserver-types";
 import type { ArviaFile, ComponentDecl, Span, ThemeEnv } from "@arviahq/compiler";
 import { nodeAtOffset, type AstTarget, type RefWord } from "./ast-query.js";
+import { cssPreviewFor } from "./css-preview.js";
 import { cssPropertyHover } from "./cssdata.js";
 import type { DocumentAnalysis } from "./documents.js";
 import type { ThemeHost } from "./theme-host.js";
@@ -14,9 +15,13 @@ export function getHover(
   const target = nodeAtOffset(analysis.ast, offset);
   if (!target) return null;
   const markdown = renderHover(target, analysis, workspace);
-  if (!markdown) return null;
+  const preview = cssPreviewFor(analysis, target);
+  if (!markdown && !preview) return null;
+  const value = [markdown, preview ? "```css\n" + preview + "```" : null]
+    .filter(Boolean)
+    .join("\n\n");
   return {
-    contents: { kind: MarkupKind.Markdown, value: markdown },
+    contents: { kind: MarkupKind.Markdown, value },
     range: rangeOf(analysis, targetSpan(target)),
   };
 }
