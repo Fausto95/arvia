@@ -61,6 +61,9 @@ component Button {
         &:hover {
           background: color.primaryHover;
         }
+        &:focus {
+          box-shadow: 0 0 0 3px color.primaryHover;
+        }
       }
       danger {
         background: color.danger;
