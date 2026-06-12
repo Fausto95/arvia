@@ -47,7 +47,10 @@ async function main(): Promise<number> {
         console.error("error: --include requires a comma-separated list");
         return 1;
       }
-      includeDirs = raw.split(",").map((s) => s.trim()).filter(Boolean);
+      includeDirs = raw
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
     } else if (args[i] === "--format") {
       const fmt = args[++i];
       if (fmt !== "md" && fmt !== "json") {

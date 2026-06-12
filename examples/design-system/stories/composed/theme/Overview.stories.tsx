@@ -32,7 +32,11 @@ function ThemeOverview() {
       <div className={section.root}>
         <h2 className={Text({ size: "lg", weight: "bold" }).root}>Color tokens</h2>
         <div className={grid.root}>
-          <TokenSwatch name="primary" value={tokens.color.primary} doc="Brand primary — CTAs and links" />
+          <TokenSwatch
+            name="primary"
+            value={tokens.color.primary}
+            doc="Brand primary — CTAs and links"
+          />
           <TokenSwatch name="danger" value={tokens.color.danger} doc="Destructive actions" />
           <TokenSwatch name="success" value={tokens.color.success} doc="Positive feedback" />
           <TokenSwatch name="warning" value={tokens.color.warning} doc="Caution states" />
@@ -43,7 +47,10 @@ function ThemeOverview() {
         <h2 className={Text({ size: "lg", weight: "bold" }).root}>Spacing scale</h2>
         <div className={grid.root}>
           {(["1", "2", "3", "4", "5", "6"] as const).map((key) => (
-            <div key={key} style={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+            <div
+              key={key}
+              style={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}
+            >
               <div
                 style={{
                   width: tokens.space[key],
@@ -69,8 +76,8 @@ function ThemeOverview() {
       </div>
 
       <p className={Text({ size: "sm", tone: "muted" }).root}>
-        Toggle light/dark mode using the toolbar above. Theme modes are defined in src/theme.arv with
-        @dark overrides.
+        Toggle light/dark mode using the toolbar above. Theme modes are defined in src/theme.arv
+        with @dark overrides.
       </p>
     </div>
   );

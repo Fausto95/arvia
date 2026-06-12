@@ -63,7 +63,7 @@ describe("generateStorybook", () => {
     expect(result.files).toHaveLength(1);
     const story = fs.readFileSync(result.files[0]!, "utf8");
     expect(story).toContain('title: "Atoms/Button"');
-    expect(story).toContain("<button type=\"button\" className={styles.root}>");
+    expect(story).toContain('<button type="button" className={styles.root}>');
     expect(story).toContain("styles.icon");
     expect(story).toContain("styles.label");
   });
