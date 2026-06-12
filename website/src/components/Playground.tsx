@@ -3,6 +3,7 @@ import { fbt } from "fbtee";
 import { compile, LineIndex, type CompileResult, type ThemeEnv } from "@arviahq/compiler";
 import { CodeBlock } from "./code-block.arv";
 import { Playground as PlaygroundStyles } from "./playground.arv";
+import { tokens } from "../theme.arv";
 import { highlightCode } from "./highlight";
 import { useSiteTheme } from "../site-theme";
 import type { ArviaMarker } from "./MonacoArvia";
@@ -216,9 +217,9 @@ export function Playground(
                 marginLeft: "auto",
                 padding: "2px 8px",
                 borderRadius: 6,
-                border: "1px solid var(--arvia-color-border)",
-                background: "var(--arvia-color-surface)",
-                color: "var(--arvia-color-text)",
+                border: `1px solid ${tokens.color.border}`,
+                background: tokens.color.surface,
+                color: tokens.color.text,
                 fontFamily: "inherit",
                 fontSize: 12,
               }}
@@ -453,9 +454,7 @@ function LivePreview({
         </p>
       );
     }
-    return (
-      <span style={{ opacity: 0.6, fontSize: 13 }}>{emptyHint}</span>
-    );
+    return <span style={{ opacity: 0.6, fontSize: 13 }}>{emptyHint}</span>;
   }
 
   const classFor = (slot: string, overrides: Record<string, string>): string => {

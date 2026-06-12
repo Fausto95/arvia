@@ -130,4 +130,10 @@ component DocsSearch {
       }
     }
   }
+
+  // The dialog never renders the trigger slot — placement only matters for
+  // the trigger call site, which always passes it explicitly.
+  defaults {
+    placement: nav;
+  }
 }

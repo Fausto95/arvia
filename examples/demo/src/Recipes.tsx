@@ -14,15 +14,16 @@ import { RecipeStatesButton } from "./recipes/states.arv";
 import { RecipeSurfaceCard } from "./recipes/use-recipe.arv";
 import { RecipeTokenBox } from "./recipes/tokens.arv";
 import { RecipeVariantsButton } from "./recipes/variants.arv";
+import { tokens } from "./theme.arv";
 
 function RecipeSection(props: { file: string; title: string; children: ReactNode }) {
   return (
     <section
       style={{
-        border: "1px solid var(--arvia-color-border)",
+        border: `1px solid ${tokens.color.border}`,
         borderRadius: 12,
         padding: 20,
-        background: "var(--arvia-color-surface)",
+        background: tokens.color.surface,
       }}
     >
       <p
