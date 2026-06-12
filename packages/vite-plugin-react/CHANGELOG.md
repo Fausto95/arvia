@@ -1,5 +1,13 @@
 # @arviahq/vite-plugin-react
 
+## 0.5.0
+
+### Patch Changes
+
+- Updated dependencies [ebc412f]
+  - @arviahq/typescript-plugin@0.5.0
+  - @arviahq/vite-plugin@0.5.0
+
 ## 0.4.0
 
 ### Patch Changes
