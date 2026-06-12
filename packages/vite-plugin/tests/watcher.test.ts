@@ -90,7 +90,7 @@ describe("watcher", () => {
     writeFileSync(badge, BADGE);
     await waitFor(() => existsSync(`${badge}.d.ts`), "badge.arv.d.ts to appear");
     expect(readFileSync(`${badge}.d.ts`, "utf8")).toContain(
-      "export declare function Badge(props?: BadgeProps): BadgeSlots;",
+      "export declare function Badge(props: BadgeProps): BadgeSlots;",
     );
   });
 

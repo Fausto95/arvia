@@ -7,6 +7,13 @@ export interface Span {
 
 export type Severity = "error" | "warning";
 
+/** Machine-applicable fix carried by a diagnostic, e.g. a did-you-mean
+ *  replacement. Editors surface these as quick fixes. */
+export interface DiagnosticFix {
+  title: string;
+  edits: { span: Span; newText: string }[];
+}
+
 export interface Diagnostic {
   code: string;
   severity: Severity;
@@ -16,6 +23,7 @@ export interface Diagnostic {
   col: number;
   span: Span;
   hint?: string;
+  fix?: DiagnosticFix;
 }
 
 /** Thrown by the lexer/parser on the first unrecoverable error (fail-fast). */
@@ -33,8 +41,14 @@ export function makeDiagnostic(
   file: string,
   span: Span,
   hint?: string,
+  fix?: DiagnosticFix,
 ): Diagnostic {
-  return { code, severity, message, file, line: span.line, col: span.col, span, hint };
+  return { code, severity, message, file, line: span.line, col: span.col, span, hint, fix };
+}
+
+/** Single-edit fix replacing exactly the diagnostic's span. */
+export function replaceFix(span: Span, newText: string): DiagnosticFix {
+  return { title: `Change to '${newText}'`, edits: [{ span, newText }] };
 }
 
 export function renderDiagnostic(d: Diagnostic): string {

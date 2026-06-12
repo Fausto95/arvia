@@ -8,7 +8,7 @@ import { emptyEnv, type ThemeEnv } from "./ir/ir.js";
 import type { Diagnostic } from "./diagnostics.js";
 import type { ArviaFile } from "./ast/nodes.js";
 
-export type { Diagnostic, Severity, Span } from "./diagnostics.js";
+export type { Diagnostic, DiagnosticFix, Severity, Span } from "./diagnostics.js";
 export { ArviaError, renderDiagnostic } from "./diagnostics.js";
 export type { ThemeEnv, RecipeIR, StyleIR, DeclIR, StateIR, TokenModes } from "./ir/ir.js";
 export { emptyEnv } from "./ir/ir.js";
@@ -108,7 +108,15 @@ export function compileDts(
   // The parser recovers past errors, so types survive for every component it
   // managed to parse — a syntax typo in one component doesn't nuke the file.
   const { ast } = parse(source, options.filename);
-  const ir = buildIR(ast, options.env ?? emptyEnv(), { filename: options.filename });
+  // Theme files need a checked env: buildIR materializes themeVars (the
+  // `tokens` export) only for token groups present in the env, and the theme
+  // file itself is compiled without one. Component-only files keep the fast
+  // checker-free path.
+  let env = options.env ?? emptyEnv();
+  if (ast.items.some((item) => item.kind === "theme")) {
+    env = check(ast, { filename: options.filename, env: options.env }).env;
+  }
+  const ir = buildIR(ast, env, { filename: options.filename });
   const { code, anchors } = emitDtsWithAnchors(ir);
   return { dts: code, anchors };
 }

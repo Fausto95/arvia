@@ -22,8 +22,45 @@ describe("compileDts", () => {
     expect(compile(source, { filename: "x.arv" }).dts).toBeNull();
     // …but the type surface is unaffected, so compileDts succeeds.
     const { dts } = compileDts(source, { filename: "x.arv" });
-    expect(dts).toContain('tone?: "a" | "b";');
-    expect(dts).toContain("export declare function X(props?: XProps): XSlots;");
+    expect(dts).toContain('tone: "a" | "b";');
+    expect(dts).toContain("export declare function X(props: XProps): XSlots;");
+  });
+
+  it("requires variants without a defaults entry", () => {
+    const required = compileDts("component X { variants { tone { a {} b {} } } }", {
+      filename: "x.arv",
+    });
+    expect(required.dts).toContain('tone: "a" | "b";');
+    expect(required.dts).toContain("export declare function X(props: XProps): XSlots;");
+
+    const defaulted = compileDts(
+      "component X { variants { tone { a {} b {} } } defaults { tone: a; } }",
+      { filename: "x.arv" },
+    );
+    expect(defaulted.dts).toContain('tone?: "a" | "b";');
+    expect(defaulted.dts).toContain("export declare function X(props?: XProps): XSlots;");
+  });
+
+  it("requires props when any variant lacks a default", () => {
+    const { dts } = compileDts(
+      "component X { variants { tone { a {} b {} } size { sm {} md {} } } defaults { size: sm; } }",
+      { filename: "x.arv" },
+    );
+    expect(dts).toContain('tone: "a" | "b";');
+    expect(dts).toContain('size?: "sm" | "md";');
+    expect(dts).toContain("export declare function X(props: XProps): XSlots;");
+  });
+
+  it("requires `initial` in the responsive object form of a required variant", () => {
+    const source = `theme { breakpoint { md = 768px; } }
+component X {
+  variants { tone { a {} b {} } size { sm {} md {} } }
+  defaults { size: sm; }
+  responsive { md { tone: b; size: md; } }
+}`;
+    const { dts } = compileDts(source, { filename: "x.arv" });
+    expect(dts).toContain('tone: "a" | "b" | { initial: "a" | "b"; md?: "a" | "b"; };');
+    expect(dts).toContain('size?: "sm" | "md" | { initial?: "sm" | "md"; md?: "sm" | "md"; };');
   });
 
   it("recovers types past parse errors", () => {
@@ -33,7 +70,7 @@ describe("compileDts", () => {
       { filename: "x.arv" },
     );
     expect(dts).toContain("export declare function X(): XSlots;");
-    expect(dts).toContain("export declare function Y(props?: YProps): YSlots;");
+    expect(dts).toContain("export declare function Y(props: YProps): YSlots;");
     expect(anchors.map((a) => a.name)).toEqual(["X", "Y"]);
   });
 
@@ -56,7 +93,13 @@ describe("compileDts", () => {
 
   it("returns no anchors for component-less files", () => {
     const result = compileDts("theme { color { a = red; } }", { filename: "t.arv" });
-    expect(result.dts).toContain("export {};");
+    // Theme files export their tokens; only the component/style declarations
+    // get anchors.
+    expect(result.dts).toContain("export declare const tokens:");
     expect(result.anchors).toEqual([]);
+
+    const empty = compileDts("global { body { margin: 0; } }", { filename: "g.arv" });
+    expect(empty.dts).toContain("export {};");
+    expect(empty.anchors).toEqual([]);
   });
 });

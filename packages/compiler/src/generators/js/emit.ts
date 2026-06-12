@@ -1,4 +1,4 @@
-import type { FileIR } from "../../ir/ir.js";
+import { cssVarName, type FileIR } from "../../ir/ir.js";
 import {
   baseClass,
   compoundClass,
@@ -81,8 +81,21 @@ const _h = (base, variants, compounds, defaults, responsive, respClasses, contai
   return out;
 };`;
 
+/** Runtime values for the `tokens` export: `var()` references for moded
+ *  themes (the custom properties carry the values), resolved literals for
+ *  single-mode themes (no custom properties are emitted). */
+export function buildTokensObject(ir: FileIR): Record<string, Record<string, string>> {
+  const tokens: Record<string, Record<string, string>> = {};
+  for (const v of ir.themeVars) {
+    (tokens[v.group] ??= {})[v.name] = ir.themeModes
+      ? `var(${cssVarName(v.group, v.name)})`
+      : (v.byMode["default"] ?? "");
+  }
+  return tokens;
+}
+
 export function emitJs(ir: FileIR): string {
-  if (ir.components.length === 0 && ir.styles.length === 0) {
+  if (ir.components.length === 0 && ir.styles.length === 0 && ir.themeVars.length === 0) {
     return `${HEADER}\nexport {};\n`;
   }
 
@@ -172,6 +185,10 @@ export function emitJs(ir: FileIR): string {
 
   for (const s of ir.styles) {
     parts.push(`export const ${s.name} = ${JSON.stringify(s.className)};`);
+  }
+
+  if (ir.themeVars.length > 0) {
+    parts.push(`export const tokens = ${JSON.stringify(buildTokensObject(ir), null, 2)};`);
   }
 
   return parts.join("\n\n") + "\n";

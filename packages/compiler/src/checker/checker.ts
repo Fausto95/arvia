@@ -1,4 +1,11 @@
-import { didYouMean, makeDiagnostic, type Diagnostic, type Span } from "../diagnostics.js";
+import {
+  didYouMean,
+  makeDiagnostic,
+  replaceFix,
+  type Diagnostic,
+  type DiagnosticFix,
+  type Span,
+} from "../diagnostics.js";
 import type {
   ComponentDecl,
   ArviaFile,
@@ -114,9 +121,10 @@ class Checker {
     span: Span,
     hint?: string,
     severity: "error" | "warning" = "error",
+    fix?: DiagnosticFix,
   ) {
     this.diagnostics.push(
-      makeDiagnostic(code, severity, message, this.options.filename, span, hint),
+      makeDiagnostic(code, severity, message, this.options.filename, span, hint, fix),
     );
   }
 
@@ -299,6 +307,17 @@ class Checker {
     }
   }
 
+  /** True when this file will emit the `tokens` export (theme token groups). */
+  private fileExportsTokens(): boolean {
+    return this.ast.items.some(
+      (item) =>
+        item.kind === "theme" &&
+        item.groups.some(
+          (g) => g.name !== "breakpoint" && g.name !== "container" && g.entries.length > 0,
+        ),
+    );
+  }
+
   // --- styles ----------------------------------------------------------------
 
   private collectStyleNames() {
@@ -327,6 +346,14 @@ class Checker {
           `style name '${item.name}' is not a valid JavaScript identifier`,
           item.nameSpan,
           "style names become exported constants; use letters, digits, '_' or '$'",
+        );
+      }
+      if (item.name === "tokens" && this.fileExportsTokens()) {
+        this.report(
+          "ARV125",
+          "style 'tokens' conflicts with the theme's generated `tokens` export",
+          item.nameSpan,
+          "theme-bearing files export their tokens as `tokens`; pick another name",
         );
       }
     }
@@ -385,6 +412,8 @@ class Checker {
         `unknown recipe '${name}'`,
         refSpan,
         hint ? `did you mean '${hint}'?` : undefined,
+        "error",
+        hint ? replaceFix(refSpan, hint) : undefined,
       );
       return null;
     }
@@ -449,6 +478,8 @@ class Checker {
         hint
           ? `did you mean '${word.group}.${hint}'?`
           : "theme values may only reference tokens declared earlier",
+        "error",
+        hint ? replaceFix(word.span, `${word.group}.${hint}`) : undefined,
       );
     };
     if (mode !== null) {
@@ -474,6 +505,8 @@ class Checker {
             `unknown keyframes '${word.name}'`,
             word.span,
             hint ? `did you mean 'keyframes.${hint}'?` : undefined,
+            "error",
+            hint ? replaceFix(word.span, `keyframes.${hint}`) : undefined,
           );
           return;
         }
@@ -484,6 +517,8 @@ class Checker {
           `unknown token '${word.group}.${word.name}'`,
           word.span,
           hint ? `did you mean '${word.group}.${hint}'?` : undefined,
+          "error",
+          hint ? replaceFix(word.span, `${word.group}.${hint}`) : undefined,
         );
       },
       this.localTokens,
@@ -518,6 +553,14 @@ class Checker {
           `component name '${item.name}' is not a valid JavaScript identifier`,
           item.nameSpan,
           "component names become exported functions; use letters, digits, '_' or '$'",
+        );
+      }
+      if (item.name === "tokens" && this.fileExportsTokens()) {
+        this.report(
+          "ARV125",
+          "component 'tokens' conflicts with the theme's generated `tokens` export",
+          item.nameSpan,
+          "theme-bearing files export their tokens as `tokens`; pick another name",
         );
       }
       this.checkComponent(item);
@@ -625,6 +668,8 @@ class Checker {
           `unknown slot '${name}' in component '${component.name}'`,
           span,
           hint ? `did you mean '${hint}'?` : "declare it in the 'slots { }' block",
+          "error",
+          hint ? replaceFix(span, hint) : undefined,
         );
       }
     };
@@ -692,6 +737,8 @@ class Checker {
                 `defaults references unknown variant '${entry.variant}'`,
                 entry.variantSpan,
                 hint ? `did you mean '${hint}'?` : undefined,
+                "error",
+                hint ? replaceFix(entry.variantSpan, hint) : undefined,
               );
             } else if (!variant.values.has(entry.value)) {
               const hint = didYouMean(entry.value, variant.values.keys());
@@ -700,6 +747,8 @@ class Checker {
                 `defaults references unknown value '${entry.value}' for variant '${entry.variant}'`,
                 entry.valueSpan,
                 hint ? `did you mean '${hint}'?` : undefined,
+                "error",
+                hint ? replaceFix(entry.valueSpan, hint) : undefined,
               );
             }
           }
@@ -726,6 +775,8 @@ class Checker {
                 hint
                   ? `did you mean '${hint}'?`
                   : "declare breakpoints in theme { breakpoint { ... } }",
+                "error",
+                hint ? replaceFix(entry.breakpointSpan, hint) : undefined,
               );
             }
             const seenVariants = new Set<string>();
@@ -747,6 +798,8 @@ class Checker {
                   `responsive references unknown variant '${variant.variant}'`,
                   variant.variantSpan,
                   hint ? `did you mean '${hint}'?` : undefined,
+                  "error",
+                  hint ? replaceFix(variant.variantSpan, hint) : undefined,
                 );
               } else if (!variantDecl.values.has(variant.value)) {
                 const hint = didYouMean(variant.value, variantDecl.values.keys());
@@ -755,6 +808,8 @@ class Checker {
                   `responsive references unknown value '${variant.value}' for variant '${variant.variant}'`,
                   variant.valueSpan,
                   hint ? `did you mean '${hint}'?` : undefined,
+                  "error",
+                  hint ? replaceFix(variant.valueSpan, hint) : undefined,
                 );
               }
             }
@@ -780,6 +835,8 @@ class Checker {
                 `unknown container size '${entry.container}'`,
                 entry.containerSpan,
                 hint ? `did you mean '${hint}'?` : "declare sizes in theme { container { ... } }",
+                "error",
+                hint ? replaceFix(entry.containerSpan, hint) : undefined,
               );
             }
             const seenVariants = new Set<string>();
@@ -801,6 +858,8 @@ class Checker {
                   `container references unknown variant '${variant.variant}'`,
                   variant.variantSpan,
                   hint ? `did you mean '${hint}'?` : undefined,
+                  "error",
+                  hint ? replaceFix(variant.variantSpan, hint) : undefined,
                 );
               } else if (!variantDecl.values.has(variant.value)) {
                 const hint = didYouMean(variant.value, variantDecl.values.keys());
@@ -809,6 +868,8 @@ class Checker {
                   `container references unknown value '${variant.value}' for variant '${variant.variant}'`,
                   variant.valueSpan,
                   hint ? `did you mean '${hint}'?` : undefined,
+                  "error",
+                  hint ? replaceFix(variant.valueSpan, hint) : undefined,
                 );
               }
             }
@@ -846,6 +907,8 @@ class Checker {
                 hint
                   ? `did you mean '${hint}'?`
                   : "styles inside compound blocks must live in slot blocks like 'root { ... }'",
+                "error",
+                hint ? replaceFix(matcher.variantSpan, hint) : undefined,
               );
             } else if (!variant.values.has(matcher.value)) {
               const hint = didYouMean(matcher.value, variant.values.keys());
@@ -854,6 +917,8 @@ class Checker {
                 `compound matcher references unknown value '${matcher.value}' for variant '${matcher.variant}'`,
                 matcher.valueSpan,
                 hint ? `did you mean '${hint}'?` : undefined,
+                "error",
+                hint ? replaceFix(matcher.valueSpan, hint) : undefined,
               );
             }
           }

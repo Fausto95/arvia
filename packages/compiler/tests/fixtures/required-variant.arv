@@ -1,0 +1,23 @@
+// Mixed required/optional variants: `tone` has no defaults entry and must be
+// passed by callers; `size` falls back to its default.
+component Tag {
+  base {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  variants {
+    tone {
+      info { color: blue; }
+      danger { color: red; }
+    }
+    size {
+      sm { font-size: 12px; }
+      md { font-size: 14px; }
+    }
+  }
+
+  defaults {
+    size: sm;
+  }
+}

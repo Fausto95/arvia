@@ -32,8 +32,8 @@ describe("arvia language plugin", () => {
     const code = createArviaVirtualCode("/a/badge.arv", snapshotOf(SOURCE));
     const text = code.snapshot.getText(0, code.snapshot.getLength());
     expect(code.languageId).toBe("typescript");
-    expect(text).toContain('tone?: "a" | "b";');
-    expect(text).toContain("export declare function Badge(props?: BadgeProps): BadgeSlots;");
+    expect(text).toContain('tone: "a" | "b";');
+    expect(text).toContain("export declare function Badge(props: BadgeProps): BadgeSlots;");
   });
 
   it("maps the generated identifier back to the component name in source", () => {

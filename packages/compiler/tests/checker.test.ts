@@ -15,6 +15,34 @@ describe("checker diagnostics", () => {
     expect(d!.hint).toContain("color.primary");
   });
 
+  it("attaches a structured fix to did-you-mean diagnostics", () => {
+    const source =
+      "theme { color { primary = #635bff; } } component X { background: color.primry; }";
+    const d = firstDiag(source);
+    expect(d!.fix).toBeDefined();
+    expect(d!.fix!.title).toBe("Change to 'color.primary'");
+    expect(d!.fix!.edits).toHaveLength(1);
+    const edit = d!.fix!.edits[0]!;
+    expect(source.slice(edit.span.start, edit.span.end)).toBe("color.primry");
+    expect(edit.newText).toBe("color.primary");
+  });
+
+  it("attaches fixes to variant-value typos in defaults", () => {
+    const source =
+      "component X { variants { tone { primary {} ghost {} } } defaults { tone: primry; } }";
+    const d = firstDiag(source);
+    expect(d).toMatchObject({ code: "ARV124" });
+    const edit = d!.fix!.edits[0]!;
+    expect(source.slice(edit.span.start, edit.span.end)).toBe("primry");
+    expect(edit.newText).toBe("primary");
+  });
+
+  it("omits fix when there is no suggestion", () => {
+    const d = firstDiag("theme { color { x = red; } } component X { background: color.zzzzzz; }");
+    expect(d).toMatchObject({ code: "ARV101" });
+    expect(d!.fix).toBeUndefined();
+  });
+
   it("ARV101: only fires for known theme groups", () => {
     // `foo.bar` is not a theme group → passes through as literal CSS.
     expect(codes("theme { color { x = red; } } component X { grid-area: foo.bar; }")).toEqual([]);
