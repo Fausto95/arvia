@@ -7,14 +7,14 @@
   "categories": [
     "Programming Languages"
   ],
-  "homepage": "https://github.com/Fausto95/arvia#readme",
+  "homepage": "https://github.com/arviahq/arvia#readme",
   "bugs": {
-    "url": "https://github.com/Fausto95/arvia/issues"
+    "url": "https://github.com/arviahq/arvia/issues"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Fausto95/arvia.git",
+    "url": "git+https://github.com/arviahq/arvia.git",
     "directory": "packages/vscode-extension"
   },
   "publisher": "arviahq",

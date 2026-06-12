@@ -4,14 +4,14 @@ description = "Syntax highlighting and language server for Arvia (.arv) design-s
 version = "0.4.0"
 schema_version = 1
 authors = ["Fausto95"]
-repository = "https://github.com/Fausto95/arvia"
+repository = "https://github.com/arviahq/arvia"
 
 [language_servers.arvia-language-server]
 name = "Arvia Language Server"
 languages = ["Arvia"]
 
 [grammars.arvia]
-repository = "https://github.com/Fausto95/arvia"
+repository = "https://github.com/arviahq/arvia"
 path = "packages/tree-sitter-arvia"
 # Pin to a commit containing packages/tree-sitter-arvia before publishing:
 rev = "main"

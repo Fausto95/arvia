@@ -52,7 +52,7 @@ export function SiteNav(props: {
             <fbt desc="Main navigation link to playground">{"Playground"}</fbt>
           </RouterLink>
           <a
-            href="https://github.com/Fausto95/arvia"
+            href="https://github.com/arviahq/arvia"
             className={Text({ size: "sm", tone: "muted" }).root}
             target="_blank"
             rel="noreferrer"

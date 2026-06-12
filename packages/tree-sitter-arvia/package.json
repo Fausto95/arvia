@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Fausto95/arvia.git",
+    "url": "git+https://github.com/arviahq/arvia.git",
     "directory": "packages/tree-sitter-arvia"
   },
   "files": [

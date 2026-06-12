@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { appLink } from "../../lib/router-links";
 import { Footer } from "../footer.arv";
 
-const REPO_URL = "https://github.com/Fausto95/arvia";
+const REPO_URL = "https://github.com/arviahq/arvia";
 
 export function SiteFooter() {
   const footer = Footer();

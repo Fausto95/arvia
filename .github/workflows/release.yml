@@ -14,7 +14,7 @@ env:
 
 jobs:
   release:
-    if: github.repository == 'Fausto95/arvia'
+    if: github.repository == 'arviahq/arvia'
     runs-on: ubuntu-latest
     permissions:
       contents: write

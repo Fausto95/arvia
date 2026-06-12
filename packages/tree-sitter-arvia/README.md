@@ -30,7 +30,7 @@ vim.filetype.add({ extension = { arv = "arvia" } })
 local parsers = require("nvim-treesitter.parsers").get_parser_configs()
 parsers.arvia = {
   install_info = {
-    url = "https://github.com/Fausto95/arvia",
+    url = "https://github.com/arviahq/arvia",
     location = "packages/tree-sitter-arvia",
     files = { "src/parser.c", "src/scanner.c" },
   },

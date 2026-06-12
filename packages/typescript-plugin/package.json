@@ -2,14 +2,14 @@
   "name": "@arviahq/typescript-plugin",
   "version": "0.5.0",
   "description": "TypeScript plugin for .arv files: virtual types and arvia-tsc CLI — no generated .d.ts files needed.",
-  "homepage": "https://github.com/Fausto95/arvia#readme",
+  "homepage": "https://github.com/arviahq/arvia#readme",
   "bugs": {
-    "url": "https://github.com/Fausto95/arvia/issues"
+    "url": "https://github.com/arviahq/arvia/issues"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Fausto95/arvia.git",
+    "url": "git+https://github.com/arviahq/arvia.git",
     "directory": "packages/typescript-plugin"
   },
   "bin": {

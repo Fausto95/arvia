@@ -2,14 +2,14 @@
   "name": "@arviahq/vite-plugin-vue",
   "version": "0.5.0",
   "description": "Arvia for Vue + Vite — compile .arv design system files with HMR, the arvia CLI, and a Vue-aware arvia-tsc.",
-  "homepage": "https://github.com/Fausto95/arvia#readme",
+  "homepage": "https://github.com/arviahq/arvia#readme",
   "bugs": {
-    "url": "https://github.com/Fausto95/arvia/issues"
+    "url": "https://github.com/arviahq/arvia/issues"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Fausto95/arvia.git",
+    "url": "git+https://github.com/arviahq/arvia.git",
     "directory": "packages/vite-plugin-vue"
   },
   "bin": {

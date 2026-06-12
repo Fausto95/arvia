@@ -17,7 +17,7 @@ env:
 
 jobs:
   publish:
-    if: github.repository == 'Fausto95/arvia'
+    if: github.repository == 'arviahq/arvia'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
