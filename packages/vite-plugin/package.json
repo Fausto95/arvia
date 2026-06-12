@@ -1,6 +1,6 @@
 {
   "name": "@arviahq/vite-plugin",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Framework-agnostic Vite plugin for .arv files: CSS, JS generation with HMR.",
   "homepage": "https://github.com/Fausto95/arvia#readme",
   "bugs": {
