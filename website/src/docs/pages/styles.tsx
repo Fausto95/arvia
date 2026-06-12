@@ -1,6 +1,8 @@
 import { DocArticle } from "../../components/docs/DocArticle";
 import { DocH2 } from "../../components/docs/DocH2";
 import { DocP } from "../../components/docs/DocP";
+import { DocCallout } from "../../components/docs/DocCallout";
+import { DocCode } from "../../components/docs/DocCode";
 import type { DocPageMeta } from "../registry";
 
 export const stylesMeta: DocPageMeta = {

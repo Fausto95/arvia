@@ -3,6 +3,8 @@ import { DocH2 } from "../../components/docs/DocH2";
 import { DocLi } from "../../components/docs/DocLi";
 import { DocP } from "../../components/docs/DocP";
 import { DocUl } from "../../components/docs/DocUl";
+import { DocCallout } from "../../components/docs/DocCallout";
+import { DocTable } from "../../components/docs/DocTable";
 import type { DocPageMeta } from "../registry";
 
 export const thinking_in_arviaMeta: DocPageMeta = {

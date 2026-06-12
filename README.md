@@ -137,6 +137,10 @@ pnpm test
 
 Contributors: [`examples/demo`](./examples/demo) for a local playground, [`PUBLISHING.md`](./PUBLISHING.md) for releases.
 
+## Acknowledgements
+
+Arvia owes a great deal to [vanilla-extract](https://github.com/vanilla-extract-css/vanilla-extract) — build-time CSS, typed themes, and the recipes/variants mental model were a huge inspiration for the language.
+
 ## License
 
 MIT
