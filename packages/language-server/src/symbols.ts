@@ -1,5 +1,5 @@
 import type { DocumentSymbol } from "vscode-languageserver";
-import { SymbolKind } from "vscode-languageserver";
+import { SymbolKind } from "vscode-languageserver-types";
 import type { Span } from "@arviahq/compiler";
 import type { DocumentAnalysis } from "./documents.js";
 

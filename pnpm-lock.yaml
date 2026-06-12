@@ -107,6 +107,9 @@ importers:
       vscode-languageserver-textdocument:
         specifier: ^1.0.12
         version: 1.0.12
+      vscode-languageserver-types:
+        specifier: ^3.17.5
+        version: 3.17.5
     devDependencies:
       '@types/node':
         specifier: ^25.9.3
@@ -220,6 +223,9 @@ importers:
       '@arviahq/compiler':
         specifier: workspace:*
         version: link:../packages/compiler
+      '@arviahq/language-server':
+        specifier: workspace:^
+        version: link:../packages/language-server
       '@docsearch/css':
         specifier: ^4.6.3
         version: 4.6.3

@@ -1,7 +1,7 @@
 import { pathToFileURL } from "node:url";
 import type { SymbolKind, WorkspaceSymbol } from "vscode-languageserver";
 import { LineIndex, parse, type ArviaFile, type Span } from "@arviahq/compiler";
-import { listArvFiles } from "./occurrences.js";
+import { listArvFiles } from "./fs-utils.js";
 import type { WorkspaceState } from "./workspace.js";
 
 const MAX_SYMBOLS = 2000;

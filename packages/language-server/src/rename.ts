@@ -4,13 +4,8 @@ import type { Range, TextEdit, WorkspaceEdit } from "vscode-languageserver";
 import { LineIndex, parse, type ArviaFile, type Span } from "@arviahq/compiler";
 import type { DocumentAnalysis } from "./documents.js";
 import { rangeOf } from "./hover.js";
-import {
-  crossFileKinds,
-  identityAt,
-  listArvFiles,
-  occurrencesInFile,
-  readFileOr,
-} from "./occurrences.js";
+import { listArvFiles, readFileOr } from "./fs-utils.js";
+import { crossFileKinds, identityAt, occurrencesInFile } from "./occurrences.js";
 import type { WorkspaceState } from "./workspace.js";
 
 export { listArvFiles, readFileOr };

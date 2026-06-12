@@ -1,15 +1,15 @@
 import type { Hover, Range } from "vscode-languageserver";
-import { MarkupKind } from "vscode-languageserver";
+import { MarkupKind } from "vscode-languageserver-types";
 import type { ArviaFile, ComponentDecl, Span, ThemeEnv } from "@arviahq/compiler";
 import { nodeAtOffset, type AstTarget, type RefWord } from "./ast-query.js";
 import { cssPropertyHover } from "./cssdata.js";
 import type { DocumentAnalysis } from "./documents.js";
-import type { WorkspaceState } from "./workspace.js";
+import type { ThemeHost } from "./theme-host.js";
 
 export function getHover(
   analysis: DocumentAnalysis,
   offset: number,
-  workspace: WorkspaceState,
+  workspace: ThemeHost,
 ): Hover | null {
   const target = nodeAtOffset(analysis.ast, offset);
   if (!target) return null;
@@ -60,7 +60,7 @@ export function rangeOf(analysis: DocumentAnalysis, span: Span): Range {
 function renderHover(
   target: AstTarget,
   analysis: DocumentAnalysis,
-  workspace: WorkspaceState,
+  workspace: ThemeHost,
 ): string | null {
   const env = analysis.env;
   switch (target.kind) {
@@ -187,7 +187,7 @@ function componentHover(component: ComponentDecl): string {
 function keyframesRefHover(
   word: RefWord,
   analysis: DocumentAnalysis,
-  workspace: WorkspaceState,
+  workspace: ThemeHost,
 ): string | null {
   const local = keyframesDeclHover(word.name, analysis.ast);
   if (local) return local;

@@ -1,5 +1,5 @@
 import type { CompletionItem } from "vscode-languageserver";
-import { CompletionItemKind } from "vscode-languageserver";
+import { CompletionItemKind } from "vscode-languageserver-types";
 import type { ComponentDecl, ThemeEnv } from "@arviahq/compiler";
 import { allCssProperties, propertyDescription } from "./cssdata.js";
 import type { DocumentAnalysis } from "./documents.js";

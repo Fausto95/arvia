@@ -3,6 +3,7 @@ import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
 // Monarch-only TypeScript/TSX highlighting — no language-service worker needed.
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution.js";
 import editorWorker from "monaco-editor/esm/vs/editor/editor.worker.js?worker";
+import { registerArviaProviders } from "./monaco-arvia-providers";
 
 self.MonacoEnvironment = {
   getWorker: () => new editorWorker(),
@@ -29,6 +30,9 @@ const KEYWORDS = [
 ];
 
 monaco.languages.register({ id: "arvia" });
+// Completion, hover and color decorators from the language server's
+// browser-safe core (direct calls, no worker).
+registerArviaProviders();
 
 monaco.languages.setLanguageConfiguration("arvia", {
   comments: { lineComment: "//", blockComment: ["/*", "*/"] },

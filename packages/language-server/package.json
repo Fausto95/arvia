@@ -27,6 +27,10 @@
       "types": "./dist/server.d.cts",
       "require": "./dist/server.cjs"
     },
+    "./browser": {
+      "types": "./dist/browser.d.mts",
+      "import": "./dist/browser.mjs"
+    },
     "./dist/server.cjs": "./dist/server.cjs"
   },
   "publishConfig": {
@@ -42,7 +46,8 @@
     "@arviahq/compiler": "workspace:*",
     "vscode-css-languageservice": "^6.3.10",
     "vscode-languageserver": "^9.0.1",
-    "vscode-languageserver-textdocument": "^1.0.12"
+    "vscode-languageserver-textdocument": "^1.0.12",
+    "vscode-languageserver-types": "^3.17.5"
   },
   "devDependencies": {
     "@types/node": "^25.9.3"

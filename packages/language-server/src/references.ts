@@ -4,10 +4,10 @@ import type { Location } from "vscode-languageserver";
 import { LineIndex, parse, type ArviaFile, type Span } from "@arviahq/compiler";
 import { nodeAtOffset } from "./ast-query.js";
 import type { DocumentAnalysis } from "./documents.js";
+import { listArvFiles } from "./fs-utils.js";
 import {
   crossFileKinds,
   identityAt,
-  listArvFiles,
   occurrencesInFile,
   type SymbolIdentity,
 } from "./occurrences.js";

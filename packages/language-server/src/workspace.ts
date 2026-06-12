@@ -1,17 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
-import { analyze, LineIndex, type ArviaFile, type ThemeEnv } from "@arviahq/compiler";
+import { analyze, LineIndex, type ThemeEnv } from "@arviahq/compiler";
+import type { ThemeHost, ThemeInfo } from "./theme-host.js";
 
-export interface ThemeInfo {
-  path: string;
-  /** undefined when the theme itself has errors. */
-  env: ThemeEnv | undefined;
-  ast: ArviaFile;
-  source: string;
-  index: LineIndex;
-}
+export type { ThemeInfo };
 
-export class WorkspaceState {
+export class WorkspaceState implements ThemeHost {
   /** themePath → loaded theme (null = path unreadable). */
   private themes = new Map<string, ThemeInfo | null>();
   /** directory → resolved theme path for documents in it (null = none found). */

@@ -1,5 +1,5 @@
 import type { InlayHint, Range } from "vscode-languageserver";
-import { InlayHintKind } from "vscode-languageserver";
+import { InlayHintKind } from "vscode-languageserver-types";
 import type { ComponentDecl } from "@arviahq/compiler";
 import type { DocumentAnalysis } from "./documents.js";
 import { findLocalToken } from "./hover.js";

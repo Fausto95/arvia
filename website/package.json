@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@arviahq/compiler": "workspace:*",
+    "@arviahq/language-server": "workspace:^",
     "@docsearch/css": "^4.6.3",
     "@docsearch/react": "^4.6.3",
     "@monaco-editor/react": "^4.7.0",
