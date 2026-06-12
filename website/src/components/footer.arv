@@ -1,0 +1,124 @@
+component Footer {
+  base {
+    margin-top: space.8;
+    border-top: 1px solid color.border;
+    background: color.surfaceRaised;
+
+    inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: space.7 space.5 space.5;
+    }
+
+    grid {
+      display: grid;
+      gap: space.6;
+      margin-bottom: space.6;
+    }
+
+    brand {
+      display: flex;
+      flex-direction: column;
+      gap: space.3;
+      align-items: flex-start;
+      max-width: 280px;
+    }
+
+    brandRow {
+      display: inline-flex;
+      align-items: center;
+      gap: space.2;
+      font-weight: 700;
+      font-size: font.md;
+      color: color.text;
+    }
+
+    tagline {
+      margin: 0;
+      font-size: font.sm;
+      color: color.muted;
+      line-height: 1.6;
+    }
+
+    colTitle {
+      margin: 0 0 space.3;
+      font-size: font.xs;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: color.subtle;
+    }
+
+    col {
+      display: flex;
+      flex-direction: column;
+      gap: space.2;
+      align-items: flex-start;
+    }
+
+    link {
+      font-size: font.sm;
+      color: color.muted;
+      text-decoration: none;
+      &:hover { color: color.text; }
+    }
+
+    bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: space.2 space.5;
+      justify-content: space-between;
+      align-items: baseline;
+      border-top: 1px solid color.border;
+      padding-top: space.4;
+      font-size: font.xs;
+      color: color.subtle;
+    }
+
+    note {
+      margin: 0;
+    }
+
+    noteAccent {
+      color: color.accent;
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+  }
+
+  slots {
+    root {}
+    inner {}
+    grid {}
+    brand {}
+    brandRow {}
+    tagline {}
+    col {}
+    colTitle {}
+    link {}
+    bottom {}
+    note {}
+    noteAccent {}
+  }
+
+  variants {
+    layout {
+      stacked {
+        grid { grid-template-columns: 1fr 1fr; }
+        brand { grid-column: 1 / -1; }
+      }
+      spread {
+        grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+        brand { grid-column: auto; }
+      }
+    }
+  }
+
+  defaults {
+    layout: stacked;
+  }
+
+  responsive {
+    md { layout: spread; }
+  }
+}

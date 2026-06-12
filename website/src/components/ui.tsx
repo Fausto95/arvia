@@ -30,6 +30,7 @@ import {
   TocRail,
 } from "./layout.arv";
 import { headingId, renderInline } from "./inline";
+import { Footer } from "./footer.arv";
 import { Link } from "./link.arv";
 import { Nav } from "./nav.arv";
 import { Text } from "./text.arv";
@@ -223,6 +224,117 @@ export function SiteHero() {
         </p>
       </section>
     </div>
+  );
+}
+
+const REPO_URL = "https://github.com/Fausto95/arvia";
+
+export function SiteFooter() {
+  const footer = Footer();
+  const docsLinks = [
+    { to: "/docs/introduction", label: fbt("Introduction", "Footer link — introduction") },
+    { to: "/docs/quick-start", label: fbt("Quick start", "Footer link — quick start") },
+    { to: "/docs/thinking-in-arvia", label: fbt("Thinking in Arvia", "Footer link — thinking") },
+    { to: "/docs/faq", label: fbt("FAQ & troubleshooting", "Footer link — faq") },
+  ];
+  const referenceLinks = [
+    { to: "/docs/compilation", label: fbt("How compilation works", "Footer link — compilation") },
+    { to: "/docs/diagnostics", label: fbt("Diagnostics reference", "Footer link — diagnostics") },
+    { to: "/docs/patterns", label: fbt("Advanced patterns", "Footer link — patterns") },
+    { to: "/docs/from-tailwind", label: fbt("Migration guides", "Footer link — migration") },
+  ];
+  const ecosystemLinks = [
+    { href: REPO_URL, label: "GitHub" },
+    { href: "https://www.npmjs.com/org/arviahq", label: fbt("npm packages", "Footer link — npm") },
+    {
+      href: `${REPO_URL}/tree/main/packages/vscode-extension`,
+      label: fbt("VS Code extension", "Footer link — vscode"),
+    },
+  ];
+
+  return (
+    <footer className={footer.root}>
+      <div className={footer.inner}>
+        <div className={footer.grid}>
+          <div className={footer.brand}>
+            <span className={footer.brandRow}>
+              <img src="/logo.svg" alt="" width={24} height={24} aria-hidden />
+              Arvia
+            </span>
+            <p className={footer.tagline}>
+              <fbt desc="Footer tagline">
+                The design system compiler for the web. Write .arv files, ship plain CSS and typed
+                APIs.
+              </fbt>
+            </p>
+          </div>
+          <div>
+            <p className={footer.colTitle}>
+              <fbt desc="Footer column title — docs">Docs</fbt>
+            </p>
+            <div className={footer.col}>
+              {docsLinks.map((item) => (
+                <RouterLinkBase key={item.to} to={item.to} className={footer.link}>
+                  {item.label}
+                </RouterLinkBase>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className={footer.colTitle}>
+              <fbt desc="Footer column title — reference">Reference</fbt>
+            </p>
+            <div className={footer.col}>
+              {referenceLinks.map((item) => (
+                <RouterLinkBase key={item.to} to={item.to} className={footer.link}>
+                  {item.label}
+                </RouterLinkBase>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className={footer.colTitle}>
+              <fbt desc="Footer column title — ecosystem">Ecosystem</fbt>
+            </p>
+            <div className={footer.col}>
+              <RouterLinkBase to="/playground" className={footer.link}>
+                <fbt desc="Footer link — playground">Playground</fbt>
+              </RouterLinkBase>
+              {ecosystemLinks.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={footer.link}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className={footer.bottom}>
+          <p className={footer.note}>
+            <fbt desc="Footer note — built with">This site is built entirely with React and</fbt>{" "}
+            <a
+              href={`${REPO_URL}/tree/main/website/src/components`}
+              className={footer.noteAccent}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Arvia
+            </a>{" "}
+            <fbt desc="Footer note — built with, second part">
+              — every component you see is compiled from .arv files.
+            </fbt>
+          </p>
+          <p className={footer.note}>
+            <fbt desc="Footer license note">MIT licensed</fbt>
+          </p>
+        </div>
+      </div>
+    </footer>
   );
 }
 

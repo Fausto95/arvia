@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { setTheme } from "./arvia-theme";
 import { DocsSearchProvider } from "./components/DocsSearch";
-import { SiteNav } from "./components/ui";
+import { SiteFooter, SiteNav } from "./components/ui";
 import { SiteThemeProvider } from "./site-theme";
 import { HomePage } from "./pages/HomePage";
 import { DocPage } from "./pages/DocPage";
@@ -35,6 +35,7 @@ export function App(props: { locale: SiteLocale; onLocaleChange: (locale: SiteLo
           <Route path="/docs/:slug" element={<DocPage />} />
           <Route path="/playground" element={<PlaygroundPage />} />
         </Routes>
+        <SiteFooter />
       </DocsSearchProvider>
     </SiteThemeProvider>
   );
