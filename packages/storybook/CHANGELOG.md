@@ -1,5 +1,11 @@
 # @arviahq/storybook
 
+## 0.6.0
+
+### Patch Changes
+
+- @arviahq/compiler@0.6.0
+
 ## 0.5.1
 
 ### Patch Changes
