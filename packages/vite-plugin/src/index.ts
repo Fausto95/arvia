@@ -150,7 +150,12 @@ export function arvia(options: ArviaOptions = {}): Plugin {
     if (themeEnv) return themeEnv;
     if (!fs.existsSync(themePath)) return undefined;
     const source = fs.readFileSync(themePath, "utf8");
-    const result = compile(source, { filename: themePath, root, sharedEnvFile: true });
+    const result = compile(source, {
+      filename: themePath,
+      root,
+      sharedEnvFile: true,
+      minify: isBuild,
+    });
     const error = firstError(result.diagnostics);
     if (error) throw new Error(renderDiagnostic(error));
     themeEnv = result.env;
@@ -160,7 +165,13 @@ export function arvia(options: ArviaOptions = {}): Plugin {
   const compileFile = (id: string, code: string): CompileResult => {
     const isTheme = id === themePath;
     const env = isTheme ? undefined : loadThemeEnv();
-    const result = compile(code, { filename: id, root, env, sharedEnvFile: isTheme });
+    const result = compile(code, {
+      filename: id,
+      root,
+      env,
+      sharedEnvFile: isTheme,
+      minify: isBuild,
+    });
     if (isTheme && !firstError(result.diagnostics)) {
       themeEnv = result.env;
     }

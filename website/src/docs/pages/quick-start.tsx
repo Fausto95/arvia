@@ -17,7 +17,7 @@ export const quick_startMeta: DocPageMeta = {
   ),
   nav: { section: "getting-started", order: 2 },
   searchText:
-    'This assumes you finished Installation. 1. Add two tokens. src/theme.arv theme { color { primary = #635bff; danger = #e5484d; } } 2. Write a component. A component has a base block that always applies, and variants — named axes you switch from the call site. defaults picks the value used when the caller passes nothing. src/button.arv component Button { base { padding: 8px 16px; border: none; border-radius: 6px; color: white; cursor: pointer; } variants { tone { primary { background: color.primary; } danger { background: color.danger; } } } defaults { tone: primary; } } 3. Use it. Importing the file gives you a function; call it to get class names. props are typed from the .arv source. src/App.tsx import { Button } from "./button.arv"; export function App() { const save = Button(); const del = Button({ tone: "danger" }); return <><button className={save.root}>Save</button><button className={del.root}>Delete</button></>; } 4. See what shipped. Arvia emitted static CSS with hashed class names and a tiny function — no runtime. .Button_root_x { padding: 8px 16px; } .Button_tone_primary_root_x { background: #635bff; } .Button_tone_danger_root_x { background: #e5484d; } Where next: Tutorial to build a real UI step by step; Components for the full anatomy; Variants for everything variants can do.',
+    'This assumes you finished Installation. 1. Add two tokens. src/theme.arv theme { color { primary = #635bff; danger = #e5484d; } } 2. Write a component. A component has a base block that always applies, and variants — named axes you switch from the call site. defaults picks the value used when the caller passes nothing. src/button.arv component Button { base { padding: 8px 16px; border: none; border-radius: 6px; color: white; cursor: pointer; } variants { tone { primary { background: color.primary; } danger { background: color.danger; } } } defaults { tone: primary; } } 3. Use it. Importing the file gives you a function; call it to get class names. props are typed from the .arv source. src/App.tsx import { Button } from "./button.arv"; export function App() { const save = Button(); const del = Button({ tone: "danger" }); return <><button className={save.root}>Save</button><button className={del.root}>Delete</button></>; } 4. See what shipped. Arvia emitted static CSS with stable, hashed class names and a tiny function — no runtime. In development the names stay readable; production builds shorten them to compact hashes. .Button_root_05uk7a { padding: 8px 16px; } .Button_tone_primary_root_05uk7a { background: #635bff; } .Button_tone_danger_root_05uk7a { background: #e5484d; } Where next: Tutorial to build a real UI step by step; Components for the full anatomy; Variants for everything variants can do.',
 };
 
 export function QuickStartPage() {
@@ -109,15 +109,17 @@ export function App() {
       </DocH2>
       <DocP>
         <fbt desc="Docs content — quickstart: output">
-          {"Arvia emitted static CSS with stable, hashed class names — no runtime:"}
+          {
+            "Arvia emitted static CSS with stable, hashed class names — no runtime. In development the names stay readable so you can decode them in DevTools; production builds shorten them to compact hashes like `.k3j9f1a2`:"
+          }
         </fbt>
       </DocP>
       <DocCode
         label={"generated CSS (excerpt)"}
         lang={"css"}
-        code={`.Button_root_x { padding: 8px 16px; border-radius: 6px; color: white; }
-.Button_tone_primary_root_x { background: #635bff; }
-.Button_tone_danger_root_x { background: #e5484d; }`}
+        code={`.Button_root_05uk7a { padding: 8px 16px; border-radius: 6px; color: white; }
+.Button_tone_primary_root_05uk7a { background: #635bff; }
+.Button_tone_danger_root_05uk7a { background: #e5484d; }`}
       />
       <DocCallout tone="tip">
         <fbt desc="Docs note — quickstart: playground">

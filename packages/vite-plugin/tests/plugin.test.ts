@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { build, type Rollup } from "vite";
+import { build, createServer, type Rollup } from "vite";
 import { afterAll, describe, expect, it } from "vitest";
 import { arvia } from "../src/index.js";
 
@@ -30,7 +30,7 @@ async function buildApp(options?: Parameters<typeof arvia>[0]): Promise<Rollup.R
 }
 
 describe("@arviahq/vite-plugin", () => {
-  it("compiles .arv imports into extracted, minified CSS and working JS", async () => {
+  it("compiles .arv imports into extracted CSS and working JS, with short hashed class names in a production build", async () => {
     cleanDts();
     const { output } = await buildApp();
 
@@ -41,14 +41,40 @@ describe("@arviahq/vite-plugin", () => {
     const cssSource = String(css!.source);
     // Global styles from the theme file plus component styles, minified.
     expect(cssSource).toContain("box-sizing:border-box");
-    expect(cssSource).toMatch(/\.Button_root_[a-z0-9]+\{/);
     // Theme tokens and recipes resolved into the component's CSS.
     expect(cssSource).toContain("padding:8px 16px");
     expect(cssSource).toContain("background:#e5484d");
 
+    // Production build: readable names are gone — every class is a short,
+    // identifier-safe hash (leading letter + base36 tail).
+    expect(cssSource).not.toContain("Button_root_");
+    const classes = [...cssSource.matchAll(/\.([a-z][a-z0-9]{7})\s*\{/g)].map((m) => m[1]!);
+    expect(classes.length).toBeGreaterThan(0);
+
     const entry = output.find((o): o is Rollup.OutputChunk => o.type === "chunk" && o.isEntry);
-    expect(entry!.code).toContain("Button_root_");
-    expect(entry!.code).toContain("Button_tone_danger_root_");
+    expect(entry!.code).not.toContain("Button_root_");
+    // CSS ↔ JS agreement: the runtime references the very same hashed classes.
+    for (const cls of classes) expect(entry!.code).toContain(cls);
+  });
+
+  it("keeps readable class names in dev (serve mode)", async () => {
+    cleanDts();
+    const server = await createServer({
+      root: appRoot,
+      logLevel: "silent",
+      configFile: false,
+      server: { middlewareMode: true },
+      plugins: [arvia({ dts: false })],
+    });
+    try {
+      const result = await server.transformRequest("/src/button.arv");
+      expect(result, "the .arv module should transform").not.toBeNull();
+      // Dev keeps the debuggable `Component_variant_value_slot_hash` form.
+      expect(result!.code).toContain("Button_root_");
+      expect(result!.code).toContain("Button_tone_danger_root_");
+    } finally {
+      await server.close();
+    }
   });
 
   it("defaults to central mode: mirrors into .arvia/types with a self-ignoring .gitignore, no siblings", async () => {

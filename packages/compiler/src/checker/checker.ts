@@ -17,7 +17,7 @@ import type {
 } from "../ast/nodes.js";
 import { isKnownProperty, knownPropertyNames, matchValueSyntax } from "./css-validate.js";
 import { emptyEnv, type RecipeIR, type ThemeEnv, type TokenModes } from "../ir/ir.js";
-import { hashName } from "../ir/hash.js";
+import { hashClass, hashName } from "../ir/hash.js";
 import {
   substituteRefs,
   substituteRefsForMode,
@@ -34,6 +34,8 @@ export interface CheckOptions {
   /** True for the conventional shared theme file: its recipes/tokens are
    *  consumed by other files, so unused-in-file warnings are suppressed. */
   sharedEnvFile?: boolean;
+  /** Emit short hashed keyframe names instead of readable ones (production). */
+  minify?: boolean;
 }
 
 export interface CheckResult {
@@ -314,7 +316,10 @@ class Checker {
         for (const decl of step.decls) this.checkDecl(decl);
       }
       const rel = this.options.filename.replace(/\\/g, "/");
-      this.env.keyframes[item.name] = `${item.name}_${hashName(rel, item.name)}`;
+      const hash = hashName(rel, item.name);
+      this.env.keyframes[item.name] = this.options.minify
+        ? hashClass(`${rel}:${item.name}`, "kf")
+        : `${item.name}_${hash}`;
     }
   }
 

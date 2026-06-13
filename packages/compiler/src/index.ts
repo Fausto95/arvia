@@ -87,6 +87,10 @@ export interface CompileOptions {
   /** True when compiling the conventional shared theme file — suppresses
    *  unused-in-file warnings for recipes other files consume. */
   sharedEnvFile?: boolean;
+  /** Emit short, identifier-safe hashed class names (production) instead of
+   *  the readable `Component_variant_value_slot_hash` form (development). The
+   *  Vite plugin sets this from `command === "build"`. Defaults to false. */
+  minify?: boolean;
 }
 
 export interface CompileResult {
@@ -177,6 +181,7 @@ export function compile(source: string, options: CompileOptions): CompileResult 
     env: options.env,
     css: options.css,
     sharedEnvFile: options.sharedEnvFile,
+    minify: options.minify,
   });
 
   if (diagnostics.some((d) => d.severity === "error")) {
@@ -191,7 +196,11 @@ export function compile(source: string, options: CompileOptions): CompileResult 
     };
   }
 
-  const ir = buildIR(ast, env, { filename: options.filename, root: options.root });
+  const ir = buildIR(ast, env, {
+    filename: options.filename,
+    root: options.root,
+    minify: options.minify,
+  });
   const { css, map } = emitCssWithMap(ir, { file: options.filename, content: source });
 
   return {
