@@ -119,6 +119,10 @@ export interface ComponentIR {
   /** Span of the component name in the .arv source (for editor navigation). */
   nameSpan: Span;
   hash: string;
+  /** When true, class names are emitted as short identifier-safe hashes
+   *  (production); when false, the readable `Component_variant_value_slot_hash`
+   *  form (development / debugging). */
+  minify: boolean;
   /** `root` first, then declared slots in source order. */
   slotNames: string[];
   base: Record<string, StyleIR>;

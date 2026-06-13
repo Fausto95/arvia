@@ -14,12 +14,14 @@ import {
   type ThemeVarIR,
   type VariantIR,
 } from "./ir.js";
-import { hashName, relativeName } from "./hash.js";
+import { hashClass, hashName, relativeName } from "./hash.js";
 import { substituteRefs, substituteRefsForMode, type LocalTokens } from "../values.js";
 
 export interface BuildOptions {
   filename: string;
   root?: string;
+  /** Emit short hashed class names instead of readable ones (production). */
+  minify?: boolean;
 }
 
 /** Builds the file IR. Must only be called after `check` reported no errors. */
@@ -147,7 +149,7 @@ export function buildIR(ast: ArviaFile, env: ThemeEnv, options: BuildOptions): F
         name: top.name,
         nameSpan: top.nameSpan,
         hash,
-        className: `${top.name}_${hash}`,
+        className: options.minify ? hashClass(hash, "style") : `${top.name}_${hash}`,
         style,
       });
       continue;
@@ -258,6 +260,7 @@ export function buildIR(ast: ArviaFile, env: ThemeEnv, options: BuildOptions): F
       name: top.name,
       nameSpan: top.nameSpan,
       hash: hashName(rel, top.name),
+      minify: options.minify ?? false,
       slotNames,
       base,
       variants,
