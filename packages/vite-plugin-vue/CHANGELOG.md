@@ -1,5 +1,13 @@
 # @arviahq/vite-plugin-vue
 
+## 0.6.1
+
+### Patch Changes
+
+- Updated dependencies [fb38c22]
+  - @arviahq/vite-plugin@0.6.1
+  - @arviahq/typescript-plugin@0.6.1
+
 ## 0.6.0
 
 ### Minor Changes

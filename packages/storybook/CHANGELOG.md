@@ -1,5 +1,13 @@
 # @arviahq/storybook
 
+## 0.6.1
+
+### Patch Changes
+
+- Updated dependencies [ca59363]
+- Updated dependencies [fb38c22]
+  - @arviahq/compiler@0.6.1
+
 ## 0.6.0
 
 ### Patch Changes
