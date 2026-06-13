@@ -15,7 +15,7 @@ const styles = Button({ size: "lg", tone: "danger" });
 <button className={styles.root}>Delete</button>;
 ```
 
-```arv
+```scss
 component Button {
   variants {
     size { sm {} lg {} }
