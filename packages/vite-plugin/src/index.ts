@@ -165,7 +165,13 @@ export function arvia(options: ArviaOptions = {}): Plugin {
   const compileFile = (id: string, code: string): CompileResult => {
     const isTheme = id === themePath;
     const env = isTheme ? undefined : loadThemeEnv();
-    const result = compile(code, { filename: id, root, env, sharedEnvFile: isTheme, minify: isBuild });
+    const result = compile(code, {
+      filename: id,
+      root,
+      env,
+      sharedEnvFile: isTheme,
+      minify: isBuild,
+    });
     if (isTheme && !firstError(result.diagnostics)) {
       themeEnv = result.env;
     }
