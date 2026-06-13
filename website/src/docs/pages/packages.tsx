@@ -1,6 +1,6 @@
 import { DocArticle } from "../../components/docs/DocArticle";
-import { DocH2 } from "../../components/docs/DocH2";
 import { DocP } from "../../components/docs/DocP";
+import { DocCallout } from "../../components/docs/DocCallout";
 import { DocCode } from "../../components/docs/DocCode";
 import { DocTable } from "../../components/docs/DocTable";
 import type { DocPageMeta } from "../registry";
@@ -9,127 +9,79 @@ export const packagesMeta: DocPageMeta = {
   slug: "packages",
   title: <fbt desc="Docs page title — Packages">{"Packages"}</fbt>,
   description: (
-    <fbt desc="Docs page description — npm packages under @arviahq.">
-      {"What lives under @arviahq, and which packages your project actually needs."}
+    <fbt desc="Docs page description — The @arviahq packages.">
+      {"What lives under @arviahq, and what you actually install."}
     </fbt>
   ),
-  nav: { section: "tooling", order: 26 },
+  nav: { section: "tooling", order: 6 },
   searchText:
-    "Most projects install exactly two packages: the Vite plugin for their framework and the TypeScript plugin. Everything else is either pulled in as a dependency or installed on demand for specific tooling: Package What it is Install it when @arviahq/vite-plugin-react Vite plugin + arvia CLI for React projects. You `use React` + Vite. @arviahq/vite-plugin-preact Vite plugin + arvia CLI for Preact projects. You `use Preact` + Vite. @arviahq/vite-plugin-vue Vite plugin + arvia CLI for Vue projects. You `use Vue` + Vite. @arviahq/typescript-plugin tsserver plugin + `arvia-tsc`; serves `.arv` types virtually. Always, alongside any Vite plugin. @arviahq/vite-plugin The framework-agnostic core the framework plugins re-export. You integrate a framework without an official plugin. @arviahq/compiler The compiler itself: compile(), analyze(), diagnostics. You build custom tooling on top of Arvia. @arviahq/language-server LSP server for `.arv` files. Editor setups without a bundled extension (e.g. Neovim). @arviahq/storybook CSF story generator behind `arvia gen --storybook`. You generate stories from components. @arviahq/docs Token catalog generator behind `arvia gen --docs`. You publish a token reference. A typical setup terminal npm install -D @arviahq/vite-plugin-react @arviahq/typescript-plugin The framework plugins bundle the compiler and re-export the arvia CLI, so the two-package install covers building, type checking, and code generation. Editor extensions (VS Code, Zed) ship their own copy of the language server. Versioning All packages release in lockstep from one repository — keep them on matching versions. If types and build output ever disagree, the first thing to check is a version skew between the Vite plugin and the TypeScript plugin.",
+    "Most projects install one package: the framework plugin. npm install -D @arviahq/vite-plugin-react (or -preact, -vue). It bundles the compiler, the arvia CLI, and arvia-tsc. Packages: @arviahq/vite-plugin-react/-preact/-vue — Vite plugin + CLI for your framework; @arviahq/typescript-plugin — optional, only if you use dts: false for virtual types instead of generated .d.ts; @arviahq/vite-plugin — the framework-agnostic core the wrappers re-export; @arviahq/compiler — the compiler API for custom tooling; @arviahq/language-server — LSP for editors without a bundled extension; @arviahq/docs and @arviahq/storybook — loaded on demand by arvia gen --docs / --storybook. All packages release in lockstep — keep them on matching versions. Related: Type checking, CLI.",
 };
 
 export function PackagesPage() {
   return (
     <DocArticle meta={packagesMeta}>
       <DocP>
-        <fbt desc="Docs content — packages: opening">
+        <fbt desc="Docs content — packages: what">
           {
-            "Most projects install exactly two packages: the Vite plugin for their framework and the TypeScript plugin. Everything else is either pulled in as a dependency or installed on demand for specific tooling:"
+            "Most projects install exactly one package — the framework plugin. It bundles the compiler, the `arvia` CLI, and `arvia-tsc`:"
           }
         </fbt>
       </DocP>
+      <DocCode label={"terminal"} code={`npm install -D @arviahq/vite-plugin-react`} />
       <DocTable
         headers={[
-          <fbt desc="Docs table header — package">{"Package"}</fbt>,
-          <fbt desc="Docs table header — package what">{"What it is"}</fbt>,
-          <fbt desc="Docs table header — install when">{"Install it when"}</fbt>,
+          <fbt desc="Packages table header — package">{"Package"}</fbt>,
+          <fbt desc="Packages table header — when">{"Install it when"}</fbt>,
         ]}
         rows={[
           [
-            "@arviahq/vite-plugin-react",
-            <fbt desc="Docs table cell — pkg react">
-              {"Vite plugin + arvia CLI for React projects."}
+            "@arviahq/vite-plugin-react · -preact · -vue",
+            <fbt desc="Packages cell — framework">
+              {"Always — the Vite plugin + CLI for your framework."}
             </fbt>,
-            <fbt desc="Docs table cell — pkg react when">{"You `use React` + Vite."}</fbt>,
-          ],
-          [
-            "@arviahq/vite-plugin-preact",
-            <fbt desc="Docs table cell — pkg preact">
-              {"Vite plugin + arvia CLI for Preact projects."}
-            </fbt>,
-            <fbt desc="Docs table cell — pkg preact when">{"You `use Preact` + Vite."}</fbt>,
-          ],
-          [
-            "@arviahq/vite-plugin-vue",
-            <fbt desc="Docs table cell — pkg vue">
-              {"Vite plugin + arvia CLI for Vue projects."}
-            </fbt>,
-            <fbt desc="Docs table cell — pkg vue when">{"You `use Vue` + Vite."}</fbt>,
           ],
           [
             "@arviahq/typescript-plugin",
-            <fbt desc="Docs table cell — pkg ts">
-              {"tsserver plugin + `arvia-tsc`; serves `.arv` types virtually."}
+            <fbt desc="Packages cell — ts plugin">
+              {
+                "Optional — only if you use `dts: false` for virtual types instead of generated `.d.ts` (see [Type checking](/docs/typecheck))."
+              }
             </fbt>,
-            <fbt desc="Docs table cell — pkg ts when">{"Always, alongside any Vite plugin."}</fbt>,
           ],
           [
             "@arviahq/vite-plugin",
-            <fbt desc="Docs table cell — pkg core vite">
-              {"The framework-agnostic core the framework plugins re-export."}
-            </fbt>,
-            <fbt desc="Docs table cell — pkg core vite when">
-              {"You integrate a framework without an official plugin."}
+            <fbt desc="Packages cell — core">
+              {"You integrate a framework without an official wrapper."}
             </fbt>,
           ],
           [
             "@arviahq/compiler",
-            <fbt desc="Docs table cell — pkg compiler">
-              {"The compiler itself: compile(), analyze(), diagnostics."}
-            </fbt>,
-            <fbt desc="Docs table cell — pkg compiler when">
-              {"You build custom tooling on top of Arvia."}
+            <fbt desc="Packages cell — compiler">
+              {"You build custom tooling (see [Compiler API](/docs/api-compiler))."}
             </fbt>,
           ],
           [
             "@arviahq/language-server",
-            <fbt desc="Docs table cell — pkg lsp">{"LSP server for `.arv` files."}</fbt>,
-            <fbt desc="Docs table cell — pkg lsp when">
+            <fbt desc="Packages cell — ls">
               {"Editor setups without a bundled extension (e.g. Neovim)."}
             </fbt>,
           ],
           [
-            "@arviahq/storybook",
-            <fbt desc="Docs table cell — pkg storybook">
-              {"CSF story generator behind `arvia gen --storybook`."}
+            "@arviahq/docs · @arviahq/storybook",
+            <fbt desc="Packages cell — generators">
+              {"Loaded on demand by `arvia gen --docs` / `--storybook`."}
             </fbt>,
-            <fbt desc="Docs table cell — pkg storybook when">
-              {"You generate stories from components."}
-            </fbt>,
-          ],
-          [
-            "@arviahq/docs",
-            <fbt desc="Docs table cell — pkg docs">
-              {"Token catalog generator behind `arvia gen --docs`."}
-            </fbt>,
-            <fbt desc="Docs table cell — pkg docs when">{"You publish a token reference."}</fbt>,
           ],
         ]}
       />
-      <DocH2>
-        <fbt desc="Docs content — heading: typical setup">{"A typical setup"}</fbt>
-      </DocH2>
-      <DocCode
-        label={"terminal"}
-        code={`npm install -D @arviahq/vite-plugin-react @arviahq/typescript-plugin`}
-      />
-      <DocP>
-        <fbt desc="Docs content — packages: typical setup explanation">
+      <DocCallout tone="info">
+        <fbt desc="Docs note — packages: lockstep">
           {
-            "The framework plugins bundle the compiler and re-export the arvia CLI, so the two-package install covers building, type checking, and code generation. Editor extensions (VS Code, Zed) ship their own copy of the language server."
+            "All packages release in lockstep — keep them on matching versions if a type and the build output ever disagree."
           }
         </fbt>
-      </DocP>
-      <DocH2>
-        <fbt desc="Docs content — heading: versioning">{"Versioning"}</fbt>
-      </DocH2>
-      <DocP>
-        <fbt desc="Docs content — packages: versioning">
-          {
-            "All packages release in lockstep from one repository — keep them on matching versions. If types and build output ever disagree, the first thing to check is a version skew between the Vite plugin and the TypeScript plugin."
-          }
-        </fbt>
-      </DocP>
+      </DocCallout>
     </DocArticle>
   );
 }

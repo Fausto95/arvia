@@ -9,7 +9,7 @@ component Playground {
   slots {
     root {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: space.4;
       align-items: stretch;
       width: 100%;

@@ -1,6 +1,14 @@
 import type { ComponentType, ReactNode } from "react";
 
-export type DocNavSection = "getting-started" | "language" | "deep-dives" | "migrate" | "tooling";
+export type DocNavSection =
+  | "getting-started"
+  | "frameworks"
+  | "tutorial"
+  | "language"
+  | "api"
+  | "deep-dives"
+  | "tooling"
+  | "migrate";
 
 export type DocPageMeta = {
   slug: string;
@@ -15,6 +23,8 @@ export type DocPageEntry = {
   Page: ComponentType;
 };
 
+import { ApiCompilerPage, api_compilerMeta } from "./pages/api-compiler";
+import { ApiRuntimePage, api_runtimeMeta } from "./pages/api-runtime";
 import { CliPage, cliMeta } from "./pages/cli";
 import { CompilationPage, compilationMeta } from "./pages/compilation";
 import { ComponentsPage, componentsMeta } from "./pages/components";
@@ -33,7 +43,9 @@ import { LanguageServerPage, language_serverMeta } from "./pages/language-server
 import { LocalTokensPage, local_tokensMeta } from "./pages/local-tokens";
 import { PackagesPage, packagesMeta } from "./pages/packages";
 import { PatternsPage, patternsMeta } from "./pages/patterns";
+import { PreactPage, preactMeta } from "./pages/preact";
 import { QuickStartPage, quick_startMeta } from "./pages/quick-start";
+import { ReactPage, reactMeta } from "./pages/react";
 import { RecipesPage, recipesMeta } from "./pages/recipes";
 import { ResponsivePage, responsiveMeta } from "./pages/responsive";
 import { SlotsPage, slotsMeta } from "./pages/slots";
@@ -44,18 +56,32 @@ import { ThemeModesPage, theme_modesMeta } from "./pages/theme-modes";
 import { ThemePage, themeMeta } from "./pages/theme";
 import { ThinkingInArviaPage, thinking_in_arviaMeta } from "./pages/thinking-in-arvia";
 import { TokenDocsPage, token_docsMeta } from "./pages/token-docs";
+import { TutorialPage, tutorialMeta } from "./pages/tutorial";
+import { TutorialButtonPage, tutorial_buttonMeta } from "./pages/tutorial-button";
+import { TutorialComposePage, tutorial_composeMeta } from "./pages/tutorial-compose";
+import { TutorialSlotsPage, tutorial_slotsMeta } from "./pages/tutorial-slots";
+import { TutorialStatesPage, tutorial_statesMeta } from "./pages/tutorial-states";
+import { TutorialThemePage, tutorial_themeMeta } from "./pages/tutorial-theme";
+import { TutorialVariantsPage, tutorial_variantsMeta } from "./pages/tutorial-variants";
+import { TypecheckPage, typecheckMeta } from "./pages/typecheck";
 import { VariantsPage, variantsMeta } from "./pages/variants";
 import { VitePluginPage, vite_pluginMeta } from "./pages/vite-plugin";
+import { VuePage, vueMeta } from "./pages/vue";
 
 const SECTION_LABELS: Record<DocNavSection, ReactNode> = {
   "getting-started": <fbt desc="Docs sidebar section title">{"Getting started"}</fbt>,
+  frameworks: <fbt desc="Docs sidebar section title">{"Frameworks"}</fbt>,
+  tutorial: <fbt desc="Docs sidebar section title">{"Tutorial"}</fbt>,
   language: <fbt desc="Docs sidebar section title">{"Language"}</fbt>,
+  api: <fbt desc="Docs sidebar section title">{"API reference"}</fbt>,
   "deep-dives": <fbt desc="Docs sidebar section title">{"Deep dives"}</fbt>,
   migrate: <fbt desc="Docs sidebar section title">{"Migrate"}</fbt>,
   tooling: <fbt desc="Docs sidebar section title">{"Tooling"}</fbt>,
 };
 
 export const docPages: DocPageEntry[] = [
+  { meta: api_compilerMeta, Page: ApiCompilerPage },
+  { meta: api_runtimeMeta, Page: ApiRuntimePage },
   { meta: cliMeta, Page: CliPage },
   { meta: compilationMeta, Page: CompilationPage },
   { meta: componentsMeta, Page: ComponentsPage },
@@ -74,7 +100,9 @@ export const docPages: DocPageEntry[] = [
   { meta: local_tokensMeta, Page: LocalTokensPage },
   { meta: packagesMeta, Page: PackagesPage },
   { meta: patternsMeta, Page: PatternsPage },
+  { meta: preactMeta, Page: PreactPage },
   { meta: quick_startMeta, Page: QuickStartPage },
+  { meta: reactMeta, Page: ReactPage },
   { meta: recipesMeta, Page: RecipesPage },
   { meta: responsiveMeta, Page: ResponsivePage },
   { meta: slotsMeta, Page: SlotsPage },
@@ -85,8 +113,17 @@ export const docPages: DocPageEntry[] = [
   { meta: themeMeta, Page: ThemePage },
   { meta: thinking_in_arviaMeta, Page: ThinkingInArviaPage },
   { meta: token_docsMeta, Page: TokenDocsPage },
+  { meta: tutorialMeta, Page: TutorialPage },
+  { meta: tutorial_buttonMeta, Page: TutorialButtonPage },
+  { meta: tutorial_composeMeta, Page: TutorialComposePage },
+  { meta: tutorial_slotsMeta, Page: TutorialSlotsPage },
+  { meta: tutorial_statesMeta, Page: TutorialStatesPage },
+  { meta: tutorial_themeMeta, Page: TutorialThemePage },
+  { meta: tutorial_variantsMeta, Page: TutorialVariantsPage },
+  { meta: typecheckMeta, Page: TypecheckPage },
   { meta: variantsMeta, Page: VariantsPage },
   { meta: vite_pluginMeta, Page: VitePluginPage },
+  { meta: vueMeta, Page: VuePage },
 ];
 
 export const docBySlug: Record<string, DocPageEntry> = Object.fromEntries(
@@ -95,10 +132,13 @@ export const docBySlug: Record<string, DocPageEntry> = Object.fromEntries(
 
 const SECTION_ORDER: DocNavSection[] = [
   "getting-started",
+  "frameworks",
+  "tutorial",
   "language",
+  "api",
   "deep-dives",
-  "migrate",
   "tooling",
+  "migrate",
 ];
 
 export function getDocNav() {

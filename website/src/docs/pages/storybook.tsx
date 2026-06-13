@@ -15,7 +15,7 @@ export const storybookMeta: DocPageMeta = {
       {"Generate CSF stories from your components' variants — for free."}
     </fbt>
   ),
-  nav: { section: "tooling", order: 30 },
+  nav: { section: "tooling", order: 4 },
   searchText:
     "A component's variants, values, defaults, and slots are exactly the information a good story needs — so the generator derives stories from them instead of you writing both: terminal npm install -D @arviahq/storybook\narvia gen --storybook --theme src/theme.arv --out stories src/ For each component the generator emits a CSF file with: controls for every variant axis (typed as its value union), defaults pre-selected, a story per variant value so the matrix is browsable at a glance, and markup that wires every slot so multi-element components render meaningfully. Workflow Generated stories are a starting grid, not a cage. Two common setups: Fully generated — .gitignore the output directory and regenerate in CI; stories track components automatically and never drift. Generate once, then own — commit the output and edit freely (real content, interaction tests); regenerate selectively when a component's API changes. Stories import your `.arv` files, so the Storybook build needs the Arvia Vite plugin too — add arvia() to the Vite config Storybook uses, with the same theme path as your app. To see a complete setup, run `pnpm demo:storybook` in the Arvia monorepo — it generates stories for the demo components and boots Storybook on them. For a full atomic design system showcase with Language/* feature demos, run `pnpm design-system:storybook` (examples/design-system).",
 };
