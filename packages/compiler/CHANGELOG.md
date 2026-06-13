@@ -1,5 +1,11 @@
 # @arviahq/compiler
 
+## 0.5.1
+
+### Patch Changes
+
+- b17ffdb: Update repository metadata for the GitHub org transfer to [arviahq/arvia](https://github.com/arviahq/arvia).
+
 ## 0.5.0
 
 ### Minor Changes

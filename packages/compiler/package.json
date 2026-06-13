@@ -1,6 +1,6 @@
 {
   "name": "@arviahq/compiler",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Compiler for .arv design-system files: CSS, JS and TypeScript declaration generation.",
   "homepage": "https://github.com/arviahq/arvia#readme",
   "bugs": {

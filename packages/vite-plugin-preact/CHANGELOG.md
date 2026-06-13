@@ -1,5 +1,14 @@
 # @arviahq/vite-plugin-preact
 
+## 0.5.1
+
+### Patch Changes
+
+- b17ffdb: Update repository metadata for the GitHub org transfer to [arviahq/arvia](https://github.com/arviahq/arvia).
+- Updated dependencies [b17ffdb]
+  - @arviahq/vite-plugin@0.5.1
+  - @arviahq/typescript-plugin@0.5.1
+
 ## 0.5.0
 
 ### Patch Changes

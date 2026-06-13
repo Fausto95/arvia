@@ -1,6 +1,6 @@
 {
   "name": "@arviahq/docs",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Generate design token documentation from .arv theme files.",
   "homepage": "https://github.com/arviahq/arvia#readme",
   "bugs": {
