@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "typecheck": "arvia-tsc --noEmit",
+    "pretypecheck": "arvia gen src",
+    "typecheck": "tsc --noEmit",
     "predocs": "arvia gen --docs --theme src/theme.arv --out docs/tokens",
     "prestorybook": "arvia gen --storybook --out ../stories/generated --theme src/theme.arv --include atoms,language src",
     "storybook": "storybook dev -p 6006",

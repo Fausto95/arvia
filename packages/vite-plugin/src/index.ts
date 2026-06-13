@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import { normalizePath, type Plugin, type ViteDevServer } from "vite";
+import { glob } from "tinyglobby";
+import { normalizePath, type Logger, type Plugin, type ViteDevServer } from "vite";
 import {
   compile,
   renderDiagnostic,
@@ -9,7 +10,33 @@ import {
   type Diagnostic,
   type ThemeEnv,
 } from "@arviahq/compiler";
-import { scheduleDtsWrite, writeDtsNow } from "./dts-writer.js";
+import { mirrorPathFor } from "./dts-paths.js";
+import {
+  ensureCentralGitignore,
+  removeDts,
+  scheduleDtsWrite,
+  sweepDtsDir,
+  writeDtsNow,
+} from "./dts-writer.js";
+
+/** Where generated `.d.ts` files go. See {@link ArviaOptions.dts}. */
+export type DtsMode = "sibling" | "central";
+
+export interface DtsConfig {
+  /**
+   * `'sibling'` writes `foo.arv.d.ts` next to each source file (resolved by
+   * plain `tsc` with no config). `'central'` (default) mirrors them into a
+   * single directory the consumer can `.gitignore`. Default: `'central'`.
+   */
+  mode?: DtsMode;
+  /** Central directory, relative to the Vite root. Default: `.arvia/types`. */
+  dir?: string;
+  /**
+   * Source root the central tree mirrors, relative to the Vite root. Must match
+   * the first entry of `rootDirs` in the consumer's tsconfig. Default: `src`.
+   */
+  sourceRoot?: string;
+}
 
 export interface ArviaOptions {
   /**
@@ -19,12 +46,44 @@ export interface ArviaOptions {
    */
   theme?: string;
   /**
-   * Write sibling `.d.ts` files next to each `.arv` file. Default: false —
-   * editor and CLI types come from `@arviahq/typescript-plugin` (tsserver plugin +
-   * arvia-tsc) with no files on disk. Enable only as a fallback for setups
-   * without the TS plugin; sibling files shadow the virtual types.
+   * Emit `.d.ts` files so plain `tsc` (no `arvia-tsc`, no tsserver plugin) can
+   * typecheck `.arv` imports.
+   *
+   * - `'central'` (default, also when omitted) — mirror declarations into
+   *   `.arvia/types` (a self-ignoring, generated directory). Requires
+   *   `"rootDirs": ["src", ".arvia/types"]` in the consumer's tsconfig.
+   * - `true` / `'sibling'` — write `foo.arv.d.ts` next to each source file.
+   * - `false` — no files; types come from `@arviahq/typescript-plugin` instead.
+   * - object — `'central'` with custom `dir` / `sourceRoot`.
    */
-  dts?: boolean;
+  dts?: boolean | DtsMode | DtsConfig;
+}
+
+interface ResolvedDts {
+  mode: DtsMode;
+  /** Absolute central directory (central mode only). */
+  centralDir: string;
+  /** Absolute source root (central mode only). */
+  sourceRoot: string;
+}
+
+/** Normalizes the `dts` option into a resolved config, or `null` when off. */
+function resolveDts(dts: ArviaOptions["dts"], root: string): ResolvedDts | null {
+  // `false` is the only opt-out; everything else (including `undefined`) emits.
+  if (dts === false) return null;
+  if (dts === true || dts === "sibling") {
+    return { mode: "sibling", centralDir: "", sourceRoot: "" };
+  }
+  // `undefined` / `'central'` / object → central, the default.
+  const config: DtsConfig = dts === undefined || dts === "central" ? {} : dts;
+  if ((config.mode ?? "central") === "sibling") {
+    return { mode: "sibling", centralDir: "", sourceRoot: "" };
+  }
+  return {
+    mode: "central",
+    centralDir: normalizePath(path.resolve(root, config.dir ?? ".arvia/types")),
+    sourceRoot: normalizePath(path.resolve(root, config.sourceRoot ?? "src")),
+  };
 }
 
 const ARV_RE = /.arv$/;
@@ -35,6 +94,12 @@ const firstError = (diagnostics: Diagnostic[]) => diagnostics.find((d) => d.seve
 export function arvia(options: ArviaOptions = {}): Plugin {
   let root = process.cwd();
   let isBuild = false;
+  let dts: ResolvedDts | null = null;
+  let logger: Logger | undefined;
+  let hintedRootDirs = false;
+  let wroteGitignore = false;
+  /** Files outside `sourceRoot` we've already warned fall back to sibling mode. */
+  const warnedOutsideRoot = new Set<string>();
   let themePath: string | null = null;
   let explicitThemePath: string | null = null;
   let conventionalThemePath = "";
@@ -102,6 +167,59 @@ export function arvia(options: ArviaOptions = {}): Plugin {
     return result;
   };
 
+  /** Declaration path for a `.arv` id, or `null` when dts emission is off. */
+  const dtsPathFor = (id: string): string | null => {
+    if (!dts) return null;
+    if (dts.mode === "sibling") return `${id}.d.ts`;
+    const mirror = mirrorPathFor({
+      arvAbsPath: id,
+      sourceRoot: dts.sourceRoot,
+      centralDir: dts.centralDir,
+    });
+    // Files outside the source root have no sensible mirror: fall back to a
+    // sibling so their types still resolve, and say so once.
+    if (mirror === null) {
+      if (!warnedOutsideRoot.has(id)) {
+        warnedOutsideRoot.add(id);
+        logger?.warn(
+          `[arvia] ${path.relative(root, id)} is outside the dts sourceRoot ` +
+            `(${path.relative(root, dts.sourceRoot)}); writing a sibling .d.ts instead.`,
+        );
+      }
+      return `${id}.d.ts`;
+    }
+    return mirror;
+  };
+
+  /** Writes a declaration, dropping the central `.gitignore` on first use. */
+  const emitDts = (target: string, content: string, immediate: boolean) => {
+    if (dts?.mode === "central" && !wroteGitignore) {
+      wroteGitignore = true;
+      ensureCentralGitignore(dts.centralDir);
+    }
+    if (immediate) writeDtsNow(target, content);
+    else scheduleDtsWrite(target, content);
+  };
+
+  /** One-time nudge: central mode is inert until the consumer adds `rootDirs`. */
+  const hintRootDirs = () => {
+    if (hintedRootDirs || dts?.mode !== "central") return;
+    hintedRootDirs = true;
+    try {
+      const tsconfig = fs.readFileSync(path.join(root, "tsconfig.json"), "utf8");
+      // Already set up, or relying on the tsserver plugin for types: stay quiet.
+      if (tsconfig.includes("rootDirs") || tsconfig.includes("@arviahq/typescript-plugin")) return;
+    } catch {
+      // No tsconfig (or unreadable): hint anyway.
+    }
+    const dir = path.relative(root, dts.centralDir);
+    const src = path.relative(root, dts.sourceRoot);
+    logger?.warn(
+      `[arvia] writing .d.ts to ${dir}/ — add "rootDirs": ["${src}", "${dir}"] to your ` +
+        `tsconfig so tsc resolves .arv imports (or set dts: false to use the TS plugin).`,
+    );
+  };
+
   return {
     name: "arvia",
     enforce: "pre",
@@ -109,10 +227,13 @@ export function arvia(options: ArviaOptions = {}): Plugin {
     configResolved(config) {
       root = config.root;
       isBuild = config.command === "build";
+      logger = config.logger;
+      dts = resolveDts(options.dts, root);
       explicitThemePath = options.theme ? normalizePath(path.resolve(root, options.theme)) : null;
       conventionalThemePath = normalizePath(path.resolve(root, "src/theme.arv"));
       themePath =
         explicitThemePath ?? (fs.existsSync(conventionalThemePath) ? conventionalThemePath : null);
+      hintRootDirs();
     },
 
     buildStart() {
@@ -122,6 +243,25 @@ export function arvia(options: ArviaOptions = {}): Plugin {
       componentOwners.clear();
       fileComponents.clear();
       warnedCollisions.clear();
+      warnedOutsideRoot.clear();
+      wroteGitignore = false;
+    },
+
+    async buildEnd() {
+      // After a build, prune central-dir mirrors whose `.arv` source no longer
+      // exists (renames/deletes that happened while nothing was watching).
+      if (!isBuild || dts?.mode !== "central") return;
+      const files = await glob("**/*.arv", {
+        cwd: root,
+        absolute: true,
+        ignore: ["**/node_modules/**"],
+      });
+      const keep = new Set<string>();
+      for (const file of files) {
+        const target = dtsPathFor(normalizePath(file));
+        if (target) keep.add(path.resolve(target));
+      }
+      sweepDtsDir(dts.centralDir, keep);
     },
 
     configureServer(server: ViteDevServer) {
@@ -147,15 +287,16 @@ export function arvia(options: ArviaOptions = {}): Plugin {
           return;
         }
 
-        // In sibling-d.ts mode, generate types as soon as the file exists so
-        // editors resolve the import before anything loads the module.
-        if (options.dts === true) {
+        // In dts mode, generate types as soon as the file exists so editors
+        // resolve the import before anything loads the module.
+        if (dts) {
           try {
             const result = compileFile(file, fs.readFileSync(file, "utf8"));
             if (!firstError(result.diagnostics)) {
               cssCache.set(file, { css: result.css!, map: result.cssMap });
               jsCache.set(file, result.js!);
-              scheduleDtsWrite(`${file}.d.ts`, result.dts!);
+              const target = dtsPathFor(file);
+              if (target) emitDts(target, result.dts!, false);
             }
           } catch {
             // Unreadable or theme broken — transform surfaces it on import.
@@ -170,10 +311,11 @@ export function arvia(options: ArviaOptions = {}): Plugin {
         jsCache.delete(file);
         untrackComponents(file);
 
-        // Drop the generated sibling so stale declarations don't shadow
-        // anything (and don't outlive their source).
-        if (options.dts === true) {
-          fs.rmSync(`${file}.d.ts`, { force: true });
+        // Drop the generated declaration so stale types don't shadow anything
+        // (and don't outlive their source).
+        if (dts) {
+          const target = dtsPathFor(file);
+          if (target) removeDts(target, dts.mode === "central" ? dts.centralDir : undefined);
         }
 
         if (file === themePath) {
@@ -239,10 +381,8 @@ export function arvia(options: ArviaOptions = {}): Plugin {
         [...result.meta.components.map((c) => c.name), ...result.meta.styles.map((s) => s.name)],
         (message) => this.warn(message),
       );
-      if (options.dts === true) {
-        if (isBuild) writeDtsNow(`${id}.d.ts`, result.dts!);
-        else scheduleDtsWrite(`${id}.d.ts`, result.dts!);
-      }
+      const dtsPath = dtsPathFor(id);
+      if (dtsPath) emitDts(dtsPath, result.dts!, isBuild);
 
       // The appended import routes the generated CSS through Vite's pipeline.
       const js = `import ${JSON.stringify(`${id}.css`)};\n${result.js!}`;
@@ -276,7 +416,8 @@ export function arvia(options: ArviaOptions = {}): Plugin {
 
       if (result && !firstError(result.diagnostics)) {
         cssCache.set(ctx.file, { css: result.css!, map: result.cssMap });
-        if (options.dts === true) scheduleDtsWrite(`${ctx.file}.d.ts`, result.dts!);
+        const dtsPath = dtsPathFor(ctx.file);
+        if (dtsPath) emitDts(dtsPath, result.dts!, false);
 
         // Style-only edit: class names are path-hashed, so the JS is
         // byte-identical — swap the CSS in place and leave the JS alone.

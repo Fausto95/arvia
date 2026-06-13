@@ -18,10 +18,25 @@ const styles = Button({ size: "lg", tone: "danger" });
 ```scss
 component Button {
   variants {
-    size { sm {} lg {} }
-    tone { primary { background: color.primary; } danger { background: color.danger; } }
+    size {
+      sm {
+      }
+      lg {
+      }
+    }
+    tone {
+      primary {
+        background: color.primary;
+      }
+      danger {
+        background: color.danger;
+      }
+    }
   }
-  defaults { size: sm; tone: primary; }
+  defaults {
+    size: sm;
+    tone: primary;
+  }
 }
 ```
 

@@ -4,7 +4,7 @@
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
     "types": ["vite/client"],
-    "plugins": [{ "name": "@arviahq/typescript-plugin" }]
+    "rootDirs": ["src", ".arvia/types"]
   },
   "include": ["src", "vite.config.ts"]
 }

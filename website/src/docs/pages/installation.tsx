@@ -1,5 +1,6 @@
 import { DocArticle } from "../../components/docs/DocArticle";
 import { DocH2 } from "../../components/docs/DocH2";
+import { DocH3 } from "../../components/docs/DocH3";
 import { DocLi } from "../../components/docs/DocLi";
 import { DocP } from "../../components/docs/DocP";
 import { DocUl } from "../../components/docs/DocUl";
@@ -17,7 +18,7 @@ export const installationMeta: DocPageMeta = {
   ),
   nav: { section: "getting-started", order: 1 },
   searchText:
-    'Arvia integrates through a Vite plugin that compiles `.arv` imports on the fly. Pick the package that matches your framework — the compiler underneath is identical, only the surrounding JSX tooling differs. React terminal npm install -D @arviahq/vite-plugin-react vite.config.ts import { defineConfig } from "vite";\nimport react from "@vitejs/plugin-react";\nimport { arvia } from "@arviahq/vite-plugin-react";\n\nexport default defineConfig({\n  plugins: [\n    arvia({ theme: "src/theme.arv" }),\n    react(),\n  ],\n}); The arvia() plugin must come before the framework plugin so `.arv` imports are compiled before JSX transformation touches them. Preact terminal npm install -D @arviahq/vite-plugin-preact @preact/preset-vite preact vite.config.ts import { defineConfig } from "vite";\nimport preact from "@preact/preset-vite";\nimport { arvia } from "@arviahq/vite-plugin-preact";\n\nexport default defineConfig({\n  plugins: [\n    arvia({ theme: "src/theme.arv" }),\n    preact(),\n  ],\n}); Vue terminal npm install -D @arviahq/vite-plugin-vue @vitejs/plugin-vue vue vite.config.ts import { defineConfig } from "vite";\nimport vue from "@vitejs/plugin-vue";\nimport { arvia } from "@arviahq/vite-plugin-vue";\n\nexport default defineConfig({\n  plugins: [\n    arvia({ theme: "src/theme.arv" }),\n    vue(),\n  ],\n}); App.vue <script setup lang="ts">\nimport { Button } from "./button.arv";\n\nconst styles = Button({ size: "lg", tone: "primary" });\n</script>\n\n<template>\n  <button :class="styles.root">Save</button>\n</template> The theme option The theme option names one shared theme file whose tokens, recipes, and keyframes are visible to every other `.arv` file in the project — that is how `color.primary` resolves inside `button.arv` without an import statement. If you omit the option, the plugin looks for `src/theme.arv` by convention and uses it when present. TypeScript Component prop types come from the TypeScript plugin, which serves type declarations for `.arv` imports virtually — no generated files on disk. Add it to your tsconfig and use `arvia-tsc` (a thin wrapper around tsc that loads the plugin) for command-line type checking. tsconfig.json {\n  "compilerOptions": {\n    "plugins": [{ "name": "@arviahq/typescript-plugin" }]\n  }\n} package.json {\n  "scripts": {\n    "typecheck": "arvia-tsc --noEmit"\n  }\n} In Vue projects, the `arvia-tsc` shipped by @arviahq/vite-plugin-vue is Vue-aware — it loads the Vue language plugin alongside Arvia\'s, so `.arv` imports inside `.vue` single-file components typecheck; use it in place of vue-tsc. As a fallback for setups where the plugin cannot run, arvia({ dts: true }) writes sibling `.d.ts` files next to each `.arv` file instead — but prefer the plugin, since sibling files shadow the virtual types and add noise to your tree. Editor setup The language server gives you diagnostics, completion for tokens and variants, hover documentation, and go-to-definition in any LSP-capable editor: VS Code — install the [Arvia extension](https://marketplace.visualstudio.com/items?itemName=arviahq.arvia); it bundles syntax highlighting and starts the language server automatically. Zed — install the Arvia extension from the extension registry. Neovim — add the tree-sitter grammar for highlighting and point your LSP client at @arviahq/language-server (it speaks stdio). Troubleshooting Imports from `.arv` files are typed as any — the TypeScript plugin is not loaded. Editors use their own tsserver: in VS Code, run “TypeScript: Select TypeScript Version” and pick the workspace version so tsconfig plugins apply. Tokens from your theme are reported as unknown (ARV101) in other files — the theme file is not being picked up. Check the theme path in `vite.config.ts`, or move the file to the conventional `src/theme.arv` location. In a monorepo, theme paths resolve relative to the Vite root of each app — every app declares its own theme option, even when they share one theme file.',
+    'Arvia integrates through a Vite plugin that compiles `.arv` imports on the fly. Pick the package that matches your framework — the compiler underneath is identical, only the surrounding JSX tooling differs. React terminal npm install -D @arviahq/vite-plugin-react vite.config.ts import { defineConfig } from "vite";\nimport react from "@vitejs/plugin-react";\nimport { arvia } from "@arviahq/vite-plugin-react";\n\nexport default defineConfig({\n  plugins: [\n    arvia({ theme: "src/theme.arv" }),\n    react(),\n  ],\n}); The arvia() plugin must come before the framework plugin so `.arv` imports are compiled before JSX transformation touches them. Preact terminal npm install -D @arviahq/vite-plugin-preact @preact/preset-vite preact vite.config.ts import { defineConfig } from "vite";\nimport preact from "@preact/preset-vite";\nimport { arvia } from "@arviahq/vite-plugin-preact";\n\nexport default defineConfig({\n  plugins: [\n    arvia({ theme: "src/theme.arv" }),\n    preact(),\n  ],\n}); Vue terminal npm install -D @arviahq/vite-plugin-vue @vitejs/plugin-vue vue vite.config.ts import { defineConfig } from "vite";\nimport vue from "@vitejs/plugin-vue";\nimport { arvia } from "@arviahq/vite-plugin-vue";\n\nexport default defineConfig({\n  plugins: [\n    arvia({ theme: "src/theme.arv" }),\n    vue(),\n  ],\n}); App.vue <script setup lang="ts">\nimport { Button } from "./button.arv";\n\nconst styles = Button({ size: "lg", tone: "primary" });\n</script>\n\n<template>\n  <button :class="styles.root">Save</button>\n</template> The theme option The theme option names one shared theme file whose tokens, recipes, and keyframes are visible to every other `.arv` file in the project — that is how `color.primary` resolves inside `button.arv` without an import statement. If you omit the option, the plugin looks for `src/theme.arv` by convention and uses it when present. TypeScript By default the Vite plugin emits a type declaration for every `.arv` file into a generated `.arvia/types` directory, so you type-check with plain `tsc` — no extra checker. Point TypeScript at that directory with a `rootDirs` overlay: it then resolves `import { Button } from "./button.arv"` against `.arvia/types/button.arv.d.ts`. This needs `moduleResolution: "bundler"` (Vite\'s default) or `node10` — not `node16`/`nodenext`. tsconfig.json {\n  "compilerOptions": {\n    "moduleResolution": "bundler",\n    "rootDirs": ["src", ".arvia/types"]\n  }\n} Scaffolded with Vite\'s react-ts template? Add rootDirs to tsconfig.app.json (the one that includes src), not the root tsconfig.json. The plugin writes these declarations whenever Vite runs (dev or build). For a standalone type check — CI, or a fresh clone before the dev server has run — generate them first with the bundled arvia CLI. A pretypecheck script runs automatically before typecheck. package.json {\n  "scripts": {\n    "pretypecheck": "arvia gen src",\n    "typecheck": "tsc --noEmit"\n  }\n} .arvia is generated output — the plugin drops a self-ignoring .gitignore inside it, so you never commit declarations. Virtual types, no generated files Prefer nothing on disk and always-fresh editor types? Set dts: false in the plugin options and add @arviahq/typescript-plugin, which serves .arv declarations virtually inside tsserver. Type-check with arvia-tsc, a thin tsc wrapper that loads the plugin. tsconfig.json {\n  "compilerOptions": {\n    "plugins": [{ "name": "@arviahq/typescript-plugin" }]\n  }\n} package.json {\n  "scripts": {\n    "typecheck": "arvia-tsc --noEmit"\n  }\n} Vue projects should use this mode: plain tsc can\'t type-check .vue single-file components. The arvia-tsc shipped by @arviahq/vite-plugin-vue is Vue-aware — it loads the Vue language plugin alongside Arvia\'s, so .arv imports inside .vue files typecheck; use it in place of vue-tsc. Editor setup The language server gives you diagnostics, completion for tokens and variants, hover documentation, and go-to-definition in any LSP-capable editor: VS Code — install the [Arvia extension](https://marketplace.visualstudio.com/items?itemName=arviahq.arvia); it bundles syntax highlighting and starts the language server automatically. Zed — install the Arvia extension from the extension registry. Neovim — add the tree-sitter grammar for highlighting and point your LSP client at @arviahq/language-server (it speaks stdio). Troubleshooting Imports from `.arv` files are typed as any or report “cannot find module” — in the default central mode, either .arvia/types has not been generated yet (run arvia gen src, or start the dev server) or rootDirs is missing from the tsconfig that includes src. If you opted into dts: false, the TypeScript plugin is not loaded: in VS Code, run “TypeScript: Select TypeScript Version” and pick the workspace version so tsconfig plugins apply. Tokens from your theme are reported as unknown (ARV101) in other files — the theme file is not being picked up. Check the theme path in `vite.config.ts`, or move the file to the conventional `src/theme.arv` location. In a monorepo, theme paths resolve relative to the Vite root of each app — every app declares its own theme option, even when they share one theme file.',
 };
 
 export function InstallationPage() {
@@ -120,9 +121,60 @@ const styles = Button({ size: "lg", tone: "primary" });
         <fbt desc="Docs content — TypeScript">{"TypeScript"}</fbt>
       </DocH2>
       <DocP>
-        <fbt desc="Docs content — install: typescript plugin">
+        <fbt desc="Docs content — install: central dts default">
           {
-            "Component prop types come from the TypeScript plugin, which serves type declarations for `.arv` imports virtually — no generated files on disk. Add it to your tsconfig and use `arvia-tsc` (a thin wrapper around tsc that loads the plugin) for command-line type checking."
+            'By default the Vite plugin emits a type declaration for every `.arv` file into a generated `.arvia/types` directory, so you type-check with plain `tsc` — no extra checker. Point TypeScript at that directory with a `rootDirs` overlay: it then resolves `import { Button } from "./button.arv"` against `.arvia/types/button.arv.d.ts`. This needs `moduleResolution: "bundler"` (Vite\'s default) or `node10` — not `node16`/`nodenext`.'
+          }
+        </fbt>
+      </DocP>
+      <DocCode
+        label={"tsconfig.json"}
+        code={`{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "rootDirs": ["src", ".arvia/types"]
+  }
+}`}
+      />
+      <DocCallout tone="info">
+        <fbt desc="Docs note — react-ts template tsconfig.app.json">
+          {
+            "Scaffolded with Vite's `react-ts` template? It splits the config into project references — add `rootDirs` to `tsconfig.app.json` (the one that includes `src`), not the root `tsconfig.json`."
+          }
+        </fbt>
+      </DocCallout>
+      <DocP>
+        <fbt desc="Docs content — install: generating declarations">
+          {
+            "The plugin writes these declarations whenever Vite runs (dev or build). For a standalone type check — CI, or a fresh clone before the dev server has run — generate them first with the bundled `arvia` CLI. A `pretypecheck` script runs automatically before `typecheck`:"
+          }
+        </fbt>
+      </DocP>
+      <DocCode
+        label={"package.json"}
+        code={`{
+  "scripts": {
+    "pretypecheck": "arvia gen src",
+    "typecheck": "tsc --noEmit"
+  }
+}`}
+      />
+      <DocCallout tone="info">
+        <fbt desc="Docs note — arvia types is generated output">
+          {
+            "`.arvia/` is generated output — the plugin drops a self-ignoring `.gitignore` inside it, so you never commit declarations and don't need to touch your root `.gitignore`."
+          }
+        </fbt>
+      </DocCallout>
+      <DocH3>
+        <fbt desc="Docs content — heading: virtual types">
+          {"Virtual types, no generated files"}
+        </fbt>
+      </DocH3>
+      <DocP>
+        <fbt desc="Docs content — install: dts false opt-out">
+          {
+            "Prefer nothing on disk and always-fresh editor types? Set `dts: false` in the plugin options and add `@arviahq/typescript-plugin`, which serves `.arv` declarations virtually inside tsserver. Type-check with `arvia-tsc`, a thin `tsc` wrapper that loads the plugin (tsconfig `plugins` don't apply to plain `tsc`):"
           }
         </fbt>
       </DocP>
@@ -143,9 +195,9 @@ const styles = Button({ size: "lg", tone: "primary" });
 }`}
       />
       <DocP>
-        <fbt desc="Docs content — install: vue-aware arvia-tsc and dts fallback">
+        <fbt desc="Docs content — install: vue typecheck">
           {
-            "In Vue projects, the `arvia-tsc` shipped by @arviahq/vite-plugin-vue is Vue-aware — it loads the Vue language plugin alongside Arvia's, so `.arv` imports inside `.vue` single-file components typecheck; use it in place of vue-tsc. As a fallback for setups where the plugin cannot run, arvia({ dts: true }) writes sibling `.d.ts` files next to each `.arv` file instead — but prefer the plugin, since sibling files shadow the virtual types and add noise to your tree."
+            "Vue projects should use this mode: plain `tsc` can't type-check `.vue` single-file components. The `arvia-tsc` shipped by @arviahq/vite-plugin-vue is Vue-aware — it loads the Vue language plugin alongside Arvia's, so `.arv` imports inside `.vue` files typecheck; use it in place of vue-tsc."
           }
         </fbt>
       </DocP>
@@ -187,7 +239,7 @@ const styles = Button({ size: "lg", tone: "primary" });
         <DocLi>
           <fbt desc="Docs list item — troubleshoot any types">
             {
-              "Imports from `.arv` files are typed as any — the TypeScript plugin is not loaded. Editors use their own tsserver: in VS Code, run “TypeScript: Select TypeScript Version” and pick the workspace version so tsconfig plugins apply."
+              "Imports from `.arv` files are typed as any or report “cannot find module” — in the default central mode, either `.arvia/types` has not been generated yet (run `arvia gen src`, or start the dev server) or `rootDirs` is missing from the tsconfig that includes `src`. If you opted into `dts: false`, the TypeScript plugin is not loaded: in VS Code, run “TypeScript: Select TypeScript Version” and pick the workspace version so tsconfig plugins apply."
             }
           </fbt>
         </DocLi>

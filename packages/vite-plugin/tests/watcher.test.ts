@@ -105,6 +105,34 @@ describe("watcher", () => {
     await waitFor(() => !existsSync(`${badge}.d.ts`), "badge.arv.d.ts to disappear");
   });
 
+  it("writes a brand-new .arv's declaration into the central dir (dts: 'central')", async () => {
+    const { root } = await createApp({ "src/app.ts": "export {};" }, { dts: "central" });
+    const badge = path.join(root, "src/ui/badge.arv");
+    const mirror = path.join(root, ".arvia/types/ui/badge.arv.d.ts");
+
+    mkdirSync(path.dirname(badge), { recursive: true });
+    writeFileSync(badge, BADGE);
+    await waitFor(() => existsSync(mirror), "central badge.arv.d.ts to appear");
+    expect(readFileSync(mirror, "utf8")).toContain(
+      "export declare function Badge(props: BadgeProps): BadgeSlots;",
+    );
+  });
+
+  it("removes the central mirror and prunes empty dirs when the .arv is deleted (dts: 'central')", async () => {
+    const { root } = await createApp({ "src/app.ts": "export {};" }, { dts: "central" });
+    const badge = path.join(root, "src/ui/badge.arv");
+    const mirror = path.join(root, ".arvia/types/ui/badge.arv.d.ts");
+
+    mkdirSync(path.dirname(badge), { recursive: true });
+    writeFileSync(badge, BADGE);
+    await waitFor(() => existsSync(mirror), "central badge.arv.d.ts to appear");
+
+    rmSync(badge);
+    await waitFor(() => !existsSync(mirror), "central badge.arv.d.ts to disappear");
+    // The now-empty mirror subdirectory is pruned too.
+    expect(existsSync(path.join(root, ".arvia/types/ui"))).toBe(false);
+  });
+
   it("activates a theme file created mid-session", async () => {
     const { root, server } = await createApp({
       "src/button.arv": "component Button { background: color.primary; }\n",

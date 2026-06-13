@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, rmSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { build, type Rollup } from "vite";
@@ -10,9 +10,11 @@ const dtsFiles = [
   path.join(appRoot, "src/theme.arv.d.ts"),
   path.join(appRoot, "src/button.arv.d.ts"),
 ];
+const centralDir = path.join(appRoot, ".arvia/types");
 
 const cleanDts = () => {
   for (const file of dtsFiles) rmSync(file, { force: true });
+  rmSync(path.join(appRoot, ".arvia"), { recursive: true, force: true });
 };
 
 afterAll(cleanDts);
@@ -49,11 +51,21 @@ describe("@arviahq/vite-plugin", () => {
     expect(entry!.code).toContain("Button_tone_danger_root_");
   });
 
-  it("does not write sibling .d.ts files by default (types come from @arviahq/typescript-plugin)", async () => {
+  it("defaults to central mode: mirrors into .arvia/types with a self-ignoring .gitignore, no siblings", async () => {
     cleanDts();
     await buildApp();
     expect(existsSync(dtsFiles[0]!)).toBe(false);
     expect(existsSync(dtsFiles[1]!)).toBe(false);
+    expect(existsSync(path.join(centralDir, "button.arv.d.ts"))).toBe(true);
+    expect(readFileSync(path.join(centralDir, ".gitignore"), "utf8")).toBe("*\n!.gitignore\n");
+  });
+
+  it("writes no files at all with dts: false (types come from @arviahq/typescript-plugin)", async () => {
+    cleanDts();
+    await buildApp({ dts: false });
+    expect(existsSync(dtsFiles[0]!)).toBe(false);
+    expect(existsSync(dtsFiles[1]!)).toBe(false);
+    expect(existsSync(centralDir)).toBe(false);
   });
 
   it("writes sibling .d.ts files with dts: true, byte-stable across builds", async () => {
@@ -73,13 +85,44 @@ describe("@arviahq/vite-plugin", () => {
     expect(readFileSync(dtsFiles[1]!, "utf8")).toBe(buttonDts);
   });
 
+  it("mirrors .d.ts into the central dir with dts: 'central', byte-stable across builds", async () => {
+    cleanDts();
+    await buildApp({ dts: "central" });
+
+    const buttonMirror = path.join(centralDir, "button.arv.d.ts");
+    const themeMirror = path.join(centralDir, "theme.arv.d.ts");
+    expect(existsSync(buttonMirror)).toBe(true);
+    expect(existsSync(themeMirror)).toBe(true);
+    // No sibling files written in central mode.
+    expect(existsSync(dtsFiles[1]!)).toBe(false);
+
+    const mirror = readFileSync(buttonMirror, "utf8");
+    expect(mirror).toContain("export declare function Button(props?: ButtonProps): ButtonSlots;");
+
+    await buildApp({ dts: "central" });
+    expect(readFileSync(buttonMirror, "utf8")).toBe(mirror);
+  });
+
+  it("sweeps a stale central mirror whose .arv source no longer exists", async () => {
+    cleanDts();
+    const ghost = path.join(centralDir, "ghost.arv.d.ts");
+    mkdirSync(centralDir, { recursive: true });
+    writeFileSync(ghost, "export {};\n");
+
+    await buildApp({ dts: "central" });
+
+    // The build's buildEnd sweep removes the orphan but keeps real mirrors.
+    expect(existsSync(ghost)).toBe(false);
+    expect(existsSync(path.join(centralDir, "button.arv.d.ts"))).toBe(true);
+  });
+
   it("warns when two files define the same component name", async () => {
     const collisionRoot = fileURLToPath(new URL("./fixtures/collision", import.meta.url));
     const warnings: string[] = [];
     await build({
       root: collisionRoot,
       logLevel: "silent",
-      plugins: [arvia()],
+      plugins: [arvia({ dts: false })],
       build: {
         write: false,
         rollupOptions: {
@@ -97,7 +140,12 @@ describe("@arviahq/vite-plugin", () => {
   it("fails the build with a located diagnostic on bad input", async () => {
     const badRoot = fileURLToPath(new URL("./fixtures/bad", import.meta.url));
     await expect(
-      build({ root: badRoot, logLevel: "silent", plugins: [arvia()], build: { write: false } }),
+      build({
+        root: badRoot,
+        logLevel: "silent",
+        plugins: [arvia({ dts: false })],
+        build: { write: false },
+      }),
     ).rejects.toThrowError(/ARV101.*color\.primry/s);
   });
 });

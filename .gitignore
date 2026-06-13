@@ -1,6 +1,7 @@
 node_modules/
 dist/
 *.arv.d.ts
+.arvia/
 *.tsbuildinfo
 *.tgz
 *.vsix

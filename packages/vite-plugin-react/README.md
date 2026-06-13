@@ -10,15 +10,45 @@ Includes:
 
 - **Vite plugin** — `import { arvia } from "@arviahq/vite-plugin-react"`
 - **`arvia` CLI** — `arvia gen`, token docs, Storybook generation
-- **`arvia-tsc`** — typecheck `.arv` imports without on-disk `.d.ts` files (shim to `@arviahq/typescript-plugin`)
-- **TypeScript plugin** — add to `tsconfig.json` (package name is `@arviahq/typescript-plugin`):
+- **`arvia-tsc`** — optional editor/typecheck integration (shim to `@arviahq/typescript-plugin`)
 
-```json
+## Type checking
+
+By default the plugin emits `.d.ts` declarations into `.arvia/types` (a
+self-ignoring, generated folder), so you typecheck `.arv` imports with **plain
+`tsc`**. Add a `rootDirs` overlay to your tsconfig:
+
+```jsonc
 {
   "compilerOptions": {
-    "plugins": [{ "name": "@arviahq/typescript-plugin" }]
-  }
+    "moduleResolution": "bundler", // Vite's default
+    "rootDirs": ["src", ".arvia/types"],
+  },
 }
+```
+
+```jsonc
+// package.json
+{ "scripts": { "typecheck": "tsc --noEmit" } }
+```
+
+Run `arvia gen src` to materialize the declarations in CI before `tsc`. See
+[`@arviahq/vite-plugin`](../vite-plugin/README.md#type-checking-with-plain-tsc-dts)
+for the full `dts` reference (including `'sibling'` and opting out with `false`).
+
+### Optional: file-less types via the TS plugin
+
+Prefer zero generated files and always-fresh in-editor types? Set `dts: false`
+and use the tsserver plugin + `arvia-tsc` instead:
+
+```jsonc
+// tsconfig.json
+{ "compilerOptions": { "plugins": [{ "name": "@arviahq/typescript-plugin" }] } }
+```
+
+```jsonc
+// package.json
+{ "scripts": { "typecheck": "arvia-tsc --noEmit" } }
 ```
 
 Lower-level packages (`@arviahq/vite-plugin`, `@arviahq/typescript-plugin`) are dependencies of this package and are not required for normal use.
