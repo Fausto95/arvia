@@ -1,6 +1,10 @@
 import { compile, type ThemeEnv } from "@arviahq/compiler";
 import themeSource from "../theme.arv?raw";
 
+/** The site theme source, used to seed the editable `theme.arv` file in the
+ *  full playground IDE. */
+export const defaultThemeSource = themeSource;
+
 let cached: { env: ThemeEnv; css: string } | null = null;
 
 /** Compile the site theme once so playground sources can reference its tokens. */

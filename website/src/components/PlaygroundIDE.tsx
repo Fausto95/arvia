@@ -20,11 +20,12 @@ import { FRAMEWORKS, type FrameworkId } from "../playground/runtime/frameworks";
 import { PreviewFrame } from "../playground/runtime/PreviewFrame";
 import { BuildClient, type BuildResponse } from "../playground/runtime/worker-client";
 import { encodeShared } from "../playground/share";
+import { defaultThemeSource } from "../playground/theme-env";
 
 // Monaco is heavy — load it only when the playground renders.
 const MonacoArvia = lazy(() => import("./MonacoArvia"));
 
-type FileId = "arv" | "app" | "css" | "dts";
+type FileId = "arv" | "app" | "theme" | "css" | "dts";
 
 interface LastGood {
   css: string;
@@ -61,6 +62,7 @@ export function PlaygroundIDE(props: {
   initialSource?: string;
   initialFramework?: FrameworkId;
   initialApp?: string;
+  initialTheme?: string;
 }) {
   const ide = Ide();
   const pg = PlaygroundStyles();
@@ -85,6 +87,7 @@ export function PlaygroundIDE(props: {
     props.initialSource ? "" : (firstTemplate?.id ?? ""),
   );
   const [file, setFile] = useState<FileId>("arv");
+  const [themeSource, setThemeSource] = useState(props.initialTheme ?? defaultThemeSource);
   const [framework, setFramework] = useState<FrameworkId>(props.initialFramework ?? "react");
   const [editedApp, setEditedApp] = useState<Partial<Record<FrameworkId, string>>>(() =>
     props.initialApp ? { [props.initialFramework ?? "react"]: props.initialApp } : {},
@@ -183,9 +186,9 @@ export function PlaygroundIDE(props: {
       arvSource: source,
       appSource,
       labels: { clickMe, sampleText },
-      env: props.env,
+      themeSource,
     });
-  }, [framework, source, appSource, props.env, clickMe, sampleText]);
+  }, [framework, source, appSource, themeSource, clickMe, sampleText]);
 
   const lastGood = useRef<LastGood>({ css: "", dts: "", meta: { ...emptyMeta } });
   if (build && build.css !== null) {
@@ -193,11 +196,18 @@ export function PlaygroundIDE(props: {
   }
   const { css, dts, meta } = lastGood.current;
   const errors = (build?.diagnostics ?? []).filter((d) => d.severity === "error");
+  const themeErrors = (build?.themeDiagnostics ?? []).filter((d) => d.severity === "error");
+  // Errors for whichever .arv file is in the editor — drives squiggles and the
+  // diagnostics list (theme.arv errors reference the theme source, not App.arv).
+  const activeArvaSource = file === "theme" ? themeSource : source;
+  const activeArvaErrors = file === "theme" ? themeErrors : errors;
 
   const lastPreview = useRef<PreviewPayload | null>(null);
   if (build && build.css !== null && build.designJs !== null && build.appJs !== null) {
     lastPreview.current = {
-      css: `${props.baseCss ?? ""}\n${build.css}\n${build.appCss}`,
+      // Theme CSS comes from the live theme.arv compile (worker); fall back to
+      // the static baseCss prop when the theme isn't being edited.
+      css: `${build.themeCss || props.baseCss || ""}\n${build.css}\n${build.appCss}`,
       designJs: build.designJs,
       appJs: build.appJs,
     };
@@ -221,10 +231,10 @@ export function PlaygroundIDE(props: {
     };
   }, [file, css, dts, siteTheme]);
 
-  // Compiler diagnostics become real editor squiggles.
+  // Compiler diagnostics become real editor squiggles for the active .arv file.
   const markers = useMemo<ArviaMarker[]>(() => {
-    const index = new LineIndex(source);
-    return errors.map((d) => {
+    const index = new LineIndex(activeArvaSource);
+    return activeArvaErrors.map((d) => {
       const range = index.spanToRange(d.span);
       return {
         startLineNumber: range.start.line,
@@ -234,7 +244,7 @@ export function PlaygroundIDE(props: {
         message: d.hint ? `${d.message} (${d.hint})` : d.message,
       };
     });
-  }, [source, errors]);
+  }, [activeArvaSource, activeArvaErrors]);
 
   useEffect(() => {
     let cancelled = false;
@@ -252,12 +262,24 @@ export function PlaygroundIDE(props: {
   const sourceFiles = [
     { id: "arv" as const, name: "App.arv" },
     { id: "app" as const, name: appFileName },
+    { id: "theme" as const, name: "theme.arv" },
   ];
   const generatedFiles = [
     { id: "css" as const, name: "App.css" },
     { id: "dts" as const, name: "App.arv.d.ts" },
   ];
-  const editing = file === "arv" || file === "app";
+  const editing = file === "arv" || file === "app" || file === "theme";
+
+  const editorPath = file === "theme" ? "theme.arv" : file === "arv" ? "App.arv" : appFileName;
+  const editorLanguage =
+    file === "theme" || file === "arv" ? "arvia" : FRAMEWORKS[framework].monacoLanguage;
+  const editorValue = file === "theme" ? themeSource : file === "arv" ? source : app;
+  const onEditorChange =
+    file === "theme"
+      ? setThemeSource
+      : file === "arv"
+        ? setSource
+        : (value: string) => setEditedApp((prev) => ({ ...prev, [framework]: value }));
 
   return (
     <div
@@ -361,19 +383,15 @@ export function PlaygroundIDE(props: {
             <Suspense
               fallback={
                 <pre style={{ margin: 0, padding: 14, fontSize: 13, lineHeight: 1.6 }}>
-                  {file === "arv" ? source : app}
+                  {editorValue}
                 </pre>
               }
             >
               <MonacoArvia
-                path={file === "arv" ? "App.arv" : appFileName}
-                language={file === "arv" ? "arvia" : FRAMEWORKS[framework].monacoLanguage}
-                value={file === "arv" ? source : app}
-                onChange={
-                  file === "arv"
-                    ? setSource
-                    : (value) => setEditedApp((prev) => ({ ...prev, [framework]: value }))
-                }
+                path={editorPath}
+                language={editorLanguage}
+                value={editorValue}
+                onChange={onEditorChange}
                 theme={siteTheme}
                 markers={markers}
                 height="100%"
@@ -389,9 +407,9 @@ export function PlaygroundIDE(props: {
             )}
           </div>
         )}
-        {errors.length > 0 ? (
+        {activeArvaErrors.length > 0 ? (
           <ul className={pg.diagnostics}>
-            {errors.slice(0, 3).map((d, i) => (
+            {activeArvaErrors.slice(0, 3).map((d, i) => (
               <li key={i}>
                 {d.line}:{d.col} {d.code} — {d.message}
                 {d.hint ? ` (${d.hint})` : ""}

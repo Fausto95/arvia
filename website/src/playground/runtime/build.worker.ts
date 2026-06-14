@@ -1,4 +1,4 @@
-import { compile, type CompileResult } from "@arviahq/compiler";
+import { compile, type CompileResult, type ThemeEnv } from "@arviahq/compiler";
 import { transform } from "sucrase";
 import { defaultAppSource } from "./app-snippets";
 import type { BuildRequest, BuildResponse } from "./protocol";
@@ -10,6 +10,10 @@ let lastGood: { meta: CompileResult["meta"]; css: string } = {
   meta: { components: [], tokens: [], keyframes: [], styles: [] },
   css: "",
 };
+
+/** Last successfully-compiled theme, so a transient error while editing
+ *  theme.arv doesn't blank the env (and thus the whole preview). */
+let lastGoodTheme: { env: ThemeEnv | undefined; css: string } = { env: undefined, css: "" };
 
 /** Point `.arv` imports at the placeholder the iframe swaps for a blob URL. */
 function rewriteArvImports(js: string): string {
@@ -95,7 +99,23 @@ function errorMessage(error: unknown): string {
 
 self.onmessage = async (event: MessageEvent<BuildRequest>) => {
   const request = event.data;
-  const result = compile(request.arvSource, { filename: "App.arv", env: request.env });
+
+  // Editable theme: compile theme.arv to derive the token env. Falls back to a
+  // request-supplied env (the simple playground) when no themeSource is sent.
+  let env = request.env;
+  let themeCss = "";
+  let themeDiagnostics: CompileResult["diagnostics"] = [];
+  if (request.themeSource !== undefined) {
+    const themeResult = compile(request.themeSource, { filename: "theme.arv" });
+    themeDiagnostics = themeResult.diagnostics;
+    if (!themeResult.diagnostics.some((d) => d.severity === "error")) {
+      lastGoodTheme = { env: themeResult.env, css: themeResult.css ?? "" };
+    }
+    env = lastGoodTheme.env;
+    themeCss = lastGoodTheme.css;
+  }
+
+  const result = compile(request.arvSource, { filename: "App.arv", env });
   if (result.css !== null) {
     lastGood = { meta: result.meta, css: result.css };
   }
@@ -130,6 +150,8 @@ self.onmessage = async (event: MessageEvent<BuildRequest>) => {
     appJs,
     appCss,
     appError,
+    themeCss,
+    themeDiagnostics,
   };
   self.postMessage(response);
 };

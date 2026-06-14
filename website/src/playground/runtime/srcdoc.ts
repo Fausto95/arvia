@@ -9,8 +9,9 @@ export interface PreviewUpdate {
   css: string;
   designJs: string;
   appJs: string;
-  /** Site theme mode — mirrored onto the iframe root so the injected theme
-   *  CSS ([data-arvia-theme="…"] selectors) resolves the same mode. */
+  /** Site theme mode — mirrored onto the iframe root via data-arvia-theme so
+   *  the injected theme CSS resolves the same mode (the attribute flips
+   *  color-scheme, which drives the light-dark() tokens). */
   theme: "light" | "dark";
 }
 
