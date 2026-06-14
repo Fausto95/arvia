@@ -1,5 +1,12 @@
 # @arviahq/vite-plugin-preact
 
+## 0.7.0
+
+### Patch Changes
+
+- @arviahq/typescript-plugin@0.7.0
+- @arviahq/vite-plugin@0.7.0
+
 ## 0.6.1
 
 ### Patch Changes

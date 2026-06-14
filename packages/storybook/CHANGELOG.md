@@ -1,5 +1,12 @@
 # @arviahq/storybook
 
+## 0.7.0
+
+### Patch Changes
+
+- Updated dependencies [b6876fb]
+  - @arviahq/compiler@0.7.0
+
 ## 0.6.1
 
 ### Patch Changes

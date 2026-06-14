@@ -1,6 +1,6 @@
 {
   "name": "@arviahq/typescript-plugin",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "TypeScript plugin for .arv files: virtual types and arvia-tsc CLI — no generated .d.ts files needed.",
   "homepage": "https://github.com/arviahq/arvia#readme",
   "bugs": {
